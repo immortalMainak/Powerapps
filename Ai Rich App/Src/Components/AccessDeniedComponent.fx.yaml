@@ -1,0 +1,18 @@
+AccessDeniedComponent As CanvasComponent:
+    Fill: =RGBA(128, 128, 128, 1)
+    Height: =640
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    lblAccessDeniedMsg As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Semibold
+        Size: =14
+        Text: ="You don't have access to view this screen."
+        Width: =Parent.Width
+        Y: =(Parent.Height - Self.Height) * 0.5
+        ZIndex: =1
+

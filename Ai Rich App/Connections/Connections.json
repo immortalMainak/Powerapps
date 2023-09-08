@@ -1,0 +1,105 @@
+{
+  "634ef1de-2f27-45bc-ade4-dbe5707e3b41": {
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Office 365 Users",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1649/1.0.1649.3368/office365users/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365users",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "Office365Users"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "634ef1de-2f27-45bc-ade4-dbe5707e3b41"
+  },
+  "d5b23550-7557-4385-999d-1b1f6d1992fe": {
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/u/shgogna/globalperconnector-train1/1.0.1639.3312/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://lntinfotech.sharepoint.com/sites/POCGround": {
+        "dataSources": {
+          "App Governance Idea": {
+            "tableName": "b51496e3-5f2b-42b8-90b0-46ce5fcd2858"
+          },
+          "App Governance Idea History": {
+            "tableName": "650a6d78-1e4f-494a-981b-f5cf347728b8"
+          },
+          "App Solution Consulting": {
+            "tableName": "8bf2011d-013b-43fa-b66b-d2042d665b7e"
+          },
+          "Assistance Required": {
+            "tableName": "d4a62221-3ffa-45c8-b4e4-e1e3402f501f"
+          },
+          "COE Approver": {
+            "tableName": "2ce04e44-d231-4729-8cab-c7fd787f8d9c"
+          },
+          "Create Business Unit in Production": {
+            "tableName": "2ff1c0e1-ae8c-411e-a15c-292da9863f10"
+          },
+          "Deployment Requests": {
+            "tableName": "eae77776-a2f9-49fe-9c4c-5cf731a17bb4"
+          },
+          "Environment Requests": {
+            "tableName": "cfd18b0b-b557-4b8c-9f77-2771299b9146"
+          },
+          "License Request": {
+            "tableName": "411bfd17-1079-41f9-9b99-dca3fe8ab4bd"
+          },
+          "Ownership Change": {
+            "tableName": "08d171d3-1a26-400d-8c04-189a67f76076"
+          },
+          "Raise Support Request": {
+            "tableName": "c37cdf40-30eb-480a-b6c2-94c6c0c3c2ee"
+          },
+          "Vendor Invoices": {
+            "tableName": "fb7df79a-e567-40e2-b262-31435e22bf20"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "COE Approver",
+      "App Governance Idea",
+      "Deployment Requests",
+      "App Governance Idea History",
+      "Environment Requests",
+      "Create Business Unit in Production",
+      "Assistance Required",
+      "App Solution Consulting",
+      "License Request",
+      "Ownership Change",
+      "Raise Support Request",
+      "Vendor Invoices"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "d5b23550-7557-4385-999d-1b1f6d1992fe"
+  },
+  "fce6c6d7-932f-40fc-8e86-0159af77af85": {
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Power Apps for Admins",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1652/1.0.1652.3394/powerappsforadmins/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_powerappsforadmins",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "PowerAppsforAdmins"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "fce6c6d7-932f-40fc-8e86-0159af77af85"
+  }
+}

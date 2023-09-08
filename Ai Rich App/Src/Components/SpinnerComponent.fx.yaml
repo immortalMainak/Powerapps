@@ -1,0 +1,36 @@
+SpinnerComponent As CanvasComponent:
+    Fill: =RGBA(128, 128, 128, 0.5)
+    Height: =768
+    OnReset: =Set(varRotate, 0);
+    Width: =1366
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    icnRotateSpinner As icon.Reload:
+        Color: =RGBA(0, 0, 0, 1)
+        Icon: =Icon.Reload
+        Rotation: =varRotate
+        X: =(Parent.Width - Self.Width) * 0.5
+        Y: =(Parent.Height - Self.Height - lblBodySpinner.Height) * 0.5
+        ZIndex: =1
+
+    lblBodySpinner As label:
+        Align: =Align.Center
+        FontWeight: =FontWeight.Semibold
+        Text: ="Loading... Please do not close window."
+        Width: =Parent.Width
+        Y: =icnRotateSpinner.Y + icnRotateSpinner.Height
+        ZIndex: =2
+
+    timRotateSpinner As timer:
+        AutoPause: =false
+        AutoStart: =true
+        Duration: =500
+        OnTimerEnd: =Set(varRotate, If(varRotate = 360, 0, Sum(varRotate, 30)))
+        Repeat: =true
+        Visible: =false
+        X: =40
+        Y: =40
+        ZIndex: =3
+

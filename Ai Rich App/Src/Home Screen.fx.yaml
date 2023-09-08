@@ -1,0 +1,84 @@
+"'Home Screen' As screen":
+    OnHidden: =Reset(NavComponent_Home);
+    OnVisible: =Reset(NavComponent_Home);
+
+    galNavigation As gallery.galleryVertical:
+        DelayItemLoading: =true
+        Height: =Parent.Height - Self.Y
+        Items: =Search(SortByColumns(Filter(colNavItems, Screen <> App.ActiveScreen && HasAccess), "Index", SortOrder.Ascending), TextInput1.Text, "Title")
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        OnSelect: =Navigate(ThisItem.Screen, ScreenTransition.Cover);
+        TemplatePadding: =20
+        TemplateSize: =80
+        Width: =HeaderComponent_Home.Width
+        WrapCount: =3
+        X: =HeaderComponent_Home.X
+        Y: =TextInput1.Y + TextInput1.Height
+        ZIndex: =1
+
+        btnNav As button:
+            Align: =Align.Left
+            BorderColor: =lblHeader.Color
+            BorderStyle: =lblGalleryHead.BorderStyle
+            BorderThickness: =lblGalleryHead.BorderThickness
+            Color: =lblGalleryHead.Color
+            Fill: =RGBA(0,0,0,0)
+            FontWeight: =lblGalleryHead.FontWeight
+            Height: =Parent.TemplateHeight
+            OnSelect: =Select(Parent)
+            PaddingLeft: =icnNav.Y + icnNav.Width
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =14
+            Text: =ThisItem.Title
+            Width: =Parent.TemplateWidth - Self.BorderThickness * 2
+            X: =Self.BorderThickness
+            ZIndex: =1
+
+        icnNav As icon.Add:
+            Color: =btnNav.Color
+            FocusedBorderThickness: =0
+            Height: =btnNav.Height - Self.Y - Self.Y
+            Icon: =ThisItem.Icon
+            OnSelect: =Select(btnNav);
+            PaddingBottom: =Self.PaddingTop
+            PaddingLeft: =Self.PaddingTop
+            PaddingRight: =Self.PaddingLeft
+            PaddingTop: =20
+            Width: =Self.Height
+            ZIndex: =2
+
+    TextInput1 As text:
+        BorderThickness: =1
+        Default: =""
+        FocusedBorderThickness: =1
+        HintText: ="Search"
+        HoverFill: =RGBA(186, 202, 226, 0)
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: |-
+            =//Parent.Width - Self.X - Self.X
+            galNavigation.TemplateWidth
+        X: =galNavigation.X + galNavigation.TemplatePadding
+        Y: =HeaderComponent_Home.Y + HeaderComponent_Home.Height + 20
+        ZIndex: =2
+
+    HeaderComponent_Home As HeaderComponent:
+        BackgroundColor: =lblHeader.Fill
+        FontColor: =lblHeader.Color
+        LogoImage: =Picture1
+        LogoLeftPosition: =NavComponent_Home.MinHeight
+        Text: =LookUp(colNavItems, Screen = App.ActiveScreen).Title
+        ZIndex: =3
+
+    NavComponent_Home As NavComponent:
+        IconColor: =lblHeader.Color
+        NavigationItemsColor: =lblHeader.Color
+        NavigationItemsFill: =lblHeader.Fill
+        ZIndex: =4
+
