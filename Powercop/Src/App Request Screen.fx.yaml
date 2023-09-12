@@ -1,7 +1,7 @@
 "'App Request Screen' As screen":
     OnHidden: |-
-        =Concurrent(Reset(NavComponent_AppReq), Set(varItemId, 0), UpdateContext({varItem: Blank()}), 
-            Set(varNavigated, false));
+        =Concurrent(Reset(NavComponent_AppReq), Set(varItemId, 0), Set(varNavigated, false),
+        UpdateContext({varItem: Blank(), varAttachmentItem: Blank()}));
     OnVisible: |-
         =UpdateContext({varLoadSpinner: true, varItem: Blank(), varAttachmentItem: Blank()});
         Concurrent(Reset(NavComponent_AppReq), UpdateContext({varIsDraft: true, varShowDeletePopup: false}), 
