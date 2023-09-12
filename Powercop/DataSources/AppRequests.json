@@ -25,12 +25,19 @@
       "cr0e5_approvalstatus": "ApprovalStatus",
       "cr0e5_approvedby": "Approved By",
       "cr0e5_appurl": "App Url",
+      "cr0e5_businessbenefits": "Business Benefits",
       "cr0e5_codereviewid": "CodeReviewId",
       "cr0e5_comments": "Comments",
-      "cr0e5_developer": "Developer",
+      "cr0e5_developedby": "DevelopedBy",
       "cr0e5_id": "Id",
       "cr0e5_initiatoremail": "InitiatorEmail",
       "cr0e5_name": "App Name",
+      "cr0e5_proddeploymentdate": "PROD Deployment Date",
+      "cr0e5_requestraiseddate": "Request Raised Date",
+      "cr0e5_review": "Review %",
+      "cr0e5_reviewname": "Review Name",
+      "cr0e5_uatapprovaldate": "UAT Approval Date",
+      "cr0e5_uatapprovedby": "UAT Approved By",
       "cr0e5_whowilldevelopthisapp": "Who will develop this app?",
       "createdby": "Created By",
       "createdon": "Created On",
@@ -85,6 +92,27 @@
     },
     "OptionSetTypeKey": "PicklistType",
     "RelatedColumnInvariantName": "cr0e5_approvalstatus",
+    "RelatedEntityName": "AppRequests",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "DevelopedBy (AppRequests)",
+    "Name": "cr0e5_apprequest_cr0e5_developedby",
+    "OptionSetInfoNameMapping": {
+      "192120000": "I will develop the app",
+      "192120001": "Developer assisted app development",
+      "192120002": "I want COE to build the app"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr0e5_developedby",
+        "OptionSetReferenceEntityName": "AppRequests"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr0e5_developedby",
     "RelatedEntityName": "AppRequests",
     "Type": "OptionSetInfo"
   },

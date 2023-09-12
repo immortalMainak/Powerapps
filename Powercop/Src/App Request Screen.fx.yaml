@@ -692,7 +692,7 @@
         Developer_DataCard1 As typedDataCard.textualMultiLineEditCard:
             BorderStyle: =BorderStyle.Solid
             DataField: ="cr0e5_developer"
-            Default: =ThisItem.Developer
+            Default: =ThisItem.cr0e5_developer
             DisplayMode: =DisplayMode.View
             DisplayName: =DataSourceInfo([@AppRequests],DataSourceInfo.DisplayName,"cr0e5_developer")
             Fill: =RGBA(0, 0, 0, 0)
