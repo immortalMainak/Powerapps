@@ -1,0 +1,1152 @@
+"'App Request Screen_1' As screen":
+    OnHidden: |-
+        =Concurrent(Reset(NavComponent_AppReq_1), Set(varItemId, 0), UpdateContext({varItem: Blank()}), 
+            Set(varNavigated, false));
+    OnVisible: |-
+        =UpdateContext({varLoadSpinner: true, varItem: Blank()});
+        Concurrent(Reset(NavComponent_AppReq_1), UpdateContext({varIsDraft: true, varShowDeletePopup: false}), 
+            If(varItemId > 0, ViewForm(Form_AppReq_1);
+            UpdateContext({varItem: LookUp('App Governance Idea', ID = varItemId)});
+            , ResetForm(Form_AppReq_1); NewForm(Form_AppReq_1))
+        );
+        UpdateContext({varLoadSpinner: false});
+
+    Form_AppReq_1 As form:
+        DataSource: ='App Governance Idea'
+        DefaultMode: =If(varItemId = 0, FormMode.New, FormMode.View)
+        Height: |-
+            =//Min(
+            Parent.Height - Self.Y - ButtonContainer_10.Height
+            /*, 'Idea Name_DataCard1'.Height + 'Idea Description_DataCard1'.Height + 'Idea Related Queries_DataCard1'.Height + Attachments_DataCard1.Height + 'Is Developer Help Required_DataCard1'.Height + 10)*/
+        Item: =If(varItemId > 0, LookUp('App Governance Idea', ID = varItemId), Blank())
+        NumberOfColumns: =1
+        OnSuccess: |-
+            =UpdateContext({varLoadSpinner: true});
+            Set(varItemId, Self.LastSubmit.ID);
+            UpdateContext({varItem: LookUp('App Governance Idea', ID = varItemId)});
+            ViewForm(Form_AppReq_1);
+            UpdateContext({varLoadSpinner: false});
+            Notify("App Request Submitted Successfully", NotificationType.Success);
+        Width: =Parent.Width - Self.X - Self.X
+        X: =Parent.Width * 0.1
+        Y: =HeaderComponent_AppReq_1.Y + HeaderComponent_AppReq_1.Height
+        ZIndex: =1
+
+        "'Who will develop the App?_DataCard1_1' As typedDataCard.comboBoxEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="WhowilldeveloptheApp_x003f_"
+            Default: =ThisItem.'Who will develop the App?'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'App Governance Idea'],DataSourceInfo.DisplayName,"WhowilldeveloptheApp_x003f_")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =DataCardValue130_1.Selected
+            Width: =Parent.Width
+            X: =0
+            Y: =6
+            ZIndex: =1
+
+            DataCardKey130_1 As label:
+                AutoHeight: =true
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.25
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue130_1.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue130_1 As combobox:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =1
+                DefaultSelectedItems: =Parent.Default
+                DisplayFields: =["Value"]
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =1
+                InputTextPlaceholder: =$"Select {Parent.DisplayName}"
+                Items: =Choices([@'App Governance Idea'].'Who will develop the App?')
+                NoSelectionText: =$"Select {Parent.DisplayName}"
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                SearchFields: =["Value"]
+                SearchItems: =Choices('App Governance Idea'.'Who will develop the App?',DataCardValue130_1.SearchText)
+                SelectMultiple: =false
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.75
+                X: =DataCardKey130_1.X + DataCardKey130_1.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage130_1 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue130_1.Y + DataCardValue130_1.Height
+                ZIndex: =3
+
+            StarVisible130_1 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 0, 0, 1)
+                Height: =DataCardKey130_1.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey130_1.Y
+                ZIndex: =4
+
+        "'Developer Name_DataCard2_1' As typedDataCard.comboBoxMultiSelectEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="DeveloperName"
+            Default: =ThisItem.'Developer Name'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'App Governance Idea'],DataSourceInfo.DisplayName,"DeveloperName")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: =DataCardValue44_1.SelectedItems
+            Visible: =CountRows(ThisItem.'Developer Name') > 0
+            Width: =Parent.Width
+            X: =0
+            Y: =8
+            ZIndex: =1
+
+            DataCardKey44_1 As label:
+                AutoHeight: =true
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.25
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue44_1.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue44_1 As combobox:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =1
+                DefaultSelectedItems: =Parent.Default
+                DisplayFields: =["DisplayName","Email","Picture"]
+                DisplayMode: =Parent.DisplayMode
+                Items: =Choices([@'App Governance Idea'].'Developer Name')
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                SearchFields: =["DisplayName"]
+                SearchItems: =Choices('App Governance Idea'.'Developer Name',DataCardValue44_1.SearchText)
+                Template: =ListItemTemplate.Person
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.75
+                X: =DataCardKey44_1.X + DataCardKey44_1.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage44_1 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue44_1.Y + DataCardValue44_1.Height
+                ZIndex: =3
+
+            StarVisible44_1 As label:
+                Align: =Align.Center
+                Height: =DataCardKey44_1.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey44_1.Y
+                ZIndex: =4
+
+        "'Requestor Name_DataCard1_1' As typedDataCard.textualEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Title"
+            Default: =If(Parent.Mode = FormMode.New, varUserName, ThisItem.'Requestor Name')
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'App Governance Idea'],DataSourceInfo.DisplayName,"Title")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@'App Governance Idea'], DataSourceInfo.MaxLength, "Title")
+            Required: =false
+            Update: =DataCardValue1_1.Text
+            Visible: =false
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+            ZIndex: =2
+
+            DataCardKey1_1 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.4
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue1_1.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue1_1 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.6
+                X: =DataCardKey1_1.X + DataCardKey1_1.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage1_1 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue1_1.Y + DataCardValue1_1.Height
+                ZIndex: =3
+
+            StarVisible1_1 As label:
+                Align: =Align.Center
+                Height: =DataCardKey1_1.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey1_1.Y
+                ZIndex: =4
+
+        "'Requestor Email_DataCard1_1' As typedDataCard.textualEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Requestor_x0020_Email"
+            Default: =If(Parent.Mode = FormMode.New, varUserEmailLower, ThisItem.'Requestor Email')
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'App Governance Idea'],DataSourceInfo.DisplayName,"Requestor_x0020_Email")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@'App Governance Idea'], DataSourceInfo.MaxLength, "Requestor_x0020_Email")
+            Required: =false
+            Update: =DataCardValue2_1.Text
+            Visible: =false
+            Width: =800
+            X: =0
+            Y: =1
+            ZIndex: =2
+
+            DataCardKey2_1 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.4
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue2_1.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue2_1 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.6
+                X: =DataCardKey2_1.X + DataCardKey2_1.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage2_1 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue2_1.Y + DataCardValue2_1.Height
+                ZIndex: =3
+
+            StarVisible2_1 As label:
+                Align: =Align.Center
+                Height: =DataCardKey2_1.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey2_1.Y
+                ZIndex: =4
+
+        "'Idea Name_DataCard1_1' As typedDataCard.textualEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Idea_x0020_Name"
+            Default: =ThisItem.'App Name'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'App Governance Idea'],DataSourceInfo.DisplayName,"Idea_x0020_Name")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@'App Governance Idea'], DataSourceInfo.MaxLength, "Idea_x0020_Name")
+            Required: =true
+            Update: =DataCardValue3_1.Text
+            Width: =Parent.Width
+            X: =0
+            Y: =2
+            ZIndex: =2
+
+            DataCardKey3_1 As label:
+                AutoHeight: =true
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.25
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue3_1.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue3_1 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                HintText: =If(Self.DisplayMode = DisplayMode.Edit, $"Enter {Parent.DisplayName}", "")
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.75
+                X: =DataCardKey3_1.X + DataCardKey3_1.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage3_1 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue3_1.Y + DataCardValue3_1.Height
+                ZIndex: =3
+
+            StarVisible3_1 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 0, 0, 1)
+                Height: =DataCardKey3_1.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey3_1.Y
+                ZIndex: =4
+
+        "'Idea Description_DataCard1_1' As typedDataCard.textualEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Idea_x0020_Description"
+            Default: =ThisItem.'App Description'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'App Governance Idea'],DataSourceInfo.DisplayName,"Idea_x0020_Description")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@'App Governance Idea'], DataSourceInfo.MaxLength, "Idea_x0020_Description")
+            Required: =true
+            Update: =DataCardValue4_1.Text
+            Width: =Parent.Width
+            X: =0
+            Y: =3
+            ZIndex: =2
+
+            DataCardKey4_1 As label:
+                AutoHeight: =true
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.25
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue4_1.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue4_1 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Height: =100
+                HintText: =If(Self.DisplayMode = DisplayMode.Edit, $"Enter {Parent.DisplayName}", "")
+                MaxLength: =Parent.MaxLength
+                Mode: =TextMode.MultiLine
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.75
+                X: =DataCardKey4_1.X + DataCardKey4_1.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage4_1 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue4_1.Y + DataCardValue4_1.Height
+                ZIndex: =3
+
+            StarVisible4_1 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 0, 0, 1)
+                Height: =DataCardKey4_1.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey4_1.Y
+                ZIndex: =4
+
+        "'Idea Related Queries_DataCard1_1' As typedDataCard.textualEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Idea_x0020_Related_x0020_Queries"
+            Default: =ThisItem.'App Related Queries'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'App Governance Idea'],DataSourceInfo.DisplayName,"Idea_x0020_Related_x0020_Queries")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@'App Governance Idea'], DataSourceInfo.MaxLength, "Idea_x0020_Related_x0020_Queries")
+            Required: =false
+            Update: =DataCardValue5_1.Text
+            Width: =Parent.Width
+            X: =0
+            Y: =4
+            ZIndex: =2
+
+            DataCardKey5_1 As label:
+                AutoHeight: =true
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.25
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue5_1.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue5_1 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Height: =100
+                HintText: =If(Self.DisplayMode = DisplayMode.Edit, $"Enter {Parent.DisplayName}", "")
+                MaxLength: =Parent.MaxLength
+                Mode: =TextMode.MultiLine
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.75
+                X: =DataCardKey5_1.X + DataCardKey5_1.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage5_1 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue5_1.Y + DataCardValue5_1.Height
+                ZIndex: =3
+
+            StarVisible5_1 As label:
+                Align: =Align.Center
+                Height: =DataCardKey5_1.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey5_1.Y
+                ZIndex: =4
+
+        "'Idea Submitted Date_DataCard1_1' As typedDataCard.dateEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Idea_x0020_Submitted_x0020_Date"
+            Default: =ThisItem.'App Submitted Date'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'App Governance Idea'],DataSourceInfo.DisplayName,"Idea_x0020_Submitted_x0020_Date")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: =DataCardValue6_1.SelectedDate
+            Visible: =false
+            Width: =Parent.Width
+            X: =0
+            Y: =5
+            ZIndex: =2
+
+            DataCardKey6_1 As label:
+                AutoHeight: =true
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.25
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue6_1.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue6_1 As datepicker:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DefaultDate: =If(IsBlank(Parent.Default) && !varIsDraft, Today(), Parent.Default)
+                DisplayMode: =Parent.DisplayMode
+                EndYear: =Year(Today())+100
+                InputTextPlaceholder: =If(Self.DisplayMode = DisplayMode.Edit, $"Enter {Parent.DisplayName}", "")
+                IsEditable: =true
+                PaddingBottom: =0
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                StartYear: =1899
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.75
+                X: =DataCardKey6_1.X + DataCardKey6_1.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage6_1 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue6_1.Y + DataCardValue6_1.Height
+                ZIndex: =3
+
+            StarVisible6_1 As label:
+                Align: =Align.Center
+                Height: =DataCardKey6_1.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey6_1.Y
+                ZIndex: =4
+
+        "'Is Developer Help Required_DataCard1_1' As typedDataCard.toggleEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Is_x0020_Developer_x0020_Help_x0"
+            Default: =First(DataCardValue130_1.SelectedItems).Value <> "I want COE to build the app"
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'App Governance Idea'],DataSourceInfo.DisplayName,"Is_x0020_Developer_x0020_Help_x0")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: =DataCardValue7_1.Value
+            Visible: =false
+            Width: =Parent.Width
+            X: =0
+            Y: =7
+            ZIndex: =2
+
+            DataCardKey7_1 As label:
+                AutoHeight: =true
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.25
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue7_1.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue7_1 As toggleSwitch:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DisplayMode: =Parent.DisplayMode
+                FalseText: ="No"
+                FocusedBorderThickness: =0
+                Height: =30
+                Tooltip: =Parent.DisplayName
+                TrueText: ="Yes"
+                Width: =120
+                X: =DataCardKey7_1.X + DataCardKey7_1.Width
+                Y: =12
+                ZIndex: =2
+
+            ErrorMessage7_1 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue7_1.Y + DataCardValue7_1.Height
+                ZIndex: =3
+
+            StarVisible7_1 As label:
+                Align: =Align.Center
+                Height: =DataCardKey7_1.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey7_1.Y
+                ZIndex: =4
+
+        "'COE Approval Status_DataCard1_1' As typedDataCard.comboBoxEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="COE_x0020_Approval_x0020_Status"
+            Default: |-
+                =If(ThisItem.'COE Approval Status'.Value = "Approved", ThisItem.'COE Approval Status', {Value: If(varIsDraft, "Draft", "Pending")})
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'App Governance Idea'],DataSourceInfo.DisplayName,"COE_x0020_Approval_x0020_Status")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: =DataCardValue8_1.Selected
+            Visible: =false
+            Width: =800
+            X: =0
+            Y: =9
+            ZIndex: =2
+
+            DataCardKey8_1 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.4
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue8_1.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue8_1 As combobox:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DefaultSelectedItems: =Parent.Default
+                DisplayFields: =["Value"]
+                DisplayMode: =Parent.DisplayMode
+                Items: =Choices([@'App Governance Idea'].'COE Approval Status')
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                SearchFields: =["Value"]
+                SearchItems: =Choices('App Governance Idea'.'COE Approval Status',DataCardValue8_1.SearchText)
+                SelectMultiple: =false
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.6
+                X: =DataCardKey8_1.X + DataCardKey8_1.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage8_1 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue8_1.Y + DataCardValue8_1.Height
+                ZIndex: =3
+
+            StarVisible8_1 As label:
+                Align: =Align.Center
+                Height: =DataCardKey8_1.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey8_1.Y
+                ZIndex: =4
+
+        Attachments_DataCard1_1 As typedDataCard.attachmentsEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="{Attachments}"
+            Default: =ThisItem.Attachments
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'App Governance Idea'],DataSourceInfo.DisplayName,"{Attachments}")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: =DataCardValue12_1.Attachments
+            Width: =Parent.Width
+            X: =0
+            Y: =10
+            ZIndex: =2
+
+            DataCardKey12_1 As label:
+                AutoHeight: =true
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.25
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue12_1.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue12_1 As attachments:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                DisplayMode: =Parent.DisplayMode
+                DropTargetBorderColor: =Parent.BorderColor
+                DropTargetBorderThickness: =lblGalleryContent.BorderThickness
+                Height: =180
+                IsInDataCard: =true
+                Items: =Parent.Default
+                PaddingBottom: =5
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =5
+                PaddingTop: =5
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.75
+                X: =DataCardKey12_1.X + DataCardKey12_1.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage12_1 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue12_1.Y + DataCardValue12_1.Height
+                ZIndex: =3
+
+            StarVisible12_1 As label:
+                Align: =Align.Center
+                Height: =DataCardKey12_1.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey12_1.Y
+                ZIndex: =4
+
+    ButtonContainer_10 As groupContainer.manualLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =120
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Visible: =false
+        Width: =HeaderComponent_AppReq_1.Width
+        X: =HeaderComponent_AppReq_1.X
+        Y: =Form_AppReq_1.Y + Form_AppReq_1.Height
+        ZIndex: =2
+
+        btnCancelReset_10 As button:
+            Height: =btnSubmit_10.Height
+            OnSelect: =If(Self.Text = "Reset", ResetForm(Form_AppReq_1), If(Self.Text = "Cancel", ViewForm(Form_AppReq_1), Back()));
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =13
+            Text: =If(Form_AppReq_1.Mode = FormMode.Edit, "Cancel", If(Form_AppReq_1.Mode = FormMode.New, "Reset", "Back"))
+            Width: =120
+            X: =btnSubmit_10.X + btnSubmit_10.Width + 20
+            Y: =btnSubmit_10.Y
+            ZIndex: =1
+
+        btnSubmit_10 As button:
+            Height: =btnDraft_11.Height
+            OnSelect: |-
+                =If(Form_AppReq_1.Mode = FormMode.View, EditForm(Form_AppReq_1), 
+                    UpdateContext({varIsDraft: false}); SubmitForm(Form_AppReq_1)
+                );
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =13
+            Text: =If(Form_AppReq_1.Mode = FormMode.View, "Edit",  "Submit")
+            Width: =120
+            X: =btnDraft_11.X + btnDraft_11.Width + 20
+            Y: =btnDraft_11.Y
+            ZIndex: =2
+
+        btnDraft_11 As button:
+            OnSelect: |-
+                =UpdateContext({varIsDraft: true});
+                SubmitForm(Form_AppReq_1);
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =13
+            Text: ="Draft"
+            Visible: =Form_AppReq_1.Mode <> FormMode.View && If(varItemId > 0, varItem.'COE Approval Status'.Value = "Draft", Form_AppReq_1.Mode = FormMode.New)
+            Width: =If(Self.Visible, 120, 0)
+            X: =(Parent.Width - (Self.Width + 20 + btnSubmit_10.Width + 20 + btnCancelReset_10.Width)) * 0.5
+            Y: =(Parent.Height - Self.Height) * 0.5
+            ZIndex: =3
+
+        icnCreateNew_10 As icon.Add:
+            Height: =50
+            Icon: =Icon.Add
+            OnSelect: |-
+                =UpdateContext({varLoadSpinner: true});
+                Set(varItemId, 0);
+                ResetForm(Form_AppReq_1);
+                NewForm(Form_AppReq_1);
+                UpdateContext({varLoadSpinner: false});
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            Tooltip: ="Create New App Request"
+            Visible: =varItemId > 0
+            Width: =Self.Height
+            X: =20
+            Y: =(Parent.Height - Self.Height) * 0.5
+            ZIndex: =4
+
+        icnDelete_10 As icon.Trash:
+            Color: =RGBA(184, 0, 0, 1)
+            Height: =icnCreateNew_10.Height
+            Icon: =Icon.Trash
+            OnSelect: |-
+                =UpdateContext({varShowDeletePopup: true});
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            Tooltip: ="Delete App Request"
+            Visible: =varItemId > 0 && varItem.'Requestor Email' = varUserEmailLower
+            Width: =icnCreateNew_10.Width
+            X: =Parent.Width - Self.Width - icnCreateNew_10.X
+            Y: =icnCreateNew_10.Y
+            ZIndex: =5
+
+    ButtonContainer_11 As groupContainer.manualLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =120
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =HeaderComponent_AppReq_1.Width
+        X: =HeaderComponent_AppReq_1.X
+        Y: =Form_AppReq_1.Y + Form_AppReq_1.Height
+        ZIndex: =3
+
+        btnDraft_12 As button:
+            BorderColor: =btnTemplate.BorderColor
+            BorderStyle: =btnTemplate.BorderStyle
+            BorderThickness: =btnTemplate.BorderThickness
+            Color: =btnTemplate.Color
+            DisabledBorderColor: =btnTemplate.DisabledBorderColor
+            DisabledColor: =btnTemplate.DisabledBorderColor
+            DisabledFill: =btnTemplate.DisabledFill
+            Fill: =btnTemplate.Fill
+            FocusedBorderColor: =btnTemplate.FocusedBorderColor
+            FocusedBorderThickness: =btnTemplate.FocusedBorderThickness
+            Font: =btnTemplate.Font
+            FontWeight: =btnTemplate.FontWeight
+            HoverBorderColor: =btnTemplate.HoverBorderColor
+            HoverColor: =btnTemplate.HoverColor
+            HoverFill: =btnTemplate.HoverFill
+            OnSelect: |-
+                =UpdateContext({varIsDraft: true});
+                SubmitForm(Form_AppReq_1);
+            PressedBorderColor: =btnTemplate.PressedBorderColor
+            PressedColor: =btnTemplate.PressedColor
+            PressedFill: =btnTemplate.PressedFill
+            RadiusBottomLeft: =btnTemplate.RadiusBottomLeft
+            RadiusBottomRight: =btnTemplate.RadiusBottomRight
+            RadiusTopLeft: =btnTemplate.RadiusTopLeft
+            RadiusTopRight: =btnTemplate.RadiusTopRight
+            Size: =btnTemplate.Size
+            Text: ="Draft"
+            Visible: =Form_AppReq_1.Mode <> FormMode.View && If(varItemId > 0, varItem.'COE Approval Status'.Value = "Draft", Form_AppReq_1.Mode = FormMode.New)
+            Width: =If(Self.Visible, 120, 0)
+            X: =btnSubmit_11.X - Self.Width - 20
+            Y: =btnCancelReset_11.Y
+            ZIndex: =3
+
+        icnCreateNew_11 As icon.Add:
+            Height: =icnDelete_11.Height
+            Icon: =Icon.Add
+            OnSelect: |-
+                =UpdateContext({varLoadSpinner: true});
+                Set(varItemId, 0);
+                UpdateContext({varItem: Blank()});
+                ResetForm(Form_AppReq_1);
+                NewForm(Form_AppReq_1);
+                UpdateContext({varLoadSpinner: false});
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            Tooltip: ="Create New App Request"
+            Visible: =!IsBlank(varItem)
+            Width: =Self.Height
+            X: =icnDelete_11.X - Self.Width - 20
+            Y: =icnDelete_11.Y
+            ZIndex: =4
+
+        icnDelete_11 As icon.Trash:
+            Color: =RGBA(184, 0, 0, 1)
+            Height: =btnDraft_12.Height
+            Icon: =Icon.Trash
+            OnSelect: |-
+                =UpdateContext({varShowDeletePopup: true});
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            Tooltip: ="Delete App Request"
+            Visible: =!IsBlank(varItem)
+            Width: =icnCreateNew_11.Width
+            X: =btnDraft_12.X - Self.Width - 20
+            Y: =btnDraft_12.Y
+            ZIndex: =5
+
+        btnCancelReset_11 As button:
+            BorderColor: =btnTemplate.BorderColor
+            BorderStyle: =btnTemplate.BorderStyle
+            BorderThickness: =btnTemplate.BorderThickness
+            Color: =btnTemplate.Color
+            DisabledBorderColor: =btnTemplate.DisabledBorderColor
+            DisabledColor: =btnTemplate.DisabledBorderColor
+            DisabledFill: =btnTemplate.DisabledFill
+            Fill: =btnTemplate.Fill
+            FocusedBorderColor: =btnTemplate.FocusedBorderColor
+            FocusedBorderThickness: =btnTemplate.FocusedBorderThickness
+            Font: =btnTemplate.Font
+            FontWeight: =btnTemplate.FontWeight
+            HoverBorderColor: =btnTemplate.HoverBorderColor
+            HoverColor: =btnTemplate.HoverColor
+            HoverFill: =btnTemplate.HoverFill
+            OnSelect: =If(Self.Text = "Reset", ResetForm(Form_AppReq_1), If(Self.Text = "Cancel", ViewForm(Form_AppReq_1), Back()));
+            PressedBorderColor: =btnTemplate.PressedBorderColor
+            PressedColor: =btnTemplate.PressedColor
+            PressedFill: =btnTemplate.PressedFill
+            RadiusBottomLeft: =btnTemplate.RadiusBottomLeft
+            RadiusBottomRight: =btnTemplate.RadiusBottomRight
+            RadiusTopLeft: =btnTemplate.RadiusTopLeft
+            RadiusTopRight: =btnTemplate.RadiusTopRight
+            Size: =btnTemplate.Size
+            Text: =If(Form_AppReq_1.Mode = FormMode.Edit, "Cancel", If(Form_AppReq_1.Mode = FormMode.New, "Reset", "Back"))
+            Width: =120
+            X: =Form2.X + Form2.Width - Self.Width - 30
+            Y: =10
+            ZIndex: =6
+
+        btnSubmit_11 As button:
+            BorderColor: =btnTemplate.BorderColor
+            BorderStyle: =btnTemplate.BorderStyle
+            BorderThickness: =btnTemplate.BorderThickness
+            Color: =btnTemplate.Color
+            DisabledBorderColor: =btnTemplate.DisabledBorderColor
+            DisabledColor: =btnTemplate.DisabledBorderColor
+            DisabledFill: =btnTemplate.DisabledFill
+            Fill: =btnTemplate.Fill
+            FocusedBorderColor: =btnTemplate.FocusedBorderColor
+            FocusedBorderThickness: =btnTemplate.FocusedBorderThickness
+            Font: =btnTemplate.Font
+            FontWeight: =btnTemplate.FontWeight
+            HoverBorderColor: =btnTemplate.HoverBorderColor
+            HoverColor: =btnTemplate.HoverColor
+            HoverFill: =btnTemplate.HoverFill
+            OnSelect: |-
+                =If(Form_AppReq_1.Mode = FormMode.View, EditForm(Form_AppReq_1), 
+                    UpdateContext({varIsDraft: false}); SubmitForm(Form_AppReq_1)
+                );
+            PressedBorderColor: =btnTemplate.PressedBorderColor
+            PressedColor: =btnTemplate.PressedColor
+            PressedFill: =btnTemplate.PressedFill
+            RadiusBottomLeft: =btnTemplate.RadiusBottomLeft
+            RadiusBottomRight: =btnTemplate.RadiusBottomRight
+            RadiusTopLeft: =btnTemplate.RadiusTopLeft
+            RadiusTopRight: =btnTemplate.RadiusTopRight
+            Size: =btnTemplate.Size
+            Text: =If(Form_AppReq_1.Mode = FormMode.View, "Edit",  "Submit")
+            Width: =120
+            X: =btnCancelReset_11.X - Self.Width - 20
+            Y: =btnCancelReset_11.Y
+            ZIndex: =7
+
+    DeletePopupContainer_9 As groupContainer.manualLayoutContainer:
+        DropShadow: =DropShadow.None
+        Fill: =SpinnerComponent_AppReq_1.Fill
+        Height: =Parent.Height - Self.Y
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Visible: =varShowDeletePopup
+        Width: =Parent.Width - Self.X - Self.X
+        X: =HeaderComponent_AppReq_1.X
+        Y: =HeaderComponent_AppReq_1.Y + HeaderComponent_AppReq_1.Height
+        ZIndex: =4
+
+        lblDeleteMsg_AppReq_9 As label:
+            Fill: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =120
+            PaddingBottom: =Self.PaddingTop
+            PaddingLeft: =Self.PaddingTop
+            PaddingRight: =Self.PaddingLeft
+            PaddingTop: =20
+            Size: =14
+            Text: |-
+                ="Are you sure to Delete app request: "& varItemId&"?"
+            VerticalAlign: =VerticalAlign.Top
+            Width: =390
+            X: =(Parent.Width - Self.Width) * 0.5
+            Y: =(Parent.Height - Parent.Y - Self.Height) * 0.5
+            ZIndex: =1
+
+        btnConfirmDelete_AppReq_9 As button:
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Fill: =RGBA(54, 176, 75, 1)
+            OnSelect: |-
+                =UpdateContext({varLoadSpinner: true});
+                Concurrent(RemoveIf('App Governance Idea', ID = varItemId),
+                    RemoveIf('App Governance Idea History', 'Main ID' = varItemId)
+                );
+                Select(btnCancelDelete_AppReq_9);
+                Select(icnCreateNew_10);
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =14
+            Text: ="Yes"
+            Width: =80
+            X: =lblDeleteMsg_AppReq_9.X + (lblDeleteMsg_AppReq_9.Width - Self.Width - btnConfirmDelete_AppReq_9.Width - 20) * 0.5
+            Y: =lblDeleteMsg_AppReq_9.Y + lblDeleteMsg_AppReq_9.Height - Self.Height - lblDeleteMsg_AppReq_9.PaddingBottom
+            ZIndex: =2
+
+        btnCancelDelete_AppReq_9 As button:
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Fill: =RGBA(118, 0, 0, 1)
+            Height: =btnConfirmDelete_AppReq_9.Height
+            OnSelect: |-
+                =UpdateContext({varShowDeletePopup: false});
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =14
+            Text: ="No"
+            Width: =80
+            X: =btnConfirmDelete_AppReq_9.X + btnConfirmDelete_AppReq_9.Width + 20
+            Y: =btnConfirmDelete_AppReq_9.Y
+            ZIndex: =3
+
+    HeaderComponent_AppReq_1 As HeaderComponent:
+        BackgroundColor: =lblHeader.Fill
+        FontColor: =lblHeader.Color
+        LogoImage: =Picture1
+        LogoLeftPosition: =NavComponent_AppReq_1.MinHeight
+        Text: =If(varItemId > 0, $"App Request - {varItemId}", "New App Request")
+        ZIndex: =5
+
+    SpinnerComponent_AppReq_1 As SpinnerComponent:
+        Height: =Parent.Height - Self.Y
+        Visible: =varLoadSpinner
+        Width: =Parent.Width - Self.X
+        ZIndex: =6
+
+    NavComponent_AppReq_1 As NavComponent:
+        IconColor: =lblHeader.Color
+        NavigationItemsColor: =lblHeader.Color
+        NavigationItemsFill: =lblHeader.Fill
+        ZIndex: =7
+
+    AccessDeniedComponent_AppReq_1 As AccessDeniedComponent:
+        Height: =Parent.Height - Self.Y
+        Visible: =!LookUp(colNavItems, Screen = App.ActiveScreen).HasAccess
+        Width: =Parent.Width
+        Y: =HeaderComponent_AppReq_1.Y + HeaderComponent_AppReq_1.Height
+        ZIndex: =8
+

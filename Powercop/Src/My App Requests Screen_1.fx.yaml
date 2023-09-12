@@ -1,0 +1,1353 @@
+"'My App Requests Screen_1' As screen":
+    OnHidden: =Reset(NavComponent_MReq_3);
+    OnVisible: |-
+        =UpdateContext({varLoadSpinner: true});
+        Reset(NavComponent_MReq_3);
+        UpdateContext({varFilterPopup: false, varShowCommentsId: 0, 
+            varSelectedRequestType: First(colRequestTypes).Index});
+        UpdateContext({varLoadSpinner: false});
+
+    timRefreshData_MReq_3 As timer:
+        AutoStart: =true
+        Height: =0
+        OnTimerStart: |-
+            =Concurrent(Refresh('App Governance Idea'), Refresh('COE Approver'), Refresh('App Governance Idea History'));
+            Set(varIsCoE, !IsBlank(LookUp('COE Approver', 'Approver Email' = varUserEmailLower)));
+            UpdateIf(colNavItems, Index = 2, {HasAccess: varIsCoE});
+        Repeat: =true
+        Visible: =false
+        Width: =0
+        ZIndex: =1
+
+    MyRequestsGalleryContainer_Req_3 As groupContainer:
+        DropShadow: =DropShadow.None
+        Height: =Parent.Height - Self.Y
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Parent.Width
+        Y: =HeaderComponent_MReq_3.Y + HeaderComponent_MReq_3.Height
+        ZIndex: =2
+
+        galMyItems_MReq_6 As gallery.variableTemplateHeightGallery:
+            BorderColor: =lblGalleryHead.BorderColor
+            BorderStyle: =lblGalleryHead.BorderStyle
+            BorderThickness: =lblGalleryHead.BorderThickness
+            DelayItemLoading: =true
+            Height: =Parent.Height - Self.Y
+            Items: |-
+                =Search(Filter(AddColumns(Filter('App Governance Idea', 'Requestor Email' = varUserEmailLower), "History", With({varIdTmp: ID}, Filter(ShowColumns('App Governance Idea History', "MainID", "COE_x0020_Comments"), MainID = varIdTmp))), (IsBlank(dteFilterStartDate_MReq_3.SelectedDate) || 'App Submitted Date' >= dteFilterStartDate_MReq_3.SelectedDate), (IsBlank(dteFilterEndDate_MReq_3.SelectedDate) || 'App Submitted Date' <= dteFilterEndDate_MReq_3.SelectedDate), (IsBlank(cmbFilterRequestor_MReq_3.SelectedItems) || IsEmpty(cmbFilterRequestor_MReq_3.SelectedItems) || 'COE Approval Status'.Value in cmbFilterRequestor_MReq_3.SelectedItems.Value)), txtSearch_MReq_3.Text, "Idea_x0020_Name", "Requestor_x0020_Email", "Title", "Idea_x0020_Description")
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            TemplatePadding: =0
+            TemplateSize: =50
+            Visible: =varSelectedRequestType = 1
+            Width: =galHeadContainer_MReq_6.Width
+            X: =galHeadContainer_MReq_6.X
+            Y: =galHeadContainer_MReq_6.Y  + galHeadContainer_MReq_6.Height
+            ZIndex: =1
+
+            lblBodyID_MReq_6 As label:
+                Align: =Align.Center
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =Parent.TemplateHeight - Self.BorderThickness
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =ThisItem.ID
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadID_MReq_6.Width - Self.X
+                Wrap: =false
+                X: =Self.BorderThickness
+                ZIndex: =1
+
+            lblBodyAppName_MReq_6 As label:
+                Align: =lblGalleryContent.Align
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =lblBodyID_MReq_6.Height
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =ThisItem.'App Name'
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadAppName_MReq_6.Width
+                Wrap: =false
+                X: =lblBodyID_MReq_6.X + lblBodyID_MReq_6.Width
+                ZIndex: =2
+
+            lblBodyCoEStatus_MReq_6 As label:
+                Align: =Align.Center    
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =lblBodyID_MReq_6.Height
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =ThisItem.'COE Approval Status'.Value
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadStatus_MReq_6.Width
+                Wrap: =false
+                X: =lblBodyAppName_MReq_6.X + lblBodyAppName_MReq_6.Width
+                ZIndex: =3
+
+            lblBodyAppDesc_MReq_6 As label:
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =lblBodyID_MReq_6.Height
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =ThisItem.'App Description'
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadDesc_MReq_6.Width
+                Wrap: =false
+                X: =lblBodyCoEStatus_MReq_6.X + lblBodyCoEStatus_MReq_6.Width
+                ZIndex: =4
+
+            lblBodySubmitDate_MReq_6 As label:
+                Align: =lblGalleryContent.Align
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =lblBodyID_MReq_6.Height
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =DateValue(ThisItem.'App Submitted Date')
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadSubmitDate_MReq_6.Width - Self.BorderThickness
+                Wrap: =false
+                X: =lblBodyAppDesc_MReq_6.X + lblBodyAppDesc_MReq_6.Width
+                ZIndex: =5
+
+            icnViewInfo_MReq_6 As icon.Information:
+                FocusedBorderThickness: =0
+                Height: =30
+                Icon: =Icon.Information
+                OnSelect: |-
+                    =UpdateContext({varLoadSpinner: true});
+                    Concurrent(Select(Parent), Set(varItemId, ThisItem.ID), Set(varNavigated, true));
+                    UpdateContext({varLoadSpinner: false});
+                    Navigate('App Request Screen', ScreenTransition.None);
+                PaddingBottom: =Self.PaddingTop
+                PaddingLeft: =Self.PaddingTop
+                PaddingRight: =Self.PaddingLeft
+                PaddingTop: =2
+                Tooltip: ="View Info"
+                Width: =Self.Height
+                X: =lblBodySubmitDate_MReq_6.X + lblBodySubmitDate_MReq_6.Width - Self.Width - If(Parent.AllItemsCount * Parent.TemplateHeight > Parent.Height, 20, 10)
+                Y: =lblBodySubmitDate_MReq_6.Y + (lblBodySubmitDate_MReq_6.Height - Self.Height) * 0.5
+                ZIndex: =6
+
+            icnViewComments_MReq_6 As icon.DocumentwithContent:
+                Height: =icnViewInfo_MReq_6.Height
+                Icon: =If(varShowCommentsId = ThisItem.ID, Icon.CancelBadge, Icon.DocumentWithContent)
+                OnSelect: |-
+                    =UpdateContext({varShowCommentsId: If(varShowCommentsId = ThisItem.ID, 0, ThisItem.ID)});
+                PaddingBottom: =Self.PaddingTop
+                PaddingLeft: =Self.PaddingTop
+                PaddingRight: =Self.PaddingLeft
+                PaddingTop: =2
+                Tooltip: =$"{If(varShowCommentsId = ThisItem.ID, "Collapse", "Expand")} Comments"
+                Visible: =CountRows(Filter(ThisItem.History, !IsBlank(COE_x0020_Comments)).MainID) > 0
+                Width: =Self.Height
+                X: =icnViewInfo_MReq_6.X - Self.Width - 10
+                Y: =icnViewInfo_MReq_6.Y
+                ZIndex: =7
+
+            lblBodyComments_MReq_6 As label:
+                Align: =lblGalleryContent.Align
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =50
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =Concat(Filter(ThisItem.History, !IsBlank(COE_x0020_Comments)), COE_x0020_Comments, $"{Char(10)}{Char(10)}")
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Visible: =varShowCommentsId = ThisItem.ID
+                Width: =Parent.TemplateWidth - Self.X * 2
+                Wrap: =false
+                X: =lblBodyID_MReq_6.X
+                ZIndex: =8
+
+        galHeadContainer_MReq_6 As groupContainer.horizontalAutoLayoutContainer:
+            BorderColor: =lblGalleryHead.BorderColor
+            BorderStyle: =lblGalleryHead.BorderStyle
+            BorderThickness: =lblGalleryHead.BorderThickness
+            DropShadow: =DropShadow.None
+            Height: =50
+            LayoutMode: =LayoutMode.Auto
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Visible: =varSelectedRequestType = 1
+            Width: =Parent.Width - (Self.BorderThickness * 2)
+            X: =Self.BorderThickness
+            Y: =galRequestSelect_2.Y + galRequestSelect_2.Height + 10
+            ZIndex: =3
+
+            lblHeadID_MReq_6 As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="ID"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.1
+                Wrap: =false
+                ZIndex: =1
+
+            lblHeadAppName_MReq_6 As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="App Name"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.3
+                Wrap: =false
+                ZIndex: =2
+
+            lblHeadStatus_MReq_6 As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="Status"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.1
+                Wrap: =false
+                ZIndex: =3
+
+            lblHeadDesc_MReq_6 As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="Problem"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.35
+                Wrap: =false
+                ZIndex: =4
+
+            lblHeadSubmitDate_MReq_6 As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="Submit Date"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.15
+                Wrap: =false
+                ZIndex: =5
+
+        icnFilter_MReq_3 As icon.FilterFlat:
+            Height: =40
+            Icon: =If(varFilterPopup, Icon.Cancel, Icon.FilterFlat)
+            OnSelect: |-
+                =UpdateContext({varFilterPopup: !varFilterPopup});
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            Tooltip: =If(varFilterPopup, "Close Filter", "Filter")
+            Width: =Self.Height
+            X: =10
+            Y: =10
+            ZIndex: =4
+
+        lblSearch_MReq_3 As label:
+            Font: =lblGalleryContent.Font
+            FontWeight: =FontWeight.Semibold
+            Size: =lblGalleryContent.Size
+            Text: ="Search"
+            Width: =70
+            X: =icnFilter_MReq_3.X + icnFilter_MReq_3.Width + 20
+            Y: =icnFilter_MReq_3.Y + (icnFilter_MReq_3.Height - Self.Height) * 0.5
+            ZIndex: =5
+
+        txtSearch_MReq_3 As text:
+            BorderColor: =lblGalleryContent.BorderColor
+            BorderStyle: =lblGalleryContent.BorderStyle
+            Clear: =true
+            Default: =""
+            Height: =lblSearch_MReq_3.Height
+            HintText: ="Enter Search Text"
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =lblGalleryContent.Size
+            Width: =300
+            X: =lblSearch_MReq_3.X + lblSearch_MReq_3.Width
+            Y: =lblSearch_MReq_3.Y
+            ZIndex: =6
+
+        FilterContainer_MReq_3 As groupContainer.manualLayoutContainer:
+            BorderThickness: =1
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =Parent.Height - Self.Y - Self.BorderThickness
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Visible: =varFilterPopup
+            Width: =Parent.Width * 0.8
+            X: =Self.BorderThickness
+            Y: =icnFilter_MReq_3.Y + icnFilter_MReq_3.Height
+            ZIndex: =7
+
+            lblFilterStartDate_MReq_3 As label:
+                FontWeight: =FontWeight.Semibold
+                Text: ="Start Date"
+                Width: =160
+                X: =20
+                Y: =20
+                ZIndex: =1
+
+            dteFilterStartDate_MReq_3 As datepicker:
+                BorderColor: =txtSearch_MReq_3.BorderColor
+                BorderStyle: =txtSearch_MReq_3.BorderStyle
+                BorderThickness: =txtSearch_MReq_3.BorderThickness
+                DefaultDate: =
+                InputTextPlaceholder: =If(IsBlank(Self.SelectedDate), $"Enter {lblFilterStartDate_MReq_3.Text}")
+                PaddingTop: =2
+                Reset: =true
+                Size: =13
+                Width: =Parent.Width - Self.X - Self.X
+                X: =lblFilterStartDate_MReq_3.X
+                Y: =lblFilterStartDate_MReq_3.Y + lblFilterStartDate_MReq_3.Height + 10
+                ZIndex: =2
+
+            lblFilterEndDate_MReq_3 As label:
+                FontWeight: =FontWeight.Semibold
+                Text: ="End Date"
+                Width: =lblFilterStartDate_MReq_3.Width
+                X: =lblFilterStartDate_MReq_3.X
+                Y: =dteFilterStartDate_MReq_3.Y + dteFilterStartDate_MReq_3.Height + 20
+                ZIndex: =3
+
+            dteFilterEndDate_MReq_3 As datepicker:
+                BorderColor: =txtSearch_MReq_3.BorderColor
+                BorderStyle: =txtSearch_MReq_3.BorderStyle
+                BorderThickness: =txtSearch_MReq_3.BorderThickness
+                DefaultDate: =
+                InputTextPlaceholder: =If(IsBlank(Self.SelectedDate), $"Enter {lblFilterEndDate_MReq_3.Text}")
+                PaddingTop: =2
+                Reset: =true
+                Size: =13
+                Width: =dteFilterStartDate_MReq_3.Width
+                X: =lblFilterEndDate_MReq_3.X
+                Y: =lblFilterEndDate_MReq_3.Y + lblFilterEndDate_MReq_3.Height + 10
+                ZIndex: =4
+
+            lblFilterStatus_MReq_3 As label:
+                FontWeight: =FontWeight.Semibold
+                Text: ="CoE Status"
+                Width: =lblFilterStartDate_MReq_3.Width
+                X: =lblFilterStartDate_MReq_3.X
+                Y: =dteFilterEndDate_MReq_3.Y + dteFilterEndDate_MReq_3.Height + 20
+                ZIndex: =5
+
+            cmbFilterRequestor_MReq_3 As combobox:
+                BorderColor: =txtSearch_MReq_3.BorderColor
+                BorderStyle: =txtSearch_MReq_3.BorderStyle
+                BorderThickness: =txtSearch_MReq_3.BorderThickness
+                DisplayFields: =["Value"]
+                FontWeight: =FontWeight.Lighter
+                InputTextPlaceholder: =$"Select {lblFilterStatus_MReq_3.Text}"
+                Items: =Choices([@'App Governance Idea'].'COE Approval Status')
+                NoSelectionText: =$"Select {lblFilterStatus_MReq_3.Text}"
+                Reset: =true
+                SearchFields: =["Value"]
+                SearchItems: =Choices('App Governance Idea'.'COE Approval Status',cmbFilterRequestor_MReq_3.SearchText)
+                Width: =dteFilterStartDate_MReq_3.Width
+                X: =lblFilterStatus_MReq_3.X
+                Y: =lblFilterStatus_MReq_3.Y + lblFilterStatus_MReq_3.Height + 10
+                ZIndex: =6
+
+            btnApplyFilter_MReq_3 As button:
+                BorderStyle: =BorderStyle.None
+                BorderThickness: =0
+                Fill: =RGBA(184, 0, 0, 1)
+                OnSelect: =Concurrent(Reset(dteFilterStartDate_MReq_3), Reset(dteFilterEndDate_MReq_3), Reset(cmbFilterRequestor_MReq_3));
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =13
+                Text: ="Clear Filter(s)"
+                Width: =130
+                X: =cmbFilterRequestor_MReq_3.X
+                Y: =cmbFilterRequestor_MReq_3.Y + cmbFilterRequestor_MReq_3.Height + 20
+                ZIndex: =7
+
+        btnCodeReview_MReq_3 As button:
+            BorderColor: =lblGalleryHead.BorderColor
+            BorderStyle: =lblGalleryHead.BorderStyle
+            BorderThickness: =lblGalleryHead.BorderThickness
+            Color: =lblGalleryHead.Color
+            Fill: =lblGalleryHead.Fill
+            Font: =lblGalleryHead.Font
+            FontWeight: =lblGalleryHead.FontWeight
+            Height: =txtSearch_MReq_3.Height
+            OnSelect: =Navigate('Code Review Screen', ScreenTransition.Cover);
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =lblGalleryHead.Size
+            Text: ="Code Review"
+            X: =Parent.Width - Self.Width - 20
+            Y: =txtSearch_MReq_3.Y
+            ZIndex: =8
+
+        galMyItems_MReq_7 As gallery.variableTemplateHeightGallery:
+            BorderColor: =lblGalleryHead.BorderColor
+            BorderStyle: =lblGalleryHead.BorderStyle
+            BorderThickness: =lblGalleryHead.BorderThickness
+            DelayItemLoading: =true
+            Height: =Parent.Height - Self.Y
+            Items: =Search(Filter(Filter('App Solution Consulting', Title = varUserEmailLower), (IsBlank(dteFilterStartDate_CoE.SelectedDate) || 'Creation Dt' >= dteFilterStartDate_CoE.SelectedDate), (IsBlank(dteFilterEndDate_CoE.SelectedDate) || 'Creation Dt' <= dteFilterEndDate_CoE.SelectedDate), (IsBlank(cmbFilterRequestor_CoE.SelectedItems) || IsEmpty(cmbFilterRequestor_CoE.SelectedItems) || Title in Lower(cmbFilterRequestor_CoE.SelectedItems.Mail))), txtSearch_CoE.Text, "Title", "ProposeAppName", "ProblemsolvedbytheApp", "Benefittotheorganization", "AnswerfromCOE")
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            TemplatePadding: =0
+            TemplateSize: =50
+            Visible: =varSelectedRequestType = 2
+            Width: =galHeadContainer_MReq_7.Width
+            X: =galHeadContainer_MReq_7.X
+            Y: =galHeadContainer_MReq_7.Y  + galHeadContainer_MReq_7.Height
+            ZIndex: =9
+
+            lblBodyID_MReq_7 As label:
+                Align: =Align.Center
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =Parent.TemplateHeight - Self.BorderThickness
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =ThisItem.ID
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadID_MReq_7.Width - Self.X
+                Wrap: =false
+                X: =Self.BorderThickness
+                ZIndex: =1
+
+            lblBodyAppName_MReq_7 As label:
+                Align: =lblGalleryContent.Align
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =lblBodyID_MReq_7.Height
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =ThisItem.'Propose App Name'
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadAppName_MReq_7.Width
+                Wrap: =false
+                X: =lblBodyID_MReq_7.X + lblBodyID_MReq_7.Width
+                ZIndex: =2
+
+            lblBodyCoEStatus_MReq_7 As label:
+                Align: =Align.Center    
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =lblBodyID_MReq_7.Height
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =ThisItem.'Ticket Status'
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadStatus_MReq_7.Width
+                Wrap: =false
+                X: =lblBodyAppName_MReq_7.X + lblBodyAppName_MReq_7.Width
+                ZIndex: =3
+
+            lblBodyAppDesc_MReq_7 As label:
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =lblBodyID_MReq_7.Height
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =ThisItem.'Problem solved by the App'
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadDesc_MReq_7.Width
+                Wrap: =false
+                X: =lblBodyCoEStatus_MReq_7.X + lblBodyCoEStatus_MReq_7.Width
+                ZIndex: =4
+
+            lblBodySubmitDate_MReq_7 As label:
+                Align: =lblGalleryContent.Align
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =lblBodyID_MReq_7.Height
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =DateValue(ThisItem.'Creation Dt')
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadSubmitDate_MReq_7.Width - Self.BorderThickness
+                Wrap: =false
+                X: =lblBodyAppDesc_MReq_7.X + lblBodyAppDesc_MReq_7.Width
+                ZIndex: =5
+
+            icnViewInfo_MReq_7 As icon.Information:
+                FocusedBorderThickness: =0
+                Height: =30
+                Icon: =Icon.Information
+                OnSelect: |-
+                    =UpdateContext({varLoadSpinner: true});
+                    Concurrent(Select(Parent), Set(varItemId, ThisItem.ID), Set(varNavigated, true));
+                    UpdateContext({varLoadSpinner: false});
+                    Navigate('App Solution Consulting Screen', ScreenTransition.CoverRight);
+                PaddingBottom: =Self.PaddingTop
+                PaddingLeft: =Self.PaddingTop
+                PaddingRight: =Self.PaddingLeft
+                PaddingTop: =2
+                Tooltip: ="View Info"
+                Width: =Self.Height
+                X: =lblBodySubmitDate_MReq_7.X + lblBodySubmitDate_MReq_7.Width - Self.Width - If(Parent.AllItemsCount * Parent.TemplateHeight > Parent.Height, 20, 10)
+                Y: =lblBodySubmitDate_MReq_7.Y + (lblBodySubmitDate_MReq_7.Height - Self.Height) * 0.5
+                ZIndex: =6
+
+            icnViewComments_MReq_7 As icon.DocumentwithContent:
+                Height: =icnViewInfo_MReq_7.Height
+                Icon: =If(varShowCommentsId = ThisItem.ID, Icon.CancelBadge, Icon.DocumentWithContent)
+                OnSelect: |-
+                    =UpdateContext({varShowCommentsId: If(varShowCommentsId = ThisItem.ID, 0, ThisItem.ID)});
+                PaddingBottom: =Self.PaddingTop
+                PaddingLeft: =Self.PaddingTop
+                PaddingRight: =Self.PaddingLeft
+                PaddingTop: =2
+                Tooltip: =$"{If(varShowCommentsId = ThisItem.ID, "Collapse", "Expand")} Comments"
+                Visible: =!IsBlank(ThisItem.'Answer from COE')
+                Width: =Self.Height
+                X: =icnViewInfo_MReq_7.X - Self.Width - 10
+                Y: =icnViewInfo_MReq_7.Y
+                ZIndex: =7
+
+            lblBodyComments_MReq_7 As label:
+                Align: =lblGalleryContent.Align
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =80
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =ThisItem.'Answer from COE'
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Visible: =varShowCommentsId = ThisItem.ID
+                Width: =Parent.TemplateWidth - Self.X * 2
+                Wrap: =false
+                X: =lblBodyID_MReq_7.X
+                Y: =lblBodyID_MReq_7.Y + lblBodyID_MReq_7.Height
+                ZIndex: =8
+
+        galHeadContainer_MReq_7 As groupContainer.horizontalAutoLayoutContainer:
+            BorderColor: =lblGalleryHead.BorderColor
+            BorderStyle: =lblGalleryHead.BorderStyle
+            BorderThickness: =lblGalleryHead.BorderThickness
+            DropShadow: =DropShadow.None
+            Height: =50
+            LayoutMode: =LayoutMode.Auto
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Visible: =varSelectedRequestType = 2
+            Width: =Parent.Width - (Self.BorderThickness * 2)
+            X: =Self.BorderThickness
+            Y: =galRequestSelect_2.Y + galRequestSelect_2.Height + 10
+            ZIndex: =10
+
+            lblHeadID_MReq_7 As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="ID"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.1
+                Wrap: =false
+                ZIndex: =1
+
+            lblHeadAppName_MReq_7 As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="App Name"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.3
+                Wrap: =false
+                ZIndex: =2
+
+            lblHeadStatus_MReq_7 As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="Status"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.1
+                Wrap: =false
+                ZIndex: =3
+
+            lblHeadDesc_MReq_7 As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="Problem Solved by the App"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.35
+                Wrap: =false
+                ZIndex: =4
+
+            lblHeadSubmitDate_MReq_7 As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="Submit Date"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.15
+                Wrap: =false
+                ZIndex: =5
+
+        galRequestSelect_2 As gallery.galleryHorizontal:
+            BorderColor: =lblGalleryContent.BorderColor
+            BorderStyle: =lblGalleryContent.BorderStyle
+            DelayItemLoading: =true
+            Height: =60
+            Items: =colRequestTypes
+            LoadingSpinner: =LoadingSpinner.Data
+            TemplatePadding: =0
+            TemplateSize: =200
+            Width: |-
+                =With({varMaxWidth: Parent.Width - Self.X*2, varMinWidth: Self.TemplateWidth, varTotalWidth: Self.TemplateWidth * Self.AllItemsCount}, If(varTotalWidth > varMaxWidth, varMaxWidth, If(varTotalWidth > varMinWidth, varTotalWidth, varMinWidth)))
+            Y: =txtSearch_MReq_3.Y + txtSearch_MReq_3.Height + 10
+            ZIndex: =11
+
+            btnReqSelect_2 As button:
+                Align: =Align.Left
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =If(ThisItem.Index = varSelectedRequestType, lblGalleryHead.Fill, RGBA(0,0,0,0))
+                FocusedBorderThickness: =Self.BorderThickness
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.TemplateHeight - Self.Y * 2
+                OnSelect: |-
+                    =Concurrent(UpdateContext({varSelectedRequestType: ThisItem.Index, varShowCommentsId: 0}), Set(varItemId, 0));
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =13
+                Text: =ThisItem.Title
+                Width: =Parent.TemplateWidth - Self.X - If(ThisItem.Index = Last(colRequestTypes).Index, Self.BorderThickness, 0)
+                X: =If(ThisItem.Index = First(colRequestTypes).Index, Self.BorderThickness, 0)
+                Y: =Self.BorderThickness
+                ZIndex: =2
+
+        galMyItems_MReq_8 As gallery.variableTemplateHeightGallery:
+            BorderColor: =lblGalleryHead.BorderColor
+            BorderStyle: =lblGalleryHead.BorderStyle
+            BorderThickness: =lblGalleryHead.BorderThickness
+            DelayItemLoading: =true
+            Height: =Parent.Height - Self.Y
+            Items: =Search(Filter(Filter('Assistance Required', Title = varUserEmailLower), (IsBlank(dteFilterStartDate_CoE.SelectedDate) || 'Creation Dt' >= dteFilterStartDate_CoE.SelectedDate), (IsBlank(dteFilterEndDate_CoE.SelectedDate) || 'Creation Dt' <= dteFilterEndDate_CoE.SelectedDate), (IsBlank(cmbFilterRequestor_CoE.SelectedItems) || IsEmpty(cmbFilterRequestor_CoE.SelectedItems) || Title in Lower(cmbFilterRequestor_CoE.SelectedItems.Mail))), txtSearch_CoE.Text, "Title", "AppName", "Problem", "Query")
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            TemplatePadding: =0
+            TemplateSize: =50
+            Visible: =varSelectedRequestType = 3
+            Width: =galHeadContainer_MReq_8.Width
+            X: =galHeadContainer_MReq_8.X
+            Y: =galHeadContainer_MReq_8.Y  + galHeadContainer_MReq_8.Height
+            ZIndex: =12
+
+            lblBodyID_MReq_8 As label:
+                Align: =Align.Center
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =Parent.TemplateHeight - Self.BorderThickness
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =ThisItem.ID
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadID_MReq_8.Width - Self.X
+                Wrap: =false
+                X: =Self.BorderThickness
+                ZIndex: =1
+
+            lblBodyAppName_MReq_8 As label:
+                Align: =lblGalleryContent.Align
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =lblBodyID_MReq_8.Height
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =ThisItem.'App Name'
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadAppName_MReq_8.Width
+                Wrap: =false
+                X: =lblBodyID_MReq_8.X + lblBodyID_MReq_8.Width
+                ZIndex: =2
+
+            lblBodyCoEStatus_MReq_8 As label:
+                Align: =Align.Center    
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =lblBodyID_MReq_8.Height
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =ThisItem.'Ticket Status'
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadStatus_MReq_8.Width
+                Wrap: =false
+                X: =lblBodyAppName_MReq_8.X + lblBodyAppName_MReq_8.Width
+                ZIndex: =3
+
+            lblBodyAppDesc_MReq_8 As label:
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =lblBodyID_MReq_8.Height
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =ThisItem.Problem
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadDesc_MReq_8.Width
+                Wrap: =false
+                X: =lblBodyCoEStatus_MReq_8.X + lblBodyCoEStatus_MReq_8.Width
+                ZIndex: =4
+
+            lblBodySubmitDate_MReq_8 As label:
+                Align: =lblGalleryContent.Align
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =lblBodyID_MReq_8.Height
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =DateValue(ThisItem.'Creation Dt')
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadSubmitDate_MReq_8.Width - Self.BorderThickness
+                Wrap: =false
+                X: =lblBodyAppDesc_MReq_8.X + lblBodyAppDesc_MReq_8.Width
+                ZIndex: =5
+
+            icnViewInfo_MReq_8 As icon.Information:
+                FocusedBorderThickness: =0
+                Height: =30
+                Icon: =Icon.Information
+                OnSelect: |-
+                    =UpdateContext({varLoadSpinner: true});
+                    Concurrent(Select(Parent), Set(varItemId, ThisItem.ID), Set(varNavigated, true));
+                    UpdateContext({varLoadSpinner: false});
+                    Navigate('Assistance Required Screen', ScreenTransition.CoverRight);
+                PaddingBottom: =Self.PaddingTop
+                PaddingLeft: =Self.PaddingTop
+                PaddingRight: =Self.PaddingLeft
+                PaddingTop: =2
+                Tooltip: ="View Info"
+                Width: =Self.Height
+                X: =lblBodySubmitDate_MReq_8.X + lblBodySubmitDate_MReq_8.Width - Self.Width - If(Parent.AllItemsCount * Parent.TemplateHeight > Parent.Height, 20, 10)
+                Y: =lblBodySubmitDate_MReq_8.Y + (lblBodySubmitDate_MReq_8.Height - Self.Height) * 0.5
+                ZIndex: =6
+
+            icnViewComments_MReq_8 As icon.DocumentwithContent:
+                Height: =icnViewInfo_MReq_8.Height
+                Icon: =If(varShowCommentsId = ThisItem.ID, Icon.CancelBadge, Icon.DocumentWithContent)
+                OnSelect: |-
+                    =UpdateContext({varShowCommentsId: If(varShowCommentsId = ThisItem.ID, 0, ThisItem.ID)});
+                PaddingBottom: =Self.PaddingTop
+                PaddingLeft: =Self.PaddingTop
+                PaddingRight: =Self.PaddingLeft
+                PaddingTop: =2
+                Tooltip: =$"{If(varShowCommentsId = ThisItem.ID, "Collapse", "Expand")} Comments"
+                Visible: =!IsBlank(ThisItem.Comments)
+                Width: =Self.Height
+                X: =icnViewInfo_MReq_8.X - Self.Width - 10
+                Y: =icnViewInfo_MReq_8.Y
+                ZIndex: =7
+
+            lblBodyComments_MReq_8 As label:
+                Align: =lblGalleryContent.Align
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =50
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =ThisItem.Comments
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Visible: =varShowCommentsId = ThisItem.ID
+                Width: =Parent.TemplateWidth - Self.X * 2
+                Wrap: =false
+                X: =lblBodyID_MReq_8.X
+                Y: =lblBodyID_MReq_8.Y + lblBodyID_MReq_8.Height
+                ZIndex: =8
+
+        galHeadContainer_MReq_8 As groupContainer.horizontalAutoLayoutContainer:
+            BorderColor: =lblGalleryHead.BorderColor
+            BorderStyle: =lblGalleryHead.BorderStyle
+            BorderThickness: =lblGalleryHead.BorderThickness
+            DropShadow: =DropShadow.None
+            Height: =50
+            LayoutMode: =LayoutMode.Auto
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Visible: =varSelectedRequestType = 3
+            Width: =Parent.Width - (Self.BorderThickness * 2)
+            X: =Self.BorderThickness
+            Y: =galRequestSelect_2.Y + galRequestSelect_2.Height + 10
+            ZIndex: =13
+
+            lblHeadID_MReq_8 As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="ID"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.1
+                Wrap: =false
+                ZIndex: =1
+
+            lblHeadAppName_MReq_8 As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="App Name"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.3
+                Wrap: =false
+                ZIndex: =2
+
+            lblHeadStatus_MReq_8 As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="Status"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.1
+                Wrap: =false
+                ZIndex: =3
+
+            lblHeadDesc_MReq_8 As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="Problem"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.35
+                Wrap: =false
+                ZIndex: =4
+
+            lblHeadSubmitDate_MReq_8 As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="Submit Date"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.15
+                Wrap: =false
+                ZIndex: =5
+
+        galMyItems_MReq_9 As gallery.variableTemplateHeightGallery:
+            BorderColor: =lblGalleryHead.BorderColor
+            BorderStyle: =lblGalleryHead.BorderStyle
+            BorderThickness: =lblGalleryHead.BorderThickness
+            DelayItemLoading: =true
+            Height: =Parent.Height - Self.Y
+            Items: =Search(Filter(Filter('Create Business Unit in Production', Title = varUserEmailLower), (IsBlank(dteFilterStartDate_CoE.SelectedDate) || 'Creation Dt' >= dteFilterStartDate_CoE.SelectedDate), (IsBlank(dteFilterEndDate_CoE.SelectedDate) || 'Creation Dt' <= dteFilterEndDate_CoE.SelectedDate), (IsBlank(cmbFilterRequestor_CoE.SelectedItems) || IsEmpty(cmbFilterRequestor_CoE.SelectedItems) || Title in Lower(cmbFilterRequestor_CoE.SelectedItems.Mail))), txtSearch_CoE.Text, "Title", "BusinessUnitName", "EnvironmentOwner", "Comments")
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            TemplatePadding: =0
+            TemplateSize: =50
+            Visible: =varSelectedRequestType = 4
+            Width: =galHeadContainer_MReq_9.Width
+            X: =galHeadContainer_MReq_9.X
+            Y: =galHeadContainer_MReq_9.Y  + galHeadContainer_MReq_9.Height
+            ZIndex: =14
+
+            lblBodyID_MReq_9 As label:
+                Align: =Align.Center
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =Parent.TemplateHeight - Self.BorderThickness
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =ThisItem.ID
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadID_MReq_9.Width - Self.X
+                Wrap: =false
+                X: =Self.BorderThickness
+                ZIndex: =1
+
+            lblBodyAppName_MReq_9 As label:
+                Align: =lblGalleryContent.Align
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =lblBodyID_MReq_9.Height
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =ThisItem.'Business Unit Name'
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadAppName_MReq_9.Width
+                Wrap: =false
+                X: =lblBodyID_MReq_9.X + lblBodyID_MReq_9.Width
+                ZIndex: =2
+
+            lblBodyCoEStatus_MReq_9 As label:
+                Align: =Align.Center    
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =lblBodyID_MReq_9.Height
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =ThisItem.'Ticket Status'
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadStatus_MReq_9.Width
+                Wrap: =false
+                X: =lblBodyAppName_MReq_9.X + lblBodyAppName_MReq_9.Width
+                ZIndex: =3
+
+            lblBodyAppDesc_MReq_9 As label:
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =lblBodyID_MReq_9.Height
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =ThisItem.'Environment Owner'
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadDesc_MReq_9.Width
+                Wrap: =false
+                X: =lblBodyCoEStatus_MReq_9.X + lblBodyCoEStatus_MReq_9.Width
+                ZIndex: =4
+
+            lblBodySubmitDate_MReq_9 As label:
+                Align: =lblGalleryContent.Align
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =lblBodyID_MReq_9.Height
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =DateValue(ThisItem.'Creation Dt')
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadSubmitDate_MReq_9.Width - Self.BorderThickness
+                Wrap: =false
+                X: =lblBodyAppDesc_MReq_9.X + lblBodyAppDesc_MReq_9.Width
+                ZIndex: =5
+
+            icnViewInfo_MReq_9 As icon.Information:
+                FocusedBorderThickness: =0
+                Height: =30
+                Icon: =Icon.Information
+                OnSelect: |-
+                    =UpdateContext({varLoadSpinner: true});
+                    Concurrent(Select(Parent), Set(varItemId, ThisItem.ID), Set(varNavigated, true));
+                    UpdateContext({varLoadSpinner: false});
+                    Navigate('Create Business Unit in Production Screen', ScreenTransition.CoverRight);
+                PaddingBottom: =Self.PaddingTop
+                PaddingLeft: =Self.PaddingTop
+                PaddingRight: =Self.PaddingLeft
+                PaddingTop: =2
+                Tooltip: ="View Info"
+                Width: =Self.Height
+                X: =lblBodySubmitDate_MReq_9.X + lblBodySubmitDate_MReq_9.Width - Self.Width - If(Parent.AllItemsCount * Parent.TemplateHeight > Parent.Height, 20, 10)
+                Y: =lblBodySubmitDate_MReq_9.Y + (lblBodySubmitDate_MReq_9.Height - Self.Height) * 0.5
+                ZIndex: =6
+
+            icnViewComments_MReq_9 As icon.DocumentwithContent:
+                Height: =icnViewInfo_MReq_9.Height
+                Icon: =If(varShowCommentsId = ThisItem.ID, Icon.CancelBadge, Icon.DocumentWithContent)
+                OnSelect: |-
+                    =UpdateContext({varShowCommentsId: If(varShowCommentsId = ThisItem.ID, 0, ThisItem.ID)});
+                PaddingBottom: =Self.PaddingTop
+                PaddingLeft: =Self.PaddingTop
+                PaddingRight: =Self.PaddingLeft
+                PaddingTop: =2
+                Tooltip: =$"{If(varShowCommentsId = ThisItem.ID, "Collapse", "Expand")} Comments"
+                Visible: =!IsBlank(ThisItem.Comments)
+                Width: =Self.Height
+                X: =icnViewInfo_MReq_9.X - Self.Width - 10
+                Y: =icnViewInfo_MReq_9.Y
+                ZIndex: =7
+
+            lblBodyComments_MReq_9 As label:
+                Align: =lblGalleryContent.Align
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =50
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =ThisItem.Comments
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Visible: =varShowCommentsId = ThisItem.ID
+                Width: =Parent.TemplateWidth - Self.X * 2
+                Wrap: =false
+                X: =lblBodyID_MReq_9.X
+                ZIndex: =8
+
+        galHeadContainer_MReq_9 As groupContainer.horizontalAutoLayoutContainer:
+            BorderColor: =lblGalleryHead.BorderColor
+            BorderStyle: =lblGalleryHead.BorderStyle
+            BorderThickness: =lblGalleryHead.BorderThickness
+            DropShadow: =DropShadow.None
+            Height: =50
+            LayoutMode: =LayoutMode.Auto
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Visible: =varSelectedRequestType = 4
+            Width: =Parent.Width - (Self.BorderThickness * 2)
+            X: =Self.BorderThickness
+            Y: =galRequestSelect_2.Y + galRequestSelect_2.Height + 10
+            ZIndex: =15
+
+            lblHeadID_MReq_9 As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="ID"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.1
+                Wrap: =false
+                ZIndex: =1
+
+            lblHeadAppName_MReq_9 As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="Business Unit Name"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.3
+                Wrap: =false
+                ZIndex: =2
+
+            lblHeadStatus_MReq_9 As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="Status"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.1
+                Wrap: =false
+                ZIndex: =3
+
+            lblHeadDesc_MReq_9 As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="Environment Owner"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.35
+                Wrap: =false
+                ZIndex: =4
+
+            lblHeadSubmitDate_MReq_9 As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="Submit Date"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.15
+                Wrap: =false
+                ZIndex: =5
+
+    HeaderComponent_MReq_3 As HeaderComponent:
+        BackgroundColor: =lblHeader.Fill
+        FontColor: =lblHeader.Color
+        LogoImage: =Picture1
+        LogoLeftPosition: =NavComponent_MReq_3.MinHeight
+        Text: =LookUp(colNavItems, Screen = App.ActiveScreen).Title
+        ZIndex: =4
+
+    SpinnerComponent_MReq_3 As SpinnerComponent:
+        Height: =Parent.Height - Self.Y
+        Visible: =varLoadSpinner
+        Width: =Parent.Width - Self.X
+        ZIndex: =5
+
+    NavComponent_MReq_3 As NavComponent:
+        IconColor: =lblHeader.Color
+        NavigationItemsColor: =lblHeader.Color
+        NavigationItemsFill: =lblHeader.Fill
+        ZIndex: =6
+
+    AccessDeniedComponent_MReq_3 As AccessDeniedComponent:
+        Height: =Parent.Height - Self.Y
+        Visible: =!LookUp(colNavItems, Screen = App.ActiveScreen).HasAccess
+        Width: =Parent.Width
+        Y: =HeaderComponent_MReq_3.Y + HeaderComponent_MReq_3.Height
+        ZIndex: =7
+

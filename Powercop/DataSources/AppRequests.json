@@ -1,0 +1,152 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cr0e5_apprequests",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cr0e5_apprequest",
+    "MaxGetRowsCount": 2000,
+    "Name": "AppRequests",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr0e5_appdescription": "App Description",
+      "cr0e5_apprelatedqueries": "App Related Queries",
+      "cr0e5_apprequest_AsyncOperations": "System Jobs",
+      "cr0e5_apprequest_BulkDeleteFailures": "Bulk Delete Failures",
+      "cr0e5_apprequest_DuplicateBaseRecord": "Duplicate Records (cr0e5_apprequest_DuplicateBaseRecord)",
+      "cr0e5_apprequest_DuplicateMatchingRecord": "Duplicate Records (cr0e5_apprequest_DuplicateMatchingRecord)",
+      "cr0e5_apprequest_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cr0e5_apprequest_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cr0e5_apprequest_ProcessSession": "Process Sessions",
+      "cr0e5_apprequest_SyncErrors": "Sync Errors",
+      "cr0e5_apprequestid": "AppRequest",
+      "cr0e5_approvaldate": "ApprovalDate",
+      "cr0e5_approvalstatus": "ApprovalStatus",
+      "cr0e5_approvedby": "Approved By",
+      "cr0e5_appurl": "App Url",
+      "cr0e5_codereviewid": "CodeReviewId",
+      "cr0e5_comments": "Comments",
+      "cr0e5_developer": "Developer",
+      "cr0e5_id": "Id",
+      "cr0e5_initiatoremail": "InitiatorEmail",
+      "cr0e5_name": "App Name",
+      "cr0e5_whowilldevelopthisapp": "Who will develop this app?",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "AppRequests",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "AppRequests (Views)",
+    "Name": "_cr0e5_apprequest_views",
+    "RelatedEntityName": "AppRequests",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "1617b7ce-60b3-4f5c-adf9-7f253fe58b64": "Active AppRequests",
+      "1b533c4c-46b9-48c4-a379-bffe3d93e08c": "AppRequest Associated View",
+      "53cbffa4-4bc6-4381-adf5-0ed1e6ff9029": "Inactive AppRequests",
+      "85a427af-78a3-414a-9759-dd75297ac445": "AppRequest Advanced Find View",
+      "fc41b098-5277-4b29-a6b7-f10b24764f29": "AppRequest Lookup View"
+    }
+  },
+  {
+    "DisplayName": "ApprovalStatus (AppRequests)",
+    "Name": "cr0e5_apprequest_cr0e5_approvalstatus",
+    "OptionSetInfoNameMapping": {
+      "192120000": "Draft",
+      "192120001": "Pending",
+      "192120002": "Approved",
+      "192120003": "Denied"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr0e5_approvalstatus",
+        "OptionSetReferenceEntityName": "AppRequests"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr0e5_approvalstatus",
+    "RelatedEntityName": "AppRequests",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Who will develop this app? (AppRequests)",
+    "Name": "cr0e5_apprequest_cr0e5_whowilldevelopthisapp",
+    "OptionSetInfoNameMapping": {
+      "192120000": "I will develop the app",
+      "192120001": "Developer assisted App development",
+      "192120002": "I want COE to build the app"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr0e5_whowilldevelopthisapp",
+        "OptionSetReferenceEntityName": "AppRequests"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr0e5_whowilldevelopthisapp",
+    "RelatedEntityName": "AppRequests",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (AppRequests)",
+    "Name": "cr0e5_apprequest_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "AppRequests"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "AppRequests",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (AppRequests)",
+    "Name": "cr0e5_apprequest_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "AppRequests"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "AppRequests",
+    "Type": "OptionSetInfo"
+  }
+]

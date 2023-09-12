@@ -1,0 +1,1036 @@
+"'License Request Screen' As screen":
+    OnHidden: =Concurrent(Reset(NavComponent_DepReq_5), Set(varItemId, 0), ResetForm(Form2_5); NewForm(Form2_5));
+    OnVisible: |-
+        =UpdateContext({varLoadSpinner: true, varIsDraft: false});
+        UpdateContext({varItem: If(varItemId > 0, LookUp('License Request', ID = varItemId), Blank())});
+        ResetForm(Form2_5);
+        If(IsBlank(varItem), NewForm(Form2_5), ViewForm(Form2_5));
+        UpdateContext({varLoadSpinner: false});
+
+    Form2_5 As form:
+        DataSource: ='License Request'
+        DefaultMode: =If(!IsBlank(varItem), FormMode.View, FormMode.New)
+        Height: =Parent.Height - Self.Y - ButtonContainer_7.Height
+        Item: =varItem
+        NumberOfColumns: =1
+        OnFailure: |-
+            =Notify("Sorry something went wrong. Please try again later.", NotificationType.Error, 10000);
+            UpdateContext({varLoadSpinner: false});
+        OnSuccess: |-
+            =Concurrent(Set(varItemId, Self.LastSubmit.ID), UpdateContext({varItem: Self.LastSubmit}));
+            Notify("Data Saved Successfully", NotificationType.Success, 10000);
+            UpdateContext({varLoadSpinner: false});
+        Width: =Parent.Width - Self.X - Self.X
+        X: =Parent.Width * 0.1
+        Y: =HeaderComponent_AppReq.Y + HeaderComponent_AppReq.Height + 20
+        ZIndex: =1
+
+        Title_DataCard6 As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Title"
+            Default: =If(Parent.Mode = FormMode.New, varUserEmailLower, ThisItem.Title)
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'License Request'],DataSourceInfo.DisplayName,"Title")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@'License Request'], DataSourceInfo.MaxLength, "Title")
+            Required: =true
+            Update: =DataCardValue78.Text
+            Visible: =false
+            Width: =1092
+            X: =0
+            Y: =0
+            ZIndex: =2
+
+            DataCardKey78 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.4
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue78.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue78 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.6
+                X: =DataCardKey78.X + DataCardKey78.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage78 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue78.Y + DataCardValue78.Height
+                ZIndex: =3
+
+            StarVisible78 As label:
+                Align: =Align.Center
+                Height: =DataCardKey78.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey78.Y
+                ZIndex: =4
+
+        "'License Type_DataCard1' As typedDataCard.comboBoxEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="LicenseType"
+            Default: =ThisItem.'License Type'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'License Request'],DataSourceInfo.DisplayName,"LicenseType")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =DataCardValue79.Selected
+            Width: =Parent.Width
+            X: =0
+            Y: =1
+            ZIndex: =2
+
+            DataCardKey79 As label:
+                AutoHeight: =true
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.3
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue79.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue79 As combobox:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =1
+                DefaultSelectedItems: =Parent.Default
+                DisplayFields: =["Value"]
+                DisplayMode: =Parent.DisplayMode
+                HoverFill: =RGBA(186, 202, 226, 0)
+                InputTextPlaceholder: =If(Self.DisplayMode = DisplayMode. Edit, $"Select {Parent.DisplayName}", Blank())
+                Items: =Choices([@'License Request'].'License Type')
+                NoSelectionText: =If(Self.DisplayMode = DisplayMode. Edit, $"Select {Parent.DisplayName}", Blank())
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                SearchFields: =["Value"]
+                SearchItems: =Choices('License Request'.'License Type',DataCardValue79.SearchText)
+                SelectMultiple: =false
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.7
+                X: =DataCardKey79.X + DataCardKey79.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage79 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue79.Y + DataCardValue79.Height
+                ZIndex: =3
+
+            StarVisible79 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 0, 0, 1)
+                Height: =DataCardKey79.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey79.Y
+                ZIndex: =4
+
+        "'Start Dt of License_DataCard1' As typedDataCard.dateEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="StartDtofLicense"
+            Default: =ThisItem.'Start Dt of License'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'License Request'],DataSourceInfo.DisplayName,"StartDtofLicense")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =DataCardValue80.SelectedDate
+            Width: =Parent.Width
+            X: =0
+            Y: =2
+            ZIndex: =2
+
+            DataCardKey80 As label:
+                AutoHeight: =true
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.3
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue80.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue80 As datepicker:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =1
+                DefaultDate: =Parent.Default
+                DisplayMode: =Parent.DisplayMode
+                EndYear: =Year(Today())+100
+                Fill: =RGBA(255, 255, 255, 0)
+                InputTextPlaceholder: =If(Self.DisplayMode = DisplayMode. Edit, $"Select {Parent.DisplayName}", Blank())
+                IsEditable: =true
+                PaddingBottom: =0
+                PaddingLeft: =5
+                Size: =13
+                StartYear: =1899
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.7
+                X: =DataCardKey80.X + DataCardKey80.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage80 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue80.Y + DataCardValue80.Height
+                ZIndex: =3
+
+            StarVisible80 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 0, 0, 1)
+                Height: =DataCardKey80.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey80.Y
+                ZIndex: =4
+
+        "'End Dt of License_DataCard1' As typedDataCard.dateEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="EndDtofLicense"
+            Default: =ThisItem.'End Dt of License'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'License Request'],DataSourceInfo.DisplayName,"EndDtofLicense")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =DataCardValue81.SelectedDate
+            Width: =Parent.Width
+            X: =0
+            Y: =3
+            ZIndex: =2
+
+            DataCardKey81 As label:
+                AutoHeight: =true
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.3
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue81.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue81 As datepicker:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =1
+                DefaultDate: =Parent.Default
+                DisplayMode: =Parent.DisplayMode
+                EndYear: =Year(Today())+100
+                Fill: =RGBA(255, 255, 255, 0)
+                InputTextPlaceholder: =If(Self.DisplayMode = DisplayMode. Edit, $"Select {Parent.DisplayName}", Blank())
+                IsEditable: =true
+                PaddingBottom: =0
+                PaddingLeft: =5
+                Size: =13
+                StartYear: =1899
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.7
+                X: =DataCardKey81.X + DataCardKey81.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage81 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue81.Y + DataCardValue81.Height
+                ZIndex: =3
+
+            StarVisible81 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 0, 0, 1)
+                Height: =DataCardKey81.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey81.Y
+                ZIndex: =4
+
+        "'Total Users_DataCard1' As typedDataCard.numberEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="TotalUsers"
+            Default: =ThisItem.'Total Users'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'License Request'],DataSourceInfo.DisplayName,"TotalUsers")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =Value(DataCardValue82.Text)
+            Width: =Parent.Width
+            X: =0
+            Y: =4
+            ZIndex: =2
+
+            DataCardKey82 As label:
+                AutoHeight: =true
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.3
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue82.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue82 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =1
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Format: =TextFormat.Number
+                HintText: =If(Self.DisplayMode = DisplayMode. Edit, $"Enter {Parent.DisplayName}", Blank())
+                HoverFill: =RGBA(186, 202, 226, 0)
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.7
+                X: =DataCardKey82.X + DataCardKey82.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage82 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue82.Y + DataCardValue82.Height
+                ZIndex: =3
+
+            StarVisible82 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 0, 0, 1)
+                Height: =DataCardKey82.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey82.Y
+                ZIndex: =4
+
+        "'Email of Individual Users_DataCard1' As typedDataCard.textualEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="EmailofIndividualUsers"
+            Default: =ThisItem.'Email of Individual Users'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'License Request'],DataSourceInfo.DisplayName,"EmailofIndividualUsers")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@'License Request'], DataSourceInfo.MaxLength, "EmailofIndividualUsers")
+            Required: =true
+            Update: =DataCardValue83.Text
+            Width: =Parent.Width
+            X: =0
+            Y: =5
+            ZIndex: =2
+
+            DataCardKey83 As label:
+                AutoHeight: =true
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.3
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue83.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue83 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =1
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                HintText: =If(Self.DisplayMode = DisplayMode. Edit, $"Enter {Parent.DisplayName}", Blank())
+                HoverFill: =RGBA(186, 202, 226, 0)
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.7
+                X: =DataCardKey83.X + DataCardKey83.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage83 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue83.Y + DataCardValue83.Height
+                ZIndex: =3
+
+            StarVisible83 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 0, 0, 1)
+                Height: =DataCardKey83.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey83.Y
+                ZIndex: =4
+
+        "'Creation Dt_DataCard6' As typedDataCard.dateEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="CreationDt"
+            Default: =If(Parent.Mode = FormMode.New, Today(), ThisItem.'Creation Dt')
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'License Request'],DataSourceInfo.DisplayName,"CreationDt")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: =DataCardValue84.SelectedDate
+            Visible: =false
+            Width: =1092
+            X: =0
+            Y: =6
+            ZIndex: =2
+
+            DataCardKey84 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.4
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue84.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue84 As datepicker:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DefaultDate: =Parent.Default
+                DisplayMode: =Parent.DisplayMode
+                EndYear: =Year(Today())+100
+                IsEditable: =true
+                PaddingBottom: =0
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                StartYear: =1899
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.6
+                X: =DataCardKey84.X + DataCardKey84.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage84 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue84.Y + DataCardValue84.Height
+                ZIndex: =3
+
+            StarVisible84 As label:
+                Align: =Align.Center
+                Height: =DataCardKey84.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey84.Y
+                ZIndex: =4
+
+        "'Resolved by_DataCard4' As typedDataCard.textualEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Resolvedby"
+            Default: =ThisItem.'Resolved by'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'License Request'],DataSourceInfo.DisplayName,"Resolvedby")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@'License Request'], DataSourceInfo.MaxLength, "Resolvedby")
+            Required: =false
+            Update: =DataCardValue85.Text
+            Visible: =false
+            Width: =Parent.Width
+            X: =0
+            Y: =7
+            ZIndex: =2
+
+            DataCardKey85 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.4
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue85.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue85 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.6
+                X: =DataCardKey85.X + DataCardKey85.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage85 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue85.Y + DataCardValue85.Height
+                ZIndex: =3
+
+            StarVisible85 As label:
+                Align: =Align.Center
+                Height: =DataCardKey85.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey85.Y
+                ZIndex: =4
+
+        "'Ticket Status_DataCard6' As typedDataCard.textualEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="TicketStatus"
+            Default: =If(ThisItem.'Ticket Status' <> "Completed", "Open", ThisItem.'Ticket Status')
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'License Request'],DataSourceInfo.DisplayName,"TicketStatus")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@'License Request'], DataSourceInfo.MaxLength, "TicketStatus")
+            Required: =false
+            Update: =DataCardValue86.Text
+            Visible: =Parent.Mode = FormMode.View
+            Width: =1092
+            X: =0
+            Y: =8
+            ZIndex: =2
+
+            DataCardKey86 As label:
+                AutoHeight: =true
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.3
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue86.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue86 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =1
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.7
+                X: =DataCardKey86.X + DataCardKey86.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage86 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue86.Y + DataCardValue86.Height
+                ZIndex: =3
+
+            StarVisible86 As label:
+                Align: =Align.Center
+                Height: =DataCardKey86.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey86.Y
+                ZIndex: =4
+
+        "'Ticket SLA_DataCard6' As typedDataCard.numberEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="TicketSLA"
+            Default: =ThisItem.'Ticket SLA'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'License Request'],DataSourceInfo.DisplayName,"TicketSLA")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: =Value(DataCardValue87.Text)
+            Visible: =false
+            Width: =1092
+            X: =0
+            Y: =9
+            ZIndex: =2
+
+            DataCardKey87 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.4
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue87.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue87 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Format: =TextFormat.Number
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.6
+                X: =DataCardKey87.X + DataCardKey87.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage87 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue87.Y + DataCardValue87.Height
+                ZIndex: =3
+
+            StarVisible87 As label:
+                Align: =Align.Center
+                Height: =DataCardKey87.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey87.Y
+                ZIndex: =4
+
+        Attachments_DataCard8 As typedDataCard.attachmentsEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="{Attachments}"
+            Default: =ThisItem.Attachments
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'License Request'],DataSourceInfo.DisplayName,"{Attachments}")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: =DataCardValue88.Attachments
+            Width: =Parent.Width
+            X: =0
+            Y: =10
+            ZIndex: =2
+
+            DataCardKey88 As label:
+                AutoHeight: =true
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.3
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue88.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue88 As attachments:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =1
+                DisplayMode: =Parent.DisplayMode
+                DropTargetBorderThickness: =1
+                Height: =150
+                IsInDataCard: =true
+                Items: =Parent.Default
+                PaddingBottom: =5
+                PaddingLeft: =5
+                PaddingRight: =5
+                PaddingTop: =5
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.7
+                X: =DataCardKey88.X + DataCardKey88.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage88 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue88.Y + DataCardValue88.Height
+                ZIndex: =3
+
+            StarVisible88 As label:
+                Align: =Align.Center
+                Height: =DataCardKey88.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey88.Y
+                ZIndex: =4
+
+    ButtonContainer_7 As groupContainer.manualLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =140
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =HeaderComponent_AppReq.Width
+        X: =HeaderComponent_DepReq_5.X
+        Y: =Form2_5.Y + Form2_5.Height
+        ZIndex: =2
+
+        btnDraft_7 As button:
+            BorderColor: =btnTemplate.BorderColor
+            BorderStyle: =btnTemplate.BorderStyle
+            BorderThickness: =btnTemplate.BorderThickness
+            Color: =btnTemplate.Color
+            DisabledBorderColor: =btnTemplate.DisabledBorderColor
+            DisabledColor: =btnTemplate.DisabledBorderColor
+            DisabledFill: =btnTemplate.DisabledFill
+            Fill: =btnTemplate.Fill
+            FocusedBorderColor: =btnTemplate.FocusedBorderColor
+            FocusedBorderThickness: =btnTemplate.FocusedBorderThickness
+            Font: =btnTemplate.Font
+            FontWeight: =btnTemplate.FontWeight
+            HoverBorderColor: =btnTemplate.HoverBorderColor
+            HoverColor: =btnTemplate.HoverColor
+            HoverFill: =btnTemplate.HoverFill
+            OnSelect: |-
+                =UpdateContext({varIsDraft: true, varLoadSpinner: true}); 
+                SubmitForm(Form2_5);
+            PressedBorderColor: =btnTemplate.PressedBorderColor
+            PressedColor: =btnTemplate.PressedColor
+            PressedFill: =btnTemplate.PressedFill
+            RadiusBottomLeft: =btnTemplate.RadiusBottomLeft
+            RadiusBottomRight: =btnTemplate.RadiusBottomRight
+            RadiusTopLeft: =btnTemplate.RadiusTopLeft
+            RadiusTopRight: =btnTemplate.RadiusTopRight
+            Size: =btnTemplate.Size
+            Text: ="Draft"
+            Visible: =IsBlank(varItem)
+            Width: =If(Self.Visible, 120, 0)
+            X: =btnSubmit_7.X - Self.Width - 20
+            Y: =btnCancelReset_7.Y
+            ZIndex: =3
+
+        icnCreateNew_7 As icon.Add:
+            Height: =icnDelete_7.Height
+            Icon: =Icon.Add
+            OnSelect: |-
+                =Concurrent(UpdateContext({varItem: Blank()}), Set(varItemId, 0));
+                ResetForm(Form2_5); NewForm(Form2_5);
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            Tooltip: ="Create New Request"
+            Visible: =!IsBlank(varItem)
+            Width: =Self.Height
+            X: =icnDelete_7.X - Self.Width - 20
+            Y: =icnDelete_7.Y
+            ZIndex: =4
+
+        icnDelete_7 As icon.Trash:
+            Color: =RGBA(184, 0, 0, 1)
+            Height: =btnDraft_7.Height
+            Icon: =Icon.Trash
+            OnSelect: |-
+                =UpdateContext({varShowDeletePopup: true});
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            Tooltip: ="Delete Request"
+            Visible: =!IsBlank(varItem)
+            Width: =icnCreateNew_7.Width
+            X: =btnDraft_7.X - Self.Width - 20
+            Y: =btnDraft_7.Y
+            ZIndex: =5
+
+        btnCancelReset_7 As button:
+            BorderColor: =btnTemplate.BorderColor
+            BorderStyle: =btnTemplate.BorderStyle
+            BorderThickness: =btnTemplate.BorderThickness
+            Color: =btnTemplate.Color
+            DisabledBorderColor: =btnTemplate.DisabledBorderColor
+            DisabledColor: =btnTemplate.DisabledBorderColor
+            DisabledFill: =btnTemplate.DisabledFill
+            Fill: =btnTemplate.Fill
+            FocusedBorderColor: =btnTemplate.FocusedBorderColor
+            FocusedBorderThickness: =btnTemplate.FocusedBorderThickness
+            Font: =btnTemplate.Font
+            FontWeight: =btnTemplate.FontWeight
+            HoverBorderColor: =btnTemplate.HoverBorderColor
+            HoverColor: =btnTemplate.HoverColor
+            HoverFill: =btnTemplate.HoverFill
+            OnSelect: =If(Self.Text = "Reset", ResetForm(Form2_5), If(Self.Text = "Cancel", ViewForm(Form2_5), Back()));
+            PressedBorderColor: =btnTemplate.PressedBorderColor
+            PressedColor: =btnTemplate.PressedColor
+            PressedFill: =btnTemplate.PressedFill
+            RadiusBottomLeft: =btnTemplate.RadiusBottomLeft
+            RadiusBottomRight: =btnTemplate.RadiusBottomRight
+            RadiusTopLeft: =btnTemplate.RadiusTopLeft
+            RadiusTopRight: =btnTemplate.RadiusTopRight
+            Size: =btnTemplate.Size
+            Text: =If(Form2_5.Mode = FormMode.Edit, "Cancel", If(Form_AppReq.Mode = FormMode.New, "Reset", "Back"))
+            Width: =120
+            X: =Form2_5.X + Form2_5.Width - Self.Width - 30
+            Y: =10
+            ZIndex: =6
+
+        btnSubmit_7 As button:
+            BorderColor: =btnTemplate.BorderColor
+            BorderStyle: =btnTemplate.BorderStyle
+            BorderThickness: =btnTemplate.BorderThickness
+            Color: =btnTemplate.Color
+            DisabledBorderColor: =btnTemplate.DisabledBorderColor
+            DisabledColor: =btnTemplate.DisabledBorderColor
+            DisabledFill: =btnTemplate.DisabledFill
+            Fill: =btnTemplate.Fill
+            FocusedBorderColor: =btnTemplate.FocusedBorderColor
+            FocusedBorderThickness: =btnTemplate.FocusedBorderThickness
+            Font: =btnTemplate.Font
+            FontWeight: =btnTemplate.FontWeight
+            HoverBorderColor: =btnTemplate.HoverBorderColor
+            HoverColor: =btnTemplate.HoverColor
+            HoverFill: =btnTemplate.HoverFill
+            OnSelect: |-
+                =If(Form2_5.Mode = FormMode.View, EditForm(Form2_5), 
+                    UpdateContext({varIsDraft: false, varLoadSpinner: true}); SubmitForm(Form2_5)
+                );
+            PressedBorderColor: =btnTemplate.PressedBorderColor
+            PressedColor: =btnTemplate.PressedColor
+            PressedFill: =btnTemplate.PressedFill
+            RadiusBottomLeft: =btnTemplate.RadiusBottomLeft
+            RadiusBottomRight: =btnTemplate.RadiusBottomRight
+            RadiusTopLeft: =btnTemplate.RadiusTopLeft
+            RadiusTopRight: =btnTemplate.RadiusTopRight
+            Size: =btnTemplate.Size
+            Text: =If(Form2_5.Mode = FormMode.View, "Edit",  "Submit")
+            Width: =120
+            X: =btnCancelReset_7.X - Self.Width - 20
+            Y: =btnCancelReset_7.Y
+            ZIndex: =7
+
+    DeletePopupContainer_6 As groupContainer.manualLayoutContainer:
+        BorderColor: =RGBA(0, 0, 0, 0)
+        DropShadow: =DropShadow.None
+        Fill: =SpinnerComponent_AppReq.Fill
+        Height: =Parent.Height - Self.Y
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Visible: =varShowDeletePopup
+        Width: =Parent.Width - Self.X - Self.X
+        X: =HeaderComponent_AppReq.X
+        Y: =HeaderComponent_AppReq.Y + HeaderComponent_AppReq.Height
+        ZIndex: =3
+
+        lblDeleteMsg_AppReq_6 As label:
+            Fill: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =120
+            PaddingBottom: =Self.PaddingTop
+            PaddingLeft: =Self.PaddingTop
+            PaddingRight: =Self.PaddingLeft
+            PaddingTop: =20
+            Size: =14
+            Text: |-
+                ="Are you sure to Delete Request: "& varItemId&"?"
+            VerticalAlign: =VerticalAlign.Top
+            Width: =390
+            X: =(Parent.Width - Self.Width) * 0.5
+            Y: =(Parent.Height - Parent.Y - Self.Height) * 0.5
+            ZIndex: =1
+
+        btnConfirmDelete_AppReq_6 As button:
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Fill: =RGBA(54, 176, 75, 1)
+            OnSelect: |-
+                =UpdateContext({varLoadSpinner: true});
+                RemoveIf('License Request', ID = varItemId);
+                Concurrent(UpdateContext({varItem: Blank()}), Set(varItemId, 0));
+                ResetForm(Form2_5); NewForm(Form2_5);
+                Select(btnCancelDelete_AppReq_6);
+                UpdateContext({varLoadSpinner: false});
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =14
+            Text: ="Yes"
+            Width: =80
+            X: =lblDeleteMsg_AppReq_6.X + (lblDeleteMsg_AppReq_6.Width - Self.Width - btnConfirmDelete_AppReq_6.Width - 20) * 0.5
+            Y: =lblDeleteMsg_AppReq_6.Y + lblDeleteMsg_AppReq_6.Height - Self.Height - lblDeleteMsg_AppReq_6.PaddingBottom
+            ZIndex: =2
+
+        btnCancelDelete_AppReq_6 As button:
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Fill: =RGBA(118, 0, 0, 1)
+            Height: =btnConfirmDelete_AppReq_6.Height
+            OnSelect: |-
+                =UpdateContext({varShowDeletePopup: false});
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =14
+            Text: ="No"
+            Width: =80
+            X: =btnConfirmDelete_AppReq_6.X + btnConfirmDelete_AppReq_6.Width + 20
+            Y: =btnConfirmDelete_AppReq_6.Y
+            ZIndex: =3
+
+    HeaderComponent_DepReq_5 As HeaderComponent:
+        BackgroundColor: =lblHeader.Fill
+        FontColor: =lblHeader.Color
+        LogoImage: =Picture1
+        LogoLeftPosition: =NavComponent_DepReq_5.MinHeight
+        Text: |-
+            =LookUp(colNavItems, Screen = App.ActiveScreen).Title & If(varItemId > 0, $": {varItemId}", Blank())
+        ZIndex: =4
+
+    SpinnerComponent_DepReq_5 As SpinnerComponent:
+        Height: =Parent.Height - Self.Y
+        Visible: =varLoadSpinner
+        Width: =Parent.Width - Self.X
+        ZIndex: =5
+
+    NavComponent_DepReq_5 As NavComponent:
+        IconColor: =lblHeader.Color
+        NavigationItemsColor: =lblHeader.Color
+        NavigationItemsFill: =lblHeader.Fill
+        ZIndex: =6
+

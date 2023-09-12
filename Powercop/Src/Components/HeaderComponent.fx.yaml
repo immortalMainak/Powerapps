@@ -1,0 +1,53 @@
+HeaderComponent As CanvasComponent:
+    BackgroundColor: =RGBA(255, 255, 255, 1)
+    Fill: =RGBA(0, 0, 0, 0)
+    FontColor: =RGBA(0, 0, 0, 1)
+    Height: =70
+    LogoImage: =SampleImage
+    LogoLeftPosition: =80
+    Text: =""
+    Width: =App.Width
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    lblHeadTitle As label:
+        Align: =Align.Center
+        Color: =Parent.FontColor
+        Fill: =Parent.BackgroundColor
+        FontWeight: =FontWeight.Bold
+        Height: |-
+            =//imgLogoHead.Height
+            Parent.Height
+        Size: =18
+        Text: =Parent.Text
+        Width: =Parent.Width
+        ZIndex: =1
+
+    imgLogoHead As image:
+        Height: =Parent.Height - Self.Y*2
+        Image: =AppLogo
+        PaddingBottom: =Self.PaddingTop
+        PaddingLeft: =Self.PaddingTop
+        PaddingRight: =Self.PaddingLeft
+        PaddingTop: =5
+        Width: =Self.Height * 5
+        X: =Parent.LogoLeftPosition
+        Y: =10
+        ZIndex: =2
+
+    imgAppLogo As image:
+        Height: =Parent.Height - Self.Y*2
+        Image: =Parent.LogoImage
+        Width: =220
+        X: =Parent.Width - Self.Width - Self.Y
+        Y: =10
+        ZIndex: =3
+
+    Rectangle1 As rectangle:
+        Fill: =lblHeadTitle.Color
+        Height: =2
+        Width: =Parent.Width - Self.X * 2
+        Y: =Parent.Height - Self.Height
+        ZIndex: =4
+

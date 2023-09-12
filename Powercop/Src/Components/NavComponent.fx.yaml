@@ -1,0 +1,83 @@
+NavComponent As CanvasComponent:
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =If(!Self.NavClicked || IsBlank(Self.NavClicked), Self.MinHeight, Self.MaxHeight)
+    IconColor: =RGBA(0, 0, 0, 1)
+    IconFill: =RGBA(0, 0, 0, 0)
+    MaxHeight: =App.Height - Self.Y
+    MinHeight: =70
+    NavClicked: =varNavClicked
+    NavigationItems: =colNavItems
+    NavigationItemsColor: =RGBA(0, 0, 0, 1)
+    NavigationItemsFill: =RGBA(0, 0, 0, 0)
+    OnReset: =Set(varNavClicked, false)
+    Width: =If(!Self.NavClicked || IsBlank(Self.NavClicked), Self.Height, 350)
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    icnMenu As icon.Hamburger:
+        Color: =RGBA(0, 0, 0, 1)
+        Height: =70
+        Icon: =If(!varNavClicked || IsBlank(varNavClicked), Icon.Hamburger, Icon.Cancel)
+        OnSelect: =Set(varNavClicked, !varNavClicked)
+        PaddingLeft: =20
+        PaddingRight: =5
+        Tooltip: =Concatenate(If(!varNavClicked || IsBlank(varNavClicked), "Expand", "Collapse"), " Navigation Menu")
+        Width: =70
+        ZIndex: =1
+
+    galNavItems As gallery.galleryVertical:
+        BorderThickness: =2
+        DelayItemLoading: =true
+        Fill: =Parent.NavigationItemsFill
+        Height: =Parent.Height - Self.Y
+        Items: =Filter(Parent.NavigationItems, HasAccess, Screen <> App.ActiveScreen, ShowInNavigation)
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplatePadding: =0
+        TemplateSize: =icnMenu.Height
+        Visible: =varNavClicked && !IsBlank(varNavClicked)
+        Width: =Parent.Width
+        Y: =icnMenu.Y + icnMenu.Height - Self.BorderThickness*0.5
+        ZIndex: =1
+
+        btnNavItem As button:
+            Align: =Align.Left
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Color: =NavComponent.NavigationItemsColor
+            Fill: =NavComponent.NavigationItemsFill
+            Height: =Parent.TemplateHeight
+            HoverBorderColor: =ColorFade(Self.Fill, 20%)
+            HoverColor: =ColorFade(Self.Color, -20%)
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: =If(!IsBlank(ThisItem.Screen), Navigate(ThisItem.Screen, ScreenTransition.UnCoverRight))
+            PaddingBottom: =Self.PaddingTop
+            PaddingLeft: =icnNavItem.Width
+            PaddingRight: =Self.PaddingTop
+            PaddingTop: =icnNavItem.PaddingTop
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =13
+            Text: =ThisItem.Title
+            Tooltip: =Self.Text
+            Width: =Parent.TemplateWidth
+            ZIndex: =1
+
+        icnNavItem As icon.Add:
+            Color: =btnNavItem.Color
+            FocusedBorderThickness: =0
+            Height: =btnNavItem.Height
+            Icon: =ThisItem.Icon
+            OnSelect: =Select(btnNavItem)
+            PaddingBottom: =Self.PaddingTop
+            PaddingLeft: =icnMenu.PaddingLeft
+            PaddingRight: =Self.PaddingLeft
+            PaddingTop: =icnMenu.PaddingLeft
+            Width: =Self.Height
+            X: =btnNavItem.X
+            Y: =btnNavItem.Y
+            ZIndex: =2
+

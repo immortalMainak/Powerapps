@@ -1,0 +1,404 @@
+"'All Apps Screen' As screen":
+    OnHidden: =Reset(NavComponent_AllApps);
+    OnVisible: |-
+        =UpdateContext({varLoadSpinner: true, varFilterPopup: false});
+        ClearCollect(colAllApps, AddColumns(PowerAppsforAdmins.GetAdminApps("a06474a2-552e-ea8b-9713-9211843f7b18").value, "AppName", properties.displayName, "CreatedBy", properties.createdBy, "CreatedByName", properties.createdBy.displayName, "CreatedByEmail", properties.createdBy.email, "CreatedDate", properties.createdTime, "Connections", Concat(properties.connectionReferences, displayName, ";")));
+        UpdateContext({varLoadSpinner: false});
+
+    Gallery_AllApps As gallery.galleryVertical:
+        BorderColor: =lblGalleryContent.BorderColor
+        BorderStyle: =lblGalleryContent.BorderStyle
+        BorderThickness: =lblGalleryContent.BorderThickness
+        DelayItemLoading: =true
+        Height: |-
+            =With({varMaxHeight: Parent.Height - Self.Y, varMinHeight: Self.TemplateHeight, varTotalHeight: Self.AllItemsCount * Self.TemplateHeight}, If(varTotalHeight > varMaxHeight, varMaxHeight, If(varTotalHeight > varMinHeight, varTotalHeight, varMinHeight)))
+        Items: =Search(Filter(colAllApps, IsBlank(cmbFilterRequestor_AllApps.SelectedItems) || IsEmpty(cmbFilterRequestor_AllApps.SelectedItems) || Lower(CreatedByEmail) in Lower(cmbFilterRequestor_AllApps.SelectedItems.Mail), IsBlank(dteFilterStartDate_AllApps.SelectedDate) || DateValue(CreatedDate) >= dteFilterStartDate_AllApps.SelectedDate, IsBlank(dteFilterEndDate_AllApps.SelectedDate) || DateValue(CreatedDate) >= dteFilterEndDate_AllApps.SelectedDate), txtSearch_AllApps.Text, "CreatedByEmail", "CreatedByName", "AppName", "Connections")
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplatePadding: =0
+        TemplateSize: =50
+        Width: =HeadContainer_AllApps.Width
+        X: =HeadContainer_AllApps.X
+        Y: =HeadContainer_AllApps.Y + HeadContainer_AllApps.Height
+        ZIndex: =1
+
+        lblBodyAppName_AllApps As label:
+            Align: =lblGalleryContent.Align
+            BorderColor: =lblGalleryContent.BorderColor
+            BorderStyle: =lblGalleryContent.BorderStyle
+            BorderThickness: =lblGalleryContent.BorderThickness
+            Color: =lblGalleryContent.Color
+            Font: =lblGalleryContent.Font
+            FontWeight: =lblGalleryContent.FontWeight
+            Height: =Parent.TemplateHeight
+            OnSelect: =Select(Parent)
+            PaddingRight: =icnLaunchApp_AllApps.Width
+            Size: =lblGalleryContent.Size
+            Text: =ThisItem.AppName
+            Tooltip: =Self.Text
+            VerticalAlign: =lblGalleryContent.VerticalAlign
+            Width: =lblHeadAppName_AllApps.Width
+            Wrap: =false
+            X: =Self.BorderThickness
+            ZIndex: =2
+
+        lblBodyCreator_AllApps As label:
+            Align: =Align.Center
+            BorderColor: =lblGalleryContent.BorderColor
+            BorderStyle: =lblGalleryContent.BorderStyle
+            BorderThickness: =lblGalleryContent.BorderThickness
+            Color: =lblGalleryContent.Color
+            Font: =lblGalleryContent.Font
+            FontWeight: =lblGalleryContent.FontWeight
+            Height: =Parent.TemplateHeight
+            OnSelect: =Select(Parent)
+            Size: =lblGalleryContent.Size
+            Text: =ThisItem.CreatedByName
+            Tooltip: =Self.Text
+            VerticalAlign: =lblGalleryContent.VerticalAlign
+            Width: =lblHeadCreator_AllApps.Width
+            Wrap: =false
+            X: =lblBodyAppName_AllApps.X + lblBodyAppName_AllApps.Width
+            ZIndex: =3
+
+        lblBodyCreatedDate_AllApps As label:
+            Align: =Align.Center
+            BorderColor: =lblGalleryContent.BorderColor
+            BorderStyle: =lblGalleryContent.BorderStyle
+            BorderThickness: =lblGalleryContent.BorderThickness
+            Color: =lblGalleryContent.Color
+            Font: =lblGalleryContent.Font
+            FontWeight: =lblGalleryContent.FontWeight
+            Height: =Parent.TemplateHeight
+            OnSelect: =Select(Parent)
+            Size: =lblGalleryContent.Size
+            Text: =ThisItem.CreatedDate
+            Tooltip: =Self.Text
+            VerticalAlign: =lblGalleryContent.VerticalAlign
+            Width: =lblHeadCreatedDate_AllApps.Width
+            Wrap: =false
+            X: =lblBodyCreator_AllApps.X + lblBodyCreator_AllApps.Width
+            ZIndex: =4
+
+        lblBodyConnections_AllApps As label:
+            Align: =lblGalleryContent.Align
+            BorderColor: =lblGalleryContent.BorderColor
+            BorderStyle: =lblGalleryContent.BorderStyle
+            BorderThickness: =lblGalleryContent.BorderThickness
+            Color: =lblGalleryContent.Color
+            Font: =lblGalleryContent.Font
+            FontWeight: =lblGalleryContent.FontWeight
+            Height: =Parent.TemplateHeight
+            OnSelect: =Select(Parent)
+            Size: =lblGalleryContent.Size
+            Text: =ThisItem.Connections
+            Tooltip: =Self.Text
+            VerticalAlign: =lblGalleryContent.VerticalAlign
+            Width: =lblHeadConnections_AllApps.Width
+            Wrap: =false
+            X: =lblBodyCreatedDate_AllApps.X + lblBodyCreatedDate_AllApps.Width
+            ZIndex: =5
+
+        icnLaunchApp_AllApps As icon.OpenInNewWindow:
+            Color: =lblBodyAppName_AllApps.Color
+            Height: =40
+            Icon: =Icon.OpenInNewWindow
+            OnSelect: |-
+                =Select(Parent);
+                Launch(ThisItem.properties.appOpenUri, {}, LaunchTarget.New);
+            PaddingBottom: =Self.PaddingTop
+            PaddingLeft: =Self.PaddingTop
+            PaddingRight: =Self.PaddingLeft
+            PaddingTop: =5
+            Tooltip: ="Open App in New Window"
+            Width: =Self.Height
+            X: =lblBodyAppName_AllApps.X + lblBodyAppName_AllApps.Width - Self.Width - lblBodyAppName_AllApps.BorderThickness
+            Y: =lblBodyAppName_AllApps.Y + (lblBodyAppName_AllApps.Height - Self.Height) * 0.5
+            ZIndex: =6
+
+    HeadContainer_AllApps As groupContainer.horizontalAutoLayoutContainer:
+        BorderColor: =lblGalleryHead.BorderColor
+        BorderStyle: =lblGalleryHead.BorderStyle
+        BorderThickness: =lblGalleryHead.BorderThickness
+        DropShadow: =DropShadow.None
+        Height: =50
+        LayoutMode: =LayoutMode.Auto
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Parent.Width - Self.X - Self.X
+        X: =HeaderComponent_AllApps.X + Self.BorderThickness
+        Y: =icnFilter_AllApps.Y + icnFilter_AllApps.Height + 10
+        ZIndex: =2
+
+        lblHeadAppName_AllApps As label:
+            Align: =lblGalleryHead.Align
+            BorderColor: =lblGalleryHead.BorderColor
+            BorderStyle: =lblGalleryHead.BorderStyle
+            BorderThickness: =lblGalleryHead.BorderThickness
+            Color: =lblGalleryHead.Color
+            Fill: =lblGalleryHead.Fill
+            Font: =lblGalleryHead.Font
+            FontWeight: =lblGalleryHead.FontWeight
+            Height: =Parent.Height
+            Size: =lblGalleryHead.Size
+            Text: ="App Name"
+            Tooltip: =Self.Text
+            VerticalAlign: =lblGalleryHead.VerticalAlign
+            Width: =Parent.Width * 0.35
+            Wrap: =false
+            ZIndex: =2
+
+        lblHeadCreator_AllApps As label:
+            Align: =lblGalleryHead.Align
+            BorderColor: =lblGalleryHead.BorderColor
+            BorderStyle: =lblGalleryHead.BorderStyle
+            BorderThickness: =lblGalleryHead.BorderThickness
+            Color: =lblGalleryHead.Color
+            Fill: =lblGalleryHead.Fill
+            Font: =lblGalleryHead.Font
+            FontWeight: =lblGalleryHead.FontWeight
+            Height: =Parent.Height
+            Size: =lblGalleryHead.Size
+            Text: ="App Created By"
+            Tooltip: =Self.Text
+            VerticalAlign: =lblGalleryHead.VerticalAlign
+            Width: =Parent.Width * 0.22
+            Wrap: =false
+            ZIndex: =3
+
+        lblHeadCreatedDate_AllApps As label:
+            Align: =lblGalleryHead.Align
+            BorderColor: =lblGalleryHead.BorderColor
+            BorderStyle: =lblGalleryHead.BorderStyle
+            BorderThickness: =lblGalleryHead.BorderThickness
+            Color: =lblGalleryHead.Color
+            Fill: =lblGalleryHead.Fill
+            Font: =lblGalleryHead.Font
+            FontWeight: =lblGalleryHead.FontWeight
+            Height: =Parent.Height
+            Size: =lblGalleryHead.Size
+            Text: ="App Created Date"
+            Tooltip: =Self.Text
+            VerticalAlign: =lblGalleryHead.VerticalAlign
+            Width: =Parent.Width * 0.13
+            Wrap: =false
+            ZIndex: =4
+
+        lblHeadConnections_AllApps As label:
+            Align: =lblGalleryHead.Align
+            BorderColor: =lblGalleryHead.BorderColor
+            BorderStyle: =lblGalleryHead.BorderStyle
+            BorderThickness: =lblGalleryHead.BorderThickness
+            Color: =lblGalleryHead.Color
+            Fill: =lblGalleryHead.Fill
+            Font: =lblGalleryHead.Font
+            FontWeight: =lblGalleryHead.FontWeight
+            Height: =Parent.Height
+            Size: =lblGalleryHead.Size
+            Text: ="App Connections"
+            Tooltip: =Self.Text
+            VerticalAlign: =lblGalleryHead.VerticalAlign
+            Width: =Parent.Width * 0.3
+            Wrap: =false
+            ZIndex: =5
+
+    HeaderComponent_AllApps As HeaderComponent:
+        BackgroundColor: =lblHeader.Fill
+        FontColor: =lblHeader.Color
+        LogoImage: =Picture1
+        LogoLeftPosition: =NavComponent_AllApps.MinHeight
+        Text: ="All Apps"
+        ZIndex: =8
+
+    SpinnerComponent_AllApps As SpinnerComponent:
+        Height: =Parent.Height - Self.Y
+        Visible: =varLoadSpinner
+        Width: =Parent.Width - Self.X
+        ZIndex: =9
+
+    NavComponent_AllApps As NavComponent:
+        IconColor: =lblHeader.Color
+        NavigationItemsColor: =lblHeader.Color
+        NavigationItemsFill: =lblHeader.Fill
+        ZIndex: =10
+
+    AccessDeniedComponent_AllApps As AccessDeniedComponent:
+        Height: =Parent.Height - Self.Y
+        Visible: =!LookUp(colNavItems, Screen = App.ActiveScreen).HasAccess
+        Width: =Parent.Width
+        Y: =HeaderComponent_AllApps.Y + HeaderComponent_CReview.Height
+        ZIndex: =11
+
+    FilterContainerGrp_AppApps As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =11
+
+        icnFilter_AllApps As icon.FilterFlat:
+            Height: =40
+            Icon: =If(varFilterPopup, Icon.Cancel, Icon.FilterFlat)
+            OnSelect: |-
+                =UpdateContext({varFilterPopup: !varFilterPopup});
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            Tooltip: =If(varFilterPopup, "Close Filter", "Filter")
+            Width: =Self.Height
+            X: =5
+            Y: =HeaderComponent_AllApps.Y + HeaderComponent_AllApps.Height + 20
+            ZIndex: =3
+
+        lblSearch_AllApps As label:
+            Font: =lblGalleryContent.Font
+            FontWeight: =FontWeight.Semibold
+            Size: =lblGalleryContent.Size
+            Text: ="Search"
+            Width: =70
+            X: =icnFilter_AllApps.X + icnFilter_AllApps.Width + 20
+            Y: =icnFilter_AllApps.Y + (icnFilter_AllApps.Height - Self.Height) * 0.5
+            ZIndex: =4
+
+        txtSearch_AllApps As text:
+            BorderColor: =lblGalleryContent.BorderColor
+            BorderStyle: =lblGalleryContent.BorderStyle
+            Clear: =true
+            Default: =""
+            Height: =lblSearch_AllApps.Height
+            HintText: ="Enter Search Text"
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =lblGalleryContent.Size
+            Width: =300
+            X: =lblSearch_AllApps.X + lblSearch_AllApps.Width
+            Y: =lblSearch_AllApps.Y
+            ZIndex: =5
+
+        FilterContainer_AllApps As groupContainer.manualLayoutContainer:
+            BorderThickness: =1
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =Parent.Height - Self.Y - Self.BorderThickness
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Visible: =varFilterPopup
+            Width: =Parent.Width * 0.8
+            X: =Self.BorderThickness
+            Y: =icnFilter_AllApps.Y + icnFilter_AllApps.Height
+            ZIndex: =6
+
+            lblFilterStartDate_AllApps As label:
+                FontWeight: =FontWeight.Semibold
+                Text: ="Start Date"
+                Width: =160
+                X: =20
+                Y: =20
+                ZIndex: =1
+
+            dteFilterStartDate_AllApps As datepicker:
+                BorderColor: =txtSearch_AllApps.BorderColor
+                BorderStyle: =txtSearch_AllApps.BorderStyle
+                BorderThickness: =txtSearch_AllApps.BorderThickness
+                DefaultDate: =
+                InputTextPlaceholder: =If(IsBlank(Self.SelectedDate), $"Enter {lblFilterStartDate_AllApps.Text}")
+                PaddingTop: =2
+                Reset: =true
+                Size: =13
+                Width: =Parent.Width - Self.X - Self.X
+                X: =lblFilterStartDate_AllApps.X
+                Y: =lblFilterStartDate_AllApps.Y + lblFilterStartDate_AllApps.Height + 10
+                ZIndex: =2
+
+            lblFilterEndDate_AllApps As label:
+                FontWeight: =FontWeight.Semibold
+                Text: ="End Date"
+                Width: =lblFilterStartDate_AllApps.Width
+                X: =lblFilterStartDate_AllApps.X
+                Y: =dteFilterStartDate_AllApps.Y + dteFilterStartDate_AllApps.Height + 20
+                ZIndex: =3
+
+            dteFilterEndDate_AllApps As datepicker:
+                BorderColor: =txtSearch_AllApps.BorderColor
+                BorderStyle: =txtSearch_AllApps.BorderStyle
+                BorderThickness: =txtSearch_AllApps.BorderThickness
+                DefaultDate: =
+                InputTextPlaceholder: =If(IsBlank(Self.SelectedDate), $"Enter {lblFilterEndDate_AllApps.Text}")
+                PaddingTop: =2
+                Reset: =true
+                Size: =13
+                Width: =dteFilterStartDate_AllApps.Width
+                X: =lblFilterEndDate_AllApps.X
+                Y: =lblFilterEndDate_AllApps.Y + lblFilterEndDate_AllApps.Height + 10
+                ZIndex: =4
+
+            lblFilterRequestorName_AllApps As label:
+                FontWeight: =FontWeight.Semibold
+                Text: ="Creator"
+                Width: =lblFilterStartDate_AllApps.Width
+                X: =lblFilterStartDate_AllApps.X
+                Y: =dteFilterEndDate_AllApps.Y + dteFilterEndDate_AllApps.Height + 20
+                ZIndex: =5
+
+            cmbFilterRequestor_AllApps As combobox:
+                BorderColor: =txtSearch_AllApps.BorderColor
+                BorderStyle: =txtSearch_AllApps.BorderStyle
+                BorderThickness: =txtSearch_AllApps.BorderThickness
+                DisplayFields: =["DisplayName","Mail"]
+                InputTextPlaceholder: =$"Select {lblFilterRequestorName_AllApps.Text}"
+                Items: |-
+                    =Office365Users.SearchUser({searchTerm: Self.SearchText, top: 50})
+                NoSelectionText: =$"Select {lblFilterRequestorName_AllApps.Text}"
+                Reset: =true
+                SearchFields: =["DisplayName","Mail"]
+                SearchItems: |-
+                    =Search(Office365Users.SearchUser({searchTerm: Self.SearchText, top: 50}),cmbFilterRequestor_AllApps.SearchText,"DisplayName","Mail")
+                Template: =ListItemTemplate.Double
+                Width: =dteFilterStartDate_AllApps.Width
+                X: =lblFilterRequestorName_AllApps.X
+                Y: =lblFilterRequestorName_AllApps.Y + lblFilterRequestorName_AllApps.Height + 10
+                ZIndex: =6
+
+            btnApplyFilter_AllApps As button:
+                BorderStyle: =BorderStyle.None
+                BorderThickness: =0
+                Fill: =RGBA(184, 0, 0, 1)
+                OnSelect: =Concurrent(Reset(dteFilterStartDate_AllApps), Reset(dteFilterEndDate_AllApps), Reset(cmbFilterRequestor_AllApps));
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =13
+                Text: ="Clear Filter(s)"
+                Width: =130
+                X: =cmbFilterRequestor_AllApps.X
+                Y: =cmbFilterRequestor_AllApps.Y + cmbFilterRequestor_AllApps.Height + 20
+                ZIndex: =7
+
+        btnCodeReview_AllApps As button:
+            BorderColor: =lblGalleryHead.BorderColor
+            BorderStyle: =lblGalleryHead.BorderStyle
+            BorderThickness: =lblGalleryHead.BorderThickness
+            Color: =lblGalleryHead.Color
+            Fill: =lblGalleryHead.Fill
+            Font: =lblGalleryHead.Font
+            FontWeight: =lblGalleryHead.FontWeight
+            Height: =txtSearch_AllApps.Height
+            OnSelect: =Navigate('Code Review Screen', ScreenTransition.Cover);
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =lblGalleryHead.Size
+            Text: ="Code Review"
+            X: =Parent.Width - Self.Width - 20
+            Y: =txtSearch_AllApps.Y
+            ZIndex: =7
+
