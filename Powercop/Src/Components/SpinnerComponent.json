@@ -951,7 +951,7 @@
         "NameMapSourceSchema": "?"
       }
     ],
-    "LastModifiedTimestamp": "638301179860655557",
+    "LastModifiedTimestamp": "638301175940046851",
     "Name": "SpinnerComponent",
     "Rules": [
       {
@@ -1016,7 +1016,7 @@
   "IsPcfControl": false,
   "IsPremiumPcfControl": false,
   "IsWidgetTemplate": false,
-  "LastModifiedTimestamp": "638301179860655557",
+  "LastModifiedTimestamp": "638301175940046851",
   "Name": "187b1ca9877e4f0e9616824ead8b7f21",
   "OverridableProperties": {},
   "TemplateOriginalName": "46ae9c89dad4433d83db3386ab18c76a",
