@@ -3,20 +3,179 @@
         =Concurrent(Reset(NavComponent_AppReq), Set(varItemId, 0), UpdateContext({varItem: Blank()}), 
             Set(varNavigated, false));
     OnVisible: |-
-        =UpdateContext({varLoadSpinner: true, varItem: Blank()});
+        =UpdateContext({varLoadSpinner: true, varItem: Blank(), varAttachmentItem: Blank()});
         Concurrent(Reset(NavComponent_AppReq), UpdateContext({varIsDraft: true, varShowDeletePopup: false}), 
             If(varItemId > 0, ViewForm(Form_AppReq);
                 UpdateContext({varItem: With({varTxtId: Text(varItemId)}, LookUp(AppRequests, Id = varTxtId))});
-            , ResetForm(Form_AppReq); NewForm(Form_AppReq))
+                UpdateContext({varAttachmentItem: With({varTitleTmp: Text(varItem.AppRequest)},
+                    If(!IsBlank(varItem), LookUp(AttachmentList, Title = varTitleTmp), Blank()))});
+            , ResetForm(Form_AppReq); NewForm(Form_AppReq);
+                If(IsBlank(varAttachmentItem), ResetForm(frm_Attach); NewForm(frm_Attach);)
+            )
         );
         UpdateContext({varLoadSpinner: false});
+
+    frm_Attach As form:
+        DataSource: =AttachmentList
+        DefaultMode: =If(IsBlank(varAttachmentItem), FormMode.New, FormMode.View)
+        Height: =150
+        Item: |-
+            =With({varTitleTmp: Text(varItem.AppRequest)},
+            If(!IsBlank(varItem), LookUp(AttachmentList, Title = varTitleTmp), Blank()))
+        OnSuccess: |-
+            =UpdateContext({varAttachmentItem: Self.LastSubmit});
+            UpdateContext({varLoadSpinner: false});
+            Notify("App Request Submitted Successfully", NotificationType.Success);
+        SnapToColumns: =false
+        Width: =Form_AppReq.Width
+        X: =Form_AppReq.X
+        Y: =Form_AppReq.Y + Form_AppReq.Height
+        ZIndex: =1
+
+        Attachments_DataCard1 As typedDataCard.attachmentsEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="{Attachments}"
+            Default: =ThisItem.Attachments
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@AttachmentList],DataSourceInfo.DisplayName,"{Attachments}")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =Parent.Height
+            Required: =false
+            Update: =DataCardValue1.Attachments
+            Width: =Parent.Width
+            X: =0
+            Y: =
+            ZIndex: =1
+
+            DataCardKey1 As label:
+                AutoHeight: =true
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.3
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue1.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue1 As attachments:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =1
+                DisplayMode: =Parent.DisplayMode
+                DropTargetBorderThickness: =1
+                Height: =130
+                IsInDataCard: =true
+                Items: =Parent.Default
+                PaddingBottom: =5
+                PaddingLeft: =
+                PaddingRight: =5
+                PaddingTop: =5
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.7
+                X: =DataCardKey1.X + DataCardKey1.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage1 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue1.Y + DataCardValue1.Height
+                ZIndex: =3
+
+            StarVisible1 As label:
+                Align: =Align.Center
+                Height: =DataCardKey1.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey1.Y
+                ZIndex: =4
+
+        Title_DataCard11 As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Title"
+            Default: =If(!IsBlank(varItem), Text(varItem.AppRequest), Blank())
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@AttachmentList],DataSourceInfo.DisplayName,"Title")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@AttachmentList], DataSourceInfo.MaxLength, "Title")
+            Required: =true
+            Update: =DataCardValue2.Text
+            Visible: =false
+            Width: =364
+            X: =1
+            Y: =0
+            ZIndex: =1
+
+            DataCardKey2 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.4
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue2.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue2 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.6
+                X: =DataCardKey2.X + DataCardKey2.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage2 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue2.Y + DataCardValue2.Height
+                ZIndex: =3
+
+            StarVisible2 As label:
+                Align: =Align.Center
+                Height: =DataCardKey2.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey2.Y
+                ZIndex: =4
 
     Form_AppReq As form:
         DataSource: =AppRequests
         DefaultMode: =If(varItemId = 0, FormMode.New, FormMode.View)
         Height: |-
             =//Min(
-            Parent.Height - Self.Y - ButtonContainer.Height
+            Parent.Height - Self.Y - ButtonContainer_2.Height - frm_Attach.Height
             /*, 'Idea Name_DataCard1'.Height + 'Idea Description_DataCard1'.Height + 'Idea Related Queries_DataCard1'.Height + Attachments_DataCard1.Height + 'Is Developer Help Required_DataCard1'.Height + 10)*/
         Item: =varItem
         NumberOfColumns: =1
@@ -24,13 +183,13 @@
             =UpdateContext({varLoadSpinner: true});
             Set(varItemId, Value(Self.LastSubmit.Id));
             UpdateContext({varItem: Self.LastSubmit});
+            If(frm_Attach.Mode = FormMode.View, EditForm(frm_Attach));
+            SubmitForm(frm_Attach);
             ViewForm(Form_AppReq);
-            UpdateContext({varLoadSpinner: false});
-            Notify("App Request Submitted Successfully", NotificationType.Success);
         Width: =Parent.Width - Self.X - Self.X
         X: =Parent.Width * 0.1
         Y: =HeaderComponent_AppReq.Y + HeaderComponent_AppReq.Height
-        ZIndex: =1
+        ZIndex: =2
 
         "'App Name_DataCard8' As typedDataCard.textualEditCard":
             BorderStyle: =BorderStyle.Solid
@@ -858,103 +1017,6 @@
                 Y: =DataCardKey138.Y
                 ZIndex: =7
 
-    ButtonContainer As groupContainer.manualLayoutContainer:
-        DropShadow: =DropShadow.None
-        Height: =120
-        RadiusBottomLeft: =0
-        RadiusBottomRight: =0
-        RadiusTopLeft: =0
-        RadiusTopRight: =0
-        Visible: =false
-        Width: =HeaderComponent_AppReq.Width
-        X: =HeaderComponent_AppReq.X
-        Y: =Form_AppReq.Y + Form_AppReq.Height
-        ZIndex: =2
-
-        btnCancelReset As button:
-            Height: =btnSubmit.Height
-            OnSelect: =If(Self.Text = "Reset", ResetForm(Form_AppReq), If(Self.Text = "Cancel", ViewForm(Form_AppReq), Back()));
-            RadiusBottomLeft: =0
-            RadiusBottomRight: =0
-            RadiusTopLeft: =0
-            RadiusTopRight: =0
-            Size: =13
-            Text: =If(Form_AppReq.Mode = FormMode.Edit, "Cancel", If(Form_AppReq.Mode = FormMode.New, "Reset", "Back"))
-            Width: =120
-            X: =btnSubmit.X + btnSubmit.Width + 20
-            Y: =btnSubmit.Y
-            ZIndex: =1
-
-        btnSubmit As button:
-            Height: =btnDraft.Height
-            OnSelect: |-
-                =If(Form_AppReq.Mode = FormMode.View, EditForm(Form_AppReq), 
-                    UpdateContext({varIsDraft: false}); SubmitForm(Form_AppReq)
-                );
-            RadiusBottomLeft: =0
-            RadiusBottomRight: =0
-            RadiusTopLeft: =0
-            RadiusTopRight: =0
-            Size: =13
-            Text: =If(Form_AppReq.Mode = FormMode.View, "Edit",  "Submit")
-            Width: =120
-            X: =btnDraft.X + btnDraft.Width + 20
-            Y: =btnDraft.Y
-            ZIndex: =2
-
-        btnDraft As button:
-            OnSelect: |-
-                =UpdateContext({varIsDraft: true});
-                SubmitForm(Form_AppReq);
-            RadiusBottomLeft: =0
-            RadiusBottomRight: =0
-            RadiusTopLeft: =0
-            RadiusTopRight: =0
-            Size: =13
-            Text: ="Draft"
-            Visible: =Form_AppReq.Mode <> FormMode.View && If(varItemId > 0, Text(varItem.ApprovalStatus) = "Draft", Form_AppReq.Mode = FormMode.New)
-            Width: =If(Self.Visible, 120, 0)
-            X: =(Parent.Width - (Self.Width + 20 + btnSubmit.Width + 20 + btnCancelReset.Width)) * 0.5
-            Y: =(Parent.Height - Self.Height) * 0.5
-            ZIndex: =3
-
-        icnCreateNew As icon.Add:
-            Height: =50
-            Icon: =Icon.Add
-            OnSelect: |-
-                =UpdateContext({varLoadSpinner: true});
-                Set(varItemId, 0);
-                ResetForm(Form_AppReq);
-                NewForm(Form_AppReq);
-                UpdateContext({varLoadSpinner: false});
-            PaddingBottom: =5
-            PaddingLeft: =5
-            PaddingRight: =5
-            PaddingTop: =5
-            Tooltip: ="Create New App Request"
-            Visible: =varItemId > 0
-            Width: =Self.Height
-            X: =20
-            Y: =(Parent.Height - Self.Height) * 0.5
-            ZIndex: =4
-
-        icnDelete As icon.Trash:
-            Color: =RGBA(184, 0, 0, 1)
-            Height: =icnCreateNew.Height
-            Icon: =Icon.Trash
-            OnSelect: |-
-                =UpdateContext({varShowDeletePopup: true});
-            PaddingBottom: =5
-            PaddingLeft: =5
-            PaddingRight: =5
-            PaddingTop: =5
-            Tooltip: ="Delete App Request"
-            Visible: =varItemId > 0 && varItem.InitiatorEmail = varUserEmailLower
-            Width: =icnCreateNew.Width
-            X: =Parent.Width - Self.Width - icnCreateNew.X
-            Y: =icnCreateNew.Y
-            ZIndex: =5
-
     ButtonContainer_2 As groupContainer.manualLayoutContainer:
         DropShadow: =DropShadow.None
         Height: =120
@@ -964,8 +1026,8 @@
         RadiusTopRight: =0
         Width: =HeaderComponent_AppReq.Width
         X: =HeaderComponent_AppReq.X
-        Y: =Form_AppReq.Y + Form_AppReq.Height
-        ZIndex: =3
+        Y: =Form_AppReq.Y + Form_AppReq.Height + frm_Attach.Height
+        ZIndex: =4
 
         btnDraft_2 As button:
             BorderColor: =btnTemplate.BorderColor
@@ -1007,9 +1069,8 @@
             OnSelect: |-
                 =UpdateContext({varLoadSpinner: true});
                 Set(varItemId, 0);
-                UpdateContext({varItem: Blank()});
-                ResetForm(Form_AppReq);
-                NewForm(Form_AppReq);
+                UpdateContext({varItem: Blank(), varAttachmentItem: Blank()});
+                Concurrent(ResetForm(Form_AppReq);NewForm(Form_AppReq), ResetForm(frm_Attach); NewForm(frm_Attach));
                 UpdateContext({varLoadSpinner: false});
             PaddingBottom: =5
             PaddingLeft: =5
@@ -1116,7 +1177,7 @@
         Width: =Parent.Width - Self.X - Self.X
         X: =HeaderComponent_AppReq.X
         Y: =HeaderComponent_AppReq.Y + HeaderComponent_AppReq.Height
-        ZIndex: =4
+        ZIndex: =5
 
         lblDeleteMsg_AppReq As label:
             Fill: =RGBA(255, 255, 255, 1)
@@ -1141,10 +1202,11 @@
             Fill: =RGBA(54, 176, 75, 1)
             OnSelect: |-
                 =UpdateContext({varLoadSpinner: true});
-                With({varIdTxt: Text(varItemId)}, RemoveIf(AppRequests, Id = varIdTxt));
-                Refresh(AppRequests);
+                Concurrent(With({varIdTxt: Text(varItemId)}, RemoveIf(AppRequests, Id = varIdTxt)),
+                    With({varTitleText: varAttachmentItem.Title}, RemoveIf(AttachmentList, Title = varTitleText)));
+                Concurrent(Refresh(AppRequests), Refresh(AttachmentList));
                 Select(btnCancelDelete_AppReq);
-                Select(icnCreateNew);
+                Select(icnCreateNew_2);
             RadiusBottomLeft: =0
             RadiusBottomRight: =0
             RadiusTopLeft: =0
@@ -1180,24 +1242,24 @@
         LogoImage: =Picture1
         LogoLeftPosition: =NavComponent_AppReq.MinHeight
         Text: =If(varItemId, $"App Request - {varItemId}", "New App Request")
-        ZIndex: =5
+        ZIndex: =6
 
     SpinnerComponent_AppReq As SpinnerComponent:
         Height: =Parent.Height - Self.Y
         Visible: =varLoadSpinner
         Width: =Parent.Width - Self.X
-        ZIndex: =6
+        ZIndex: =7
 
     NavComponent_AppReq As NavComponent:
         IconColor: =lblHeader.Color
         NavigationItemsColor: =lblHeader.Color
         NavigationItemsFill: =lblHeader.Fill
-        ZIndex: =7
+        ZIndex: =8
 
     AccessDeniedComponent_AppReq As AccessDeniedComponent:
         Height: =Parent.Height - Self.Y
         Visible: =!LookUp(colNavItems, Screen = App.ActiveScreen).HasAccess
         Width: =Parent.Width
         Y: =HeaderComponent_AppReq.Y + HeaderComponent_AppReq.Height
-        ZIndex: =8
+        ZIndex: =9
 

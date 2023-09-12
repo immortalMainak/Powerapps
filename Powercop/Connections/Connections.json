@@ -40,6 +40,9 @@
           "Assistance Required": {
             "tableName": "d4a62221-3ffa-45c8-b4e4-e1e3402f501f"
           },
+          "AttachmentList": {
+            "tableName": "27b4f8f7-f11f-47de-b206-a3b551a1b81d"
+          },
           "COE Approver": {
             "tableName": "2ce04e44-d231-4729-8cab-c7fd787f8d9c"
           },
@@ -79,7 +82,8 @@
       "License Request",
       "Ownership Change",
       "Raise Support Request",
-      "Vendor Invoices"
+      "Vendor Invoices",
+      "AttachmentList"
     ],
     "dependencies": {},
     "dependents": [],

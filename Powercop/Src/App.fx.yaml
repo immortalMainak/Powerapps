@@ -4,7 +4,7 @@ App As appinfo:
         =Concurrent(
             Set(varUserEmailLower, Lower(User().Email)), Set(varUserName, User().FullName),
             Set(varTypeOfRequest, Blank()),
-            Set(varItemId, If(IsError(Value(Param("itemid"))), 0, Value(Param("itemid")))),
+            Set(varItemId, If(IsBlank(Param("itemid")), 0, If(IsError(Value(Param("itemid"))), 0, Value(Param("itemid"))))),
             Set(varNavigated, false)
         );
         Set(varIsCoE, !IsBlank(LookUp('COE Approver', 'Approver Email' = varUserEmailLower)));
