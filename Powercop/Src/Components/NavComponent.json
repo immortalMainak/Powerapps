@@ -1552,7 +1552,7 @@
         "NameMapSourceSchema": "?"
       }
     ],
-    "LastModifiedTimestamp": "638301177385362984",
+    "LastModifiedTimestamp": "638301175940045362",
     "Name": "NavComponent",
     "Rules": [
       {
@@ -1745,7 +1745,7 @@
   "IsPcfControl": false,
   "IsPremiumPcfControl": false,
   "IsWidgetTemplate": false,
-  "LastModifiedTimestamp": "638301177385362984",
+  "LastModifiedTimestamp": "638301175940045362",
   "Name": "4e4187f24a2f4fb7a7cb83cfd53cdc34",
   "OverridableProperties": {},
   "Version": "638288817129596966"
