@@ -1195,7 +1195,7 @@
       },
       "LogoLeftPosition"
     ],
-    "LastModifiedTimestamp": "638301175940043374",
+    "LastModifiedTimestamp": "638301179860652639",
     "Name": "HeaderComponent",
     "Rules": [
       {
@@ -1335,7 +1335,7 @@
   "IsPcfControl": false,
   "IsPremiumPcfControl": false,
   "IsWidgetTemplate": false,
-  "LastModifiedTimestamp": "638301175940043374",
+  "LastModifiedTimestamp": "638301179860652639",
   "Name": "0690cd3833a0410eb5afa0baa44f492f",
   "OverridableProperties": {},
   "Version": "638288818305679637"

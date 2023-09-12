@@ -30900,6 +30900,35 @@
             {
               "logicalLocations": [
                 {
+                  "fullyQualifiedName": "Screen3_22"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "Screen3_22",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "module": "Screen3_22",
+                "type": "Screen3_22"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Low"
+          },
+          "ruleId": "acc-ReadableScreenNameNeeded",
+          "ruleIndex": 5
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
                   "fullyQualifiedName": "'Support Request Screen'.Form2_7.Title_DataCard7.DataCardValue89.AccessibleLabel"
                 }
               ],
@@ -36444,35 +36473,6 @@
           },
           "ruleId": "acc-FocusBorderShouldBeVisible",
           "ruleIndex": 4
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "Screen3"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "Screen3",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "module": "Screen3",
-                "type": "Screen3"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Low"
-          },
-          "ruleId": "acc-ReadableScreenNameNeeded",
-          "ruleIndex": 5
         },
         {
           "locations": [
