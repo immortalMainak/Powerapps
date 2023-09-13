@@ -24,14 +24,6 @@
       "Values": {
         "Information": "6866fa8e-e0ee-47bd-9ac1-a6f67e525ac9"
       }
-    },
-    {
-      "Kind": "default.cds_cr0e5_coeapprover_forms",
-      "Namespace": "COE Approvers (Forms)",
-      "Values": {
-        "COE Approver quick create form": "0a092e7d-3751-ee11-be6f-000d3a59c58b",
-        "Information": "1063b24f-a6ef-4288-9293-da657472937b"
-      }
     }
   ]
 }

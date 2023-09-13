@@ -43,6 +43,9 @@
           "AttachmentList": {
             "tableName": "27b4f8f7-f11f-47de-b206-a3b551a1b81d"
           },
+          "COE Approver": {
+            "tableName": "2ce04e44-d231-4729-8cab-c7fd787f8d9c"
+          },
           "Create Business Unit in Production": {
             "tableName": "2ff1c0e1-ae8c-411e-a15c-292da9863f10"
           },
@@ -68,6 +71,7 @@
       }
     },
     "dataSources": [
+      "COE Approver",
       "App Governance Idea",
       "Deployment Requests",
       "App Governance Idea History",

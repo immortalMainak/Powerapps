@@ -12,10 +12,6 @@
   "DatasetName": "default.cds",
   "EntityName": "COE Approvers",
   "InstanceUrl": "https://org6fa17a7e.crm.dynamics.com/",
-  "LocalReferenceDSJson": {
-    "entitySetName": "cr0e5_coeapprovers",
-    "logicalName": "cr0e5_coeapprover"
-  },
   "state": "Configured",
   "TableDefinition": {
     "BooleanOptionSetAttribute": "{\"@odata.context\":\"https://org6fa17a7e.crm.dynamics.com/api/data/v9.0/$metadata#EntityDefinitions('cr0e5_coeapprover')/Attributes/Microsoft.Dynamics.CRM.BooleanAttributeMetadata(MetadataId,LogicalName,SchemaName,DisplayName,OptionSet())\",\"value\":[]}",

@@ -21172,206 +21172,6 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.Items"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.Items",
-                  "relativeAddress": 0
-                },
-                "region": {
-                  "charLength": 2,
-                  "charOffset": 433,
-                  "snippet": {
-                    "text": "in"
-                  }
-                }
-              },
-              "properties": {
-                "member": "Items",
-                "module": "My App Requests Screen",
-                "type": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq"
-              }
-            }
-          ],
-          "message": {
-            "arguments": [
-              "Filter"
-            ],
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-SuggestRemoteExecutionHint-InOpRhs",
-          "ruleIndex": 0
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.Items"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.Items",
-                  "relativeAddress": 0
-                },
-                "region": {
-                  "charLength": 2,
-                  "charOffset": 402,
-                  "snippet": {
-                    "text": "||"
-                  }
-                }
-              },
-              "properties": {
-                "member": "Items",
-                "module": "My App Requests Screen",
-                "type": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq"
-              }
-            }
-          ],
-          "message": {
-            "arguments": [
-              "Filter"
-            ],
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-SuggestRemoteExecutionHint",
-          "ruleIndex": 1
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.lblBodyCoEStatus_MReq.Text"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.lblBodyCoEStatus_MReq.Text",
-                  "relativeAddress": 0
-                },
-                "region": {
-                  "charLength": 24,
-                  "charOffset": 315,
-                  "snippet": {
-                    "text": "Text('App Document URI')"
-                  }
-                }
-              },
-              "properties": {
-                "member": "Text",
-                "module": "My App Requests Screen",
-                "type": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.lblBodyCoEStatus_MReq"
-              }
-            }
-          ],
-          "message": {
-            "arguments": [
-              "Text"
-            ],
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-SuggestRemoteExecutionHint",
-          "ruleIndex": 1
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.lblBodyCoEStatus_MReq.Text"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.lblBodyCoEStatus_MReq.Text",
-                  "relativeAddress": 0
-                },
-                "region": {
-                  "charLength": 1,
-                  "charOffset": 340,
-                  "snippet": {
-                    "text": "="
-                  }
-                }
-              },
-              "properties": {
-                "member": "Text",
-                "module": "My App Requests Screen",
-                "type": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.lblBodyCoEStatus_MReq"
-              }
-            }
-          ],
-          "message": {
-            "arguments": [
-              "LookUp"
-            ],
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-SuggestRemoteExecutionHint",
-          "ruleIndex": 1
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.lblBodyCoEStatus_MReq.Text"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.lblBodyCoEStatus_MReq.Text",
-                  "relativeAddress": 0
-                },
-                "region": {
-                  "charLength": 2,
-                  "charOffset": 352,
-                  "snippet": {
-                    "text": "&&"
-                  }
-                }
-              },
-              "properties": {
-                "member": "Text",
-                "module": "My App Requests Screen",
-                "type": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.lblBodyCoEStatus_MReq"
-              }
-            }
-          ],
-          "message": {
-            "arguments": [
-              "LookUp"
-            ],
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-SuggestRemoteExecutionHint",
-          "ruleIndex": 1
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
                   "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq_3.Items"
                 }
               ],
@@ -24982,19 +24782,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq_5.icnViewInfo_MReq_5.FocusedBorderThickness"
+                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.icnViewComments_MReq.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq_5.icnViewInfo_MReq_5.FocusedBorderThickness",
+                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.icnViewComments_MReq.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
-                "member": "FocusedBorderThickness",
+                "member": "AccessibleLabel",
                 "module": "My App Requests Screen",
-                "type": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq_5.icnViewInfo_MReq_5"
+                "type": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.icnViewComments_MReq"
               }
             }
           ],
@@ -25004,27 +24804,27 @@
           "properties": {
             "level": "Medium"
           },
-          "ruleId": "acc-FocusBorderShouldBeVisible",
-          "ruleIndex": 4
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
         },
         {
           "locations": [
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq_5.icnViewInfo_MReq_5.TabIndex"
+                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.icnViewComments_MReq.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq_5.icnViewInfo_MReq_5.TabIndex",
+                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.icnViewComments_MReq.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
                 "module": "My App Requests Screen",
-                "type": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq_5.icnViewInfo_MReq_5"
+                "type": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.icnViewComments_MReq"
               }
             }
           ],
@@ -25702,19 +25502,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.icnViewComments_MReq.TabIndex"
+                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq_5.icnViewInfo_MReq_5.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.icnViewComments_MReq.TabIndex",
+                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq_5.icnViewInfo_MReq_5.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
                 "module": "My App Requests Screen",
-                "type": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.icnViewComments_MReq"
+                "type": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq_5.icnViewInfo_MReq_5"
               }
             }
           ],
@@ -25732,19 +25532,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.icnViewComments_MReq.AccessibleLabel"
+                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq_5.icnViewInfo_MReq_5.FocusedBorderThickness"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.icnViewComments_MReq.AccessibleLabel",
+                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq_5.icnViewInfo_MReq_5.FocusedBorderThickness",
                   "relativeAddress": 0
                 }
               },
               "properties": {
-                "member": "AccessibleLabel",
+                "member": "FocusedBorderThickness",
                 "module": "My App Requests Screen",
-                "type": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.icnViewComments_MReq"
+                "type": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq_5.icnViewInfo_MReq_5"
               }
             }
           ],
@@ -25754,8 +25554,8 @@
           "properties": {
             "level": "Medium"
           },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
+          "ruleId": "acc-FocusBorderShouldBeVisible",
+          "ruleIndex": 4
         },
         {
           "locations": [
@@ -38201,6 +38001,36 @@
           },
           "ruleId": "app-ScreenHasManyControls",
           "ruleIndex": 9
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'App Request Screen'.varIsDraft"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'App Request Screen'.varIsDraft",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "varIsDraft",
+                "module": "App Request Screen",
+                "type": "'App Request Screen'"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 6
         },
         {
           "locations": [
