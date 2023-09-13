@@ -1,0 +1,215 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cat_reviews",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cat_review",
+    "Name": "Reviews",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "{Attachments}": "Attachments",
+      "cat_appid": "AppID",
+      "cat_appname": "App Name",
+      "cat_apppayload": "AppPayload",
+      "cat_apptype": "AppType",
+      "cat_cd_typeoriginereview": "Cd_TypeOrigineReview",
+      "cat_chc_statusimport": "Chc_StatusImport",
+      "cat_chc_statusimportappcheckerresults": "Chc_StatusImportAppCheckerResults",
+      "cat_chc_statusimportappsettings": "Chc_StatusImportAppSettings",
+      "cat_chc_statusimportappsettingsflags": "Chc_StatusImportAppSettingsFlags",
+      "cat_chc_statusimportdatasources": "Chc_StatusImportDatasources",
+      "cat_chc_statusimportfiles": "Chc_StatusImportFiles",
+      "cat_chc_statusimportreviewitems": "Chc_StatusImportReviewItems",
+      "cat_chc_statusimportreviewitemsglobal": "chc_StatusImportReviewItemsGlobal",
+      "cat_chc_statusimportslowqueries": "Chc_StatusImportSlowQueries",
+      "cat_chc_statusprocessautofailcode": "chc_StatusProcessAutoFailCode",
+      "cat_chc_statutimportglobal": "Chc_StatutImportGlobal",
+      "cat_description": "Description",
+      "cat_dt_enddatedataimport_kusto": "Dt_EndDateDataImport_Kusto",
+      "cat_dt_startdatedataimport_kusto": "Dt_StartDateDataImport_Kusto",
+      "cat_duration": "Duration",
+      "cat_extractedmsappfolder": "ExtractedMsAppFolder",
+      "cat_msapp_document_uri": "MsAppDocumentUri",
+      "cat_msappfile": "MsAppFile",
+      "cat_name": "Name",
+      "cat_nb_rankimportreviewitems": "Nb_RankImportReviewItems",
+      "cat_powerappstracefile": "PowerAppsTraceFile",
+      "cat_Rel_AppCheckerArgument_Review": "Rev_AppCheckerMessagesArguments",
+      "cat_Rel_AppSettings_Review": "Rev_AppSettings",
+      "cat_Rel_MediaFile_Review": "Rev_MediaFiles",
+      "cat_Rel_Review_PowerPlateform": "Rel_Review_PowerPlateform",
+      "cat_Rel_SlowQueries_Review": "Rev_SlowQueries",
+      "cat_Rel_Variable_Review": "Rev_Variables",
+      "cat_RelAppChecker_ResultReview_Review": "Rev_AppCheckerResult_Reviews",
+      "cat_Rev_AppChecker_Results_Review": "Rev_AppChecker_Results",
+      "cat_Rev_Controls_Rel_Control_Review_cat_R": "Rev_Controls",
+      "cat_Rev_Datasources_Rel_Datasources_Revie": "Rev_Datasources",
+      "cat_Rev_PcfControls_Rel_Pcf_Review_cat_Re": "Rev_PcfControls",
+      "cat_Rev_PropertiesCode_Rel_Properties_Rev": "Rev_PropertiesCodes",
+      "cat_Rev_Reviews_Apps": "Rev_Reviews_Apps",
+      "cat_Rev_Screens_Rel_Screen_Review_cat_Rev": "Rev_Screens",
+      "cat_Rev_WorkLog_Rel_WorkLog_Review_cat_Re": "Rev_WorkLog",
+      "cat_review_Annotations": "Notes",
+      "cat_review_AsyncOperations": "System Jobs",
+      "cat_review_BulkDeleteFailures": "Bulk Delete Failures",
+      "cat_Review_cat_Review_cat_Resource": "Rev_Resources",
+      "cat_Review_cat_Review_cat_ReviewItem": "ReviewItems",
+      "cat_review_DuplicateBaseRecord": "Duplicate Records (cat_review_DuplicateBaseRecord)",
+      "cat_review_DuplicateMatchingRecord": "Duplicate Records (cat_review_DuplicateMatchingRecord)",
+      "cat_review_FileAttachments": "FileAttachments",
+      "cat_review_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cat_review_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cat_review_ProcessSession": "Process Sessions",
+      "cat_Review_SolutionReviews_cat_Rev_SolutionReview": "Rev_Review_SolutionReview",
+      "cat_review_SyncErrors": "Sync Errors",
+      "cat_reviewid": "Review",
+      "cat_ReviewRequest_Review_cat_Review": "ReviewRequests",
+      "cat_reviewstatus": "Review Status",
+      "cat_reviewtype": "ReviewType",
+      "cat_score": "Score",
+      "cat_txt_importdatasourcesfilecontent": "Txt_ImportDatasourcesFileContent",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "crfd9_Rel_Review_Applications": "Rel_Review_Applications",
+      "crfd9_Rel_Review_Customers": "Rel_Review_Customers",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Reviews",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Reviews (Views)",
+    "Name": "_cat_review_views",
+    "RelatedEntityName": "Reviews",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "11f3cc6f-2b63-4166-9053-23f01796b3a4": "Review Advanced Find View",
+      "58c580e3-4359-4ee4-8964-cc986093aab1": "Active Reviews",
+      "666cb840-262d-ec11-b6e5-00224821c32f": "Code Reviews",
+      "8f498ebd-efc8-4903-9c66-be5d62952e8c": "Inactive Reviews",
+      "9d80578c-b214-46a4-ab02-4b40a0a537b0": "Review Associated View",
+      "acef8c12-6722-433d-9d2a-259875ef3e48": "Review Lookup View"
+    }
+  },
+  {
+    "DisplayName": "AppType",
+    "Name": "cat_apptype",
+    "OptionSetInfoNameMapping": {
+      "695100000": "Canvas App",
+      "695100001": "Model Driven App",
+      "695100002": "Converged App",
+      "695100003": "Component Library"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cat_apptype",
+        "OptionSetReferenceEntityName": "Reviews"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cat_apptype",
+    "RelatedEntityName": "Reviews",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Reviews)",
+    "Name": "cat_review_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Reviews"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Reviews",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Reviews)",
+    "Name": "cat_review_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Reviews"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Reviews",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Review Status",
+    "Name": "cat_reviewstatus",
+    "OptionSetInfoNameMapping": {
+      "695100001": "Started",
+      "695100002": "In Progress",
+      "695100003": "Completed"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cat_reviewstatus",
+        "OptionSetReferenceEntityName": "Reviews"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cat_reviewstatus",
+    "RelatedEntityName": "Reviews",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "ReviewType",
+    "Name": "cat_reviewtype",
+    "OptionSetInfoNameMapping": {
+      "695100000": "Code Review",
+      "695100001": "Architecture Review",
+      "695100002": "Technical Request",
+      "695100003": "UX Design Review"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cat_reviewtype",
+        "OptionSetReferenceEntityName": "Reviews"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cat_reviewtype",
+    "RelatedEntityName": "Reviews",
+    "Type": "OptionSetInfo"
+  }
+]

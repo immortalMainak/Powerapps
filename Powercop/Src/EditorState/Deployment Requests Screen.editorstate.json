@@ -1070,7 +1070,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btnCancelReset_1",
-      "ParentIndex": 4,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2283,7 +2283,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btnSubmit_1",
-      "ParentIndex": 3,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -10867,7 +10867,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "DeletePopupContainer_1",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -14709,7 +14709,7 @@
       "LayoutName": "horizontal",
       "MetaDataIDKey": "",
       "Name": "Form2",
-      "ParentIndex": 4,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -15042,7 +15042,7 @@
       },
       "MetaDataIDKey": "",
       "Name": "HeaderComponent_DepReq",
-      "ParentIndex": 1,
+      "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -16124,7 +16124,7 @@
       },
       "MetaDataIDKey": "",
       "Name": "NavComponent_DepReq",
-      "ParentIndex": 3,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -16441,7 +16441,7 @@
       },
       "MetaDataIDKey": "",
       "Name": "SpinnerComponent_DepReq",
-      "ParentIndex": 2,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
