@@ -25,7 +25,7 @@
     lblGalleryContent As label:
         BorderColor: =lblGalleryHead.BorderColor
         BorderThickness: =lblGalleryHead.BorderThickness
-        Text: =Concat(Filter(AppRequests, ApprovalStatus = 'ApprovalStatus (AppRequests)'.Draft), 'App Name', ";")
+        Text: =
         Wrap: =false
         X: =56
         Y: =355

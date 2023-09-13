@@ -21,20 +21,21 @@
       "cr0e5_apprequest_ProcessSession": "Process Sessions",
       "cr0e5_apprequest_SyncErrors": "Sync Errors",
       "cr0e5_apprequestid": "AppRequest",
-      "cr0e5_approvaldate": "ApprovalDate",
-      "cr0e5_approvalstatus": "ApprovalStatus",
+      "cr0e5_approvaldate": "AppApprovalDate",
       "cr0e5_approvedby": "Approved By",
+      "cr0e5_apptype": "App Type",
       "cr0e5_appurl": "App Url",
       "cr0e5_businessbenefits": "Business Benefits",
       "cr0e5_codereviewid": "CodeReviewId",
-      "cr0e5_comments": "Comments",
-      "cr0e5_developedby": "DevelopedBy",
+      "cr0e5_coeapprovalstatus": "COE Approval Status",
+      "cr0e5_comments": "COE Comments",
+      "cr0e5_developername": "Developer Name",
       "cr0e5_id": "Id",
       "cr0e5_initiatoremail": "InitiatorEmail",
+      "cr0e5_initiatorname": "Initiator Name",
       "cr0e5_name": "App Name",
       "cr0e5_proddeploymentdate": "PROD Deployment Date",
-      "cr0e5_requestraiseddate": "Request Raised Date",
-      "cr0e5_review": "Review %",
+      "cr0e5_requestraiseddate": "App Submitted Date",
       "cr0e5_reviewname": "Review Name",
       "cr0e5_uatapprovaldate": "UAT Approval Date",
       "cr0e5_uatapprovedby": "UAT Approved By",
@@ -92,6 +93,48 @@
     },
     "OptionSetTypeKey": "PicklistType",
     "RelatedColumnInvariantName": "cr0e5_approvalstatus",
+    "RelatedEntityName": "AppRequests",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "App Type (AppRequests)",
+    "Name": "cr0e5_apprequest_cr0e5_apptype",
+    "OptionSetInfoNameMapping": {
+      "1": "Canvas",
+      "2": "Model-driven"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr0e5_apptype",
+        "OptionSetReferenceEntityName": "AppRequests"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr0e5_apptype",
+    "RelatedEntityName": "AppRequests",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "COE Approval Status (AppRequests)",
+    "Name": "cr0e5_apprequest_cr0e5_coeapprovalstatus",
+    "OptionSetInfoNameMapping": {
+      "1": "Draft",
+      "2": "Pending",
+      "3": "Approved",
+      "4": "Denied"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr0e5_coeapprovalstatus",
+        "OptionSetReferenceEntityName": "AppRequests"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr0e5_coeapprovalstatus",
     "RelatedEntityName": "AppRequests",
     "Type": "OptionSetInfo"
   },

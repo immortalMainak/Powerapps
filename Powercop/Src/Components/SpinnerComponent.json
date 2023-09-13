@@ -98,7 +98,7 @@
         "Name": "timRotateSpinner",
         "Parent": "SpinnerComponent",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 1683,
+        "PublishOrderIndex": 1732,
         "Rules": [
           {
             "Category": "Data",
@@ -398,7 +398,7 @@
         "Name": "icnRotateSpinner",
         "Parent": "SpinnerComponent",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 1684,
+        "PublishOrderIndex": 1733,
         "Rules": [
           {
             "Category": "Design",
@@ -660,7 +660,7 @@
         "Name": "lblBodySpinner",
         "Parent": "SpinnerComponent",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 1685,
+        "PublishOrderIndex": 1734,
         "Rules": [
           {
             "Category": "Data",
