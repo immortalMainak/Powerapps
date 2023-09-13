@@ -17,6 +17,13 @@
         "User form – Business": "c2413504-7eb2-4c59-a087-95d819866114",
         "User Hierarchy Tile Form": "c68d6c09-d7a7-4959-8d0f-44b8cff9b452"
       }
+    },
+    {
+      "Kind": "default.cds_cat_rev_solutionreview_forms",
+      "Namespace": "Rev_SolutionReview (Forms)",
+      "Values": {
+        "Information": "6866fa8e-e0ee-47bd-9ac1-a6f67e525ac9"
+      }
     }
   ]
 }

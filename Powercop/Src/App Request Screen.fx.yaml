@@ -185,6 +185,7 @@
             UpdateContext({varItem: Self.LastSubmit});
             If(frm_Attach.Mode = FormMode.View, EditForm(frm_Attach));
             SubmitForm(frm_Attach);
+            If(Self.LastSubmit.ApprovalStatus = 'ApprovalStatus (AppRequests)'.Approved && !IsBlank(Self.LastSubmit.'App Url'), Patch(Rev_SolutionReview, Defaults(Rev_SolutionReview), {LbSolutionReviewName: Self.LastSubmit.'App Name', 'App Document URI': Self.LastSubmit.'App Url', Chc_SolutionReview_Status: Chc_StatusImport.'In Progress'}));
             ViewForm(Form_AppReq);
         Width: =Parent.Width - Self.X - Self.X
         X: =Parent.Width * 0.1
@@ -689,76 +690,6 @@
                 Y: =DataCardKey133.Y
                 ZIndex: =4
 
-        Developer_DataCard1 As typedDataCard.textualMultiLineEditCard:
-            BorderStyle: =BorderStyle.Solid
-            DataField: ="cr0e5_developer"
-            Default: =ThisItem.cr0e5_developer
-            DisplayMode: =DisplayMode.View
-            DisplayName: =DataSourceInfo([@AppRequests],DataSourceInfo.DisplayName,"cr0e5_developer")
-            Fill: =RGBA(0, 0, 0, 0)
-            Height: =50
-            Required: =false
-            Update: =DataCardValue134.Text
-            Visible: =!IsBlank(Self.Default)
-            Width: =Parent.Width
-            X: =0
-            Y: =7
-            ZIndex: =1
-
-            DataCardKey134 As label:
-                AutoHeight: =true
-                FontWeight: =FontWeight.Semibold
-                Height: =34
-                Text: =Parent.DisplayName
-                Width: =(Parent.Width - 60) * 0.3
-                Wrap: =false
-                X: =30
-                Y: =10 + (DataCardValue134.Height / 2) - (Self.Height / 2)
-                ZIndex: =1
-
-            DataCardValue134 As text:
-                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
-                BorderThickness: =1
-                Default: =Parent.Default
-                DelayOutput: =true
-                DisplayMode: =Parent.DisplayMode
-                Mode: =TextMode.MultiLine
-                PaddingLeft: =5
-                RadiusBottomLeft: =0
-                RadiusBottomRight: =0
-                RadiusTopLeft: =0
-                RadiusTopRight: =0
-                Tooltip: =Parent.DisplayName
-                Width: =(Parent.Width - 60) * 0.7
-                X: =DataCardKey134.X + DataCardKey134.Width
-                Y: =10
-                ZIndex: =2
-
-            ErrorMessage133 As label:
-                AutoHeight: =true
-                Height: =10
-                Live: =Live.Assertive
-                PaddingBottom: =0
-                PaddingLeft: =0
-                PaddingRight: =0
-                PaddingTop: =0
-                Text: =Parent.Error
-                Visible: =Parent.DisplayMode=DisplayMode.Edit
-                Width: =Parent.Width - 60
-                X: =30
-                Y: =DataCardValue134.Y + DataCardValue134.Height
-                ZIndex: =3
-
-            StarVisible133 As label:
-                Align: =Align.Center
-                Height: =DataCardKey134.Height
-                Text: ="*"
-                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
-                Width: =30
-                Wrap: =false
-                Y: =DataCardKey134.Y
-                ZIndex: =4
-
         "'App Url_DataCard1' As typedDataCard.urlEditCard":
             BorderStyle: =BorderStyle.Solid
             DataField: ="cr0e5_appurl"
@@ -769,10 +700,10 @@
             Height: =50
             Required: =false
             Update: =DataCardValue135.Text
-            Visible: =Text(varItem.ApprovalStatus) = "Approved"
+            Visible: =varItem.ApprovalStatus = 'ApprovalStatus (AppRequests)'.Approved
             Width: =Parent.Width
             X: =0
-            Y: =8
+            Y: =7
             ZIndex: =1
 
             DataCardKey135 As label:
@@ -789,7 +720,7 @@
             DataCardValue135 As text:
                 BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
                 BorderThickness: =1
-                Default: =Parent.Default
+                Default: =First(ComboBox135.SelectedItems).AppUrl
                 DelayOutput: =true
                 DisplayMode: =Parent.DisplayMode
                 PaddingLeft: =5
@@ -828,6 +759,22 @@
                 Y: =DataCardKey135.Y
                 ZIndex: =4
 
+            ComboBox135 As combobox:
+                DefaultSelectedItems: =If(!IsBlank(Parent.Default), Filter(Filter(ShowColumns(AddColumns(PowerAppsforMakers.GetApps({}).value, "AppUrl", properties.appUris.documentUri.value, "NameNew", properties.displayName), "AppUrl", "NameNew"), !IsBlank(AppUrl)), AppUrl = Parent.Default), Blank())
+                DisplayFields: =["NameNew"]
+                Height: =DataCardValue135.Height
+                InputTextPlaceholder: ="Select App (Leave blank for model driven app)."
+                IsSearchable: =false
+                Items: =Filter(ShowColumns(AddColumns(PowerAppsforMakers.GetApps({}).value, "AppUrl", properties.appUris.documentUri.value, "NameNew", properties.displayName), "AppUrl", "NameNew"), !IsBlank(AppUrl))
+                NoSelectionText: ="Select App (Leave blank for model driven app)."
+                SearchFields: =["NameNew"]
+                SearchItems: =[]
+                SelectMultiple: =false
+                Width: =DataCardValue135.Width
+                X: =DataCardValue135.X
+                Y: =DataCardValue135.Y
+                ZIndex: =5
+
         "'Approved By_DataCard1' As typedDataCard.textualEditCard":
             BorderStyle: =BorderStyle.Solid
             DataField: ="cr0e5_approvedby"
@@ -842,7 +789,7 @@
             Visible: =!IsBlank(Self.Default)
             Width: =Parent.Width
             X: =0
-            Y: =9
+            Y: =8
             ZIndex: =1
 
             DataCardKey137 As label:
@@ -912,7 +859,7 @@
             Visible: =!IsBlank(Self.Default)
             Width: =Parent.Width
             X: =0
-            Y: =10
+            Y: =9
             ZIndex: =1
 
             DataCardKey138 As label:
@@ -1057,7 +1004,7 @@
             RadiusTopRight: =btnTemplate.RadiusTopRight
             Size: =btnTemplate.Size
             Text: ="Draft"
-            Visible: =Form_AppReq.Mode <> FormMode.View && If(varItemId > 0, Text(varItem.ApprovalStatus) = "Draft", Form_AppReq.Mode = FormMode.New)
+            Visible: =Form_AppReq.Mode <> FormMode.View && If(varItemId > 0, varItem.ApprovalStatus = 'ApprovalStatus (AppRequests)'.Draft, Form_AppReq.Mode = FormMode.New)
             Width: =If(Self.Visible, 120, 0)
             X: =btnSubmit_2.X - Self.Width - 20
             Y: =btnCancelReset_2.Y

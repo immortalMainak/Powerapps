@@ -1,2 +1,49 @@
 Screen2 As screen:
 
+    DataTable1 As dataTable.datatable:
+        BorderStyle: =BorderStyle.Solid
+        DisplayMode: =DisplayMode.Edit
+        Fill: =RGBA(0, 0, 0, 0)
+        Height: =728
+        Items: =Filter(ShowColumns(AddColumns(PowerAppsforMakers.GetApps({}).value, "AppUrl", properties.appUris.documentUri.value, "NameNew", properties.displayName), "AppUrl", "NameNew"), !IsBlank(AppUrl))
+        Width: =1326
+        X: =40
+        Y: =40
+        ZIndex: =1
+
+        NameNew_Column1 As dataTableColumn.textualColumn:
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="NameNew"
+            FieldName: ="NameNew"
+            FieldVariantName: ="textualColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =3
+            Text: =ThisItem.NameNew
+            Width: =100
+            X: =0
+            Y: =0
+            ZIndex: =3
+
+        AppUrl_Column1 As dataTableColumn.textualColumn:
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="AppUrl"
+            FieldName: ="AppUrl"
+            FieldVariantName: ="textualColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =4
+            Text: =ThisItem.AppUrl
+            Width: =100
+            X: =0
+            Y: =0
+            ZIndex: =4
+
+    Button1 As button:
+        OnSelect: |-
+            =UpdateContext({varTest: First(PowerAppsforMakers.GetApps({}).value).properties});
+        Text: ="Button"
+        X: =976
+        Y: =586
+        ZIndex: =2
+

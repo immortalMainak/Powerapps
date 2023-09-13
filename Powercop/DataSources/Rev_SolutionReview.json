@@ -1,0 +1,131 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cat_rev_solutionreviews",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cat_rev_solutionreview",
+    "Name": "Rev_SolutionReview",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cat_appdocumenturi": "App Document URI",
+      "cat_chc_solutionreview_status": "Chc_SolutionReview_Status",
+      "cat_Customer": "Customer",
+      "cat_errordetails": "Error Details",
+      "cat_file_msapp": "File_MsApp",
+      "cat_file_solutionzip": "File_SolutionZip",
+      "cat_lbsolutionreviewname": "LbSolutionReviewName",
+      "cat_nb_solutionscore": "Nb_SolutionScore",
+      "cat_Rel_Review_SolutionReviews": "Reviews",
+      "cat_Rev_Apps_SolutionReview": "Rev_Apps",
+      "cat_Rev_PowerAutomate_Solution": "Rev_PowerAutomates",
+      "cat_Rev_Solution_Review_Request": "Rev_SolutionRequest",
+      "cat_rev_solutionreview_AsyncOperations": "System Jobs",
+      "cat_rev_solutionreview_BulkDeleteFailures": "Bulk Delete Failures",
+      "cat_rev_solutionreview_DuplicateBaseRecord": "Duplicate Records (cat_rev_solutionreview_DuplicateBaseRecord)",
+      "cat_rev_solutionreview_DuplicateMatchingRecord": "Duplicate Records (cat_rev_solutionreview_DuplicateMatchingRecord)",
+      "cat_rev_solutionreview_FileAttachments": "FileAttachments",
+      "cat_rev_solutionreview_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cat_rev_solutionreview_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cat_rev_solutionreview_ProcessSession": "Process Sessions",
+      "cat_rev_solutionreview_SyncErrors": "Sync Errors",
+      "cat_rev_solutionreviewid": "Rev_SolutionReview",
+      "cat_score": "Score",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Rev_SolutionReview",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Rev_SolutionReview (Views)",
+    "Name": "_cat_rev_solutionreview_views",
+    "RelatedEntityName": "Rev_SolutionReview",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "07142a60-b8a9-4145-9682-a0ea59525b59": "Rev_SolutionReview Advanced Find View",
+      "1768812f-7709-401a-9aa1-07595421a672": "Rev_SolutionReview Associated View",
+      "6f821af3-a249-43bc-9ceb-c475722cfe8f": "Rev_SolutionReview Lookup View",
+      "aeaeb5b2-76e0-4cb8-ad9e-01db15775369": "Active Rev_SolutionReview",
+      "f3bdf8e7-f8ee-49df-800a-b017938a76a6": "Inactive Rev_SolutionReview"
+    }
+  },
+  {
+    "DisplayName": "Chc_StatusImport",
+    "Name": "cat_chc_statusimport",
+    "OptionSetInfoNameMapping": {
+      "341200000": "Error",
+      "695100000": "Not Started",
+      "695100001": "In Progress",
+      "695100002": "Done"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cat_chc_solutionreview_status",
+        "OptionSetReferenceEntityName": "Rev_SolutionReview"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cat_chc_solutionreview_status",
+    "RelatedEntityName": "Rev_SolutionReview",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Rev_SolutionReview)",
+    "Name": "cat_rev_solutionreview_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Rev_SolutionReview"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Rev_SolutionReview",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Rev_SolutionReview)",
+    "Name": "cat_rev_solutionreview_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Rev_SolutionReview"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Rev_SolutionReview",
+    "Type": "OptionSetInfo"
+  }
+]
