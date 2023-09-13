@@ -75,28 +75,6 @@
     }
   },
   {
-    "DisplayName": "ApprovalStatus (AppRequests)",
-    "Name": "cr0e5_apprequest_cr0e5_approvalstatus",
-    "OptionSetInfoNameMapping": {
-      "192120000": "Draft",
-      "192120001": "Pending",
-      "192120002": "Approved",
-      "192120003": "Denied"
-    },
-    "OptionSetIsBooleanValued": false,
-    "OptionSetIsGlobal": false,
-    "OptionSetReference": {
-      "OptionSetReferenceItem0": {
-        "OptionSetReferenceColumnName": "cr0e5_approvalstatus",
-        "OptionSetReferenceEntityName": "AppRequests"
-      }
-    },
-    "OptionSetTypeKey": "PicklistType",
-    "RelatedColumnInvariantName": "cr0e5_approvalstatus",
-    "RelatedEntityName": "AppRequests",
-    "Type": "OptionSetInfo"
-  },
-  {
     "DisplayName": "App Type (AppRequests)",
     "Name": "cr0e5_apprequest_cr0e5_apptype",
     "OptionSetInfoNameMapping": {
@@ -135,27 +113,6 @@
     },
     "OptionSetTypeKey": "PicklistType",
     "RelatedColumnInvariantName": "cr0e5_coeapprovalstatus",
-    "RelatedEntityName": "AppRequests",
-    "Type": "OptionSetInfo"
-  },
-  {
-    "DisplayName": "DevelopedBy (AppRequests)",
-    "Name": "cr0e5_apprequest_cr0e5_developedby",
-    "OptionSetInfoNameMapping": {
-      "192120000": "I will develop the app",
-      "192120001": "Developer assisted app development",
-      "192120002": "I want COE to build the app"
-    },
-    "OptionSetIsBooleanValued": false,
-    "OptionSetIsGlobal": false,
-    "OptionSetReference": {
-      "OptionSetReferenceItem0": {
-        "OptionSetReferenceColumnName": "cr0e5_developedby",
-        "OptionSetReferenceEntityName": "AppRequests"
-      }
-    },
-    "OptionSetTypeKey": "PicklistType",
-    "RelatedColumnInvariantName": "cr0e5_developedby",
     "RelatedEntityName": "AppRequests",
     "Type": "OptionSetInfo"
   },
