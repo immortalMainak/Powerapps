@@ -924,7 +924,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "App Type_DataCard1",
-      "ParentIndex": 14,
+      "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -1091,7 +1091,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "App Url_DataCard1",
-      "ParentIndex": 15,
+      "ParentIndex": 7,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -1258,7 +1258,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "AppApprovalDate_DataCard1",
-      "ParentIndex": 16,
+      "ParentIndex": 8,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -1433,7 +1433,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Approved By_DataCard1",
-      "ParentIndex": 17,
+      "ParentIndex": 9,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -4130,7 +4130,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "COE Approval Status_DataCard3",
-      "ParentIndex": 6,
+      "ParentIndex": 10,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -4289,7 +4289,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "COE Comments_DataCard3",
-      "ParentIndex": 7,
+      "ParentIndex": 11,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -17868,7 +17868,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Developer Name_DataCard3",
-      "ParentIndex": 8,
+      "ParentIndex": 12,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -26010,7 +26010,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Initiator Name_DataCard1",
-      "ParentIndex": 9,
+      "ParentIndex": 13,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -26183,7 +26183,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "InitiatorEmail_DataCard1",
-      "ParentIndex": 10,
+      "ParentIndex": 14,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -28196,7 +28196,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "PROD Deployment Date_DataCard1",
-      "ParentIndex": 13,
+      "ParentIndex": 17,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -30043,7 +30043,14 @@
         "Live",
         "Overflow",
         "Role",
-        "Color",
+        {
+          "AFDDataSourceName": "",
+          "AutoRuleBindingEnabled": false,
+          "AutoRuleBindingString": "",
+          "InvariantPropertyName": "Color",
+          "IsLockable": false,
+          "NameMapSourceSchema": "?"
+        },
         "DisabledColor",
         "PressedColor",
         "HoverColor",
@@ -34258,7 +34265,14 @@
         "Live",
         "Overflow",
         "Role",
-        "Color",
+        {
+          "AFDDataSourceName": "",
+          "AutoRuleBindingEnabled": false,
+          "AutoRuleBindingString": "",
+          "InvariantPropertyName": "Color",
+          "IsLockable": false,
+          "NameMapSourceSchema": "?"
+        },
         "DisabledColor",
         "PressedColor",
         "HoverColor",
@@ -35337,7 +35351,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "UAT Approval Date_DataCard1",
-      "ParentIndex": 12,
+      "ParentIndex": 16,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -35512,7 +35526,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "UAT Approved By_DataCard1",
-      "ParentIndex": 11,
+      "ParentIndex": 15,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
