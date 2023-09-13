@@ -1,0 +1,98 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cr0e5_coeapprovers",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cr0e5_coeapprover",
+    "Name": "COE Approvers",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr0e5_coeapprover_AsyncOperations": "System Jobs",
+      "cr0e5_coeapprover_BulkDeleteFailures": "Bulk Delete Failures",
+      "cr0e5_coeapprover_DuplicateBaseRecord": "Duplicate Records (cr0e5_coeapprover_DuplicateBaseRecord)",
+      "cr0e5_coeapprover_DuplicateMatchingRecord": "Duplicate Records (cr0e5_coeapprover_DuplicateMatchingRecord)",
+      "cr0e5_coeapprover_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cr0e5_coeapprover_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cr0e5_coeapprover_ProcessSession": "Process Sessions",
+      "cr0e5_coeapprover_SyncErrors": "Sync Errors",
+      "cr0e5_coeapproverid": "COE Approver",
+      "cr0e5_email": "Email",
+      "cr0e5_id": "Id",
+      "cr0e5_name": "Name",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "COE Approvers",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "COE Approvers (Views)",
+    "Name": "_cr0e5_coeapprover_views",
+    "RelatedEntityName": "COE Approvers",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "5bb4ee83-b38d-42fd-a352-9c3a08a2b292": "Active COE Approvers",
+      "a1fa887f-656f-4312-bee7-18c411e832d5": "COE Approver Lookup View",
+      "ab3af3fc-885b-4657-bbc8-b2a49a3c01ea": "COE Approver Advanced Find View",
+      "ab49ac47-2800-4a26-b70b-4d1781537515": "Inactive COE Approvers",
+      "f766e95f-c9d6-413a-a3a1-2b67074f93e1": "COE Approver Associated View"
+    }
+  },
+  {
+    "DisplayName": "Status (COE Approvers)",
+    "Name": "cr0e5_coeapprover_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "COE Approvers"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "COE Approvers",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (COE Approvers)",
+    "Name": "cr0e5_coeapprover_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "COE Approvers"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "COE Approvers",
+    "Type": "OptionSetInfo"
+  }
+]

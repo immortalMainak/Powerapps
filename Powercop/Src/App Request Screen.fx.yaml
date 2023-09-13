@@ -173,10 +173,7 @@
     Form_AppReq As form:
         DataSource: =AppRequests
         DefaultMode: =If(varItemId = 0, FormMode.New, FormMode.View)
-        Height: |-
-            =//Min(
-            Parent.Height - Self.Y - ButtonContainer_2.Height - frm_Attach.Height
-            /*, 'Idea Name_DataCard1'.Height + 'Idea Description_DataCard1'.Height + 'Idea Related Queries_DataCard1'.Height + Attachments_DataCard1.Height + 'Is Developer Help Required_DataCard1'.Height + 10)*/
+        Height: =Parent.Height - Self.Y - ButtonContainer_2.Height - frm_Attach.Height
         Item: =varItem
         NumberOfColumns: =1
         OnSuccess: |-
@@ -185,7 +182,7 @@
             UpdateContext({varItem: Self.LastSubmit});
             If(frm_Attach.Mode = FormMode.View, EditForm(frm_Attach));
             SubmitForm(frm_Attach);
-            If(Self.LastSubmit.'COE Approval Status' = 'COE Approval Status (AppRequests)'.Approved && !IsBlank(Self.LastSubmit.'App Url'), Patch(Rev_SolutionReview, Defaults(Rev_SolutionReview), {LbSolutionReviewName: Self.LastSubmit.'App Name', 'App Document URI': Self.LastSubmit.'App Url', Chc_SolutionReview_Status: Chc_StatusImport.'In Progress'}));
+            /*If(Self.LastSubmit.'COE Approval Status' = 'COE Approval Status (AppRequests)'.Approved && !IsBlank(Self.LastSubmit.'App Url'), Patch(Rev_SolutionReview, Defaults(Rev_SolutionReview), {LbSolutionReviewName: Self.LastSubmit.'App Name', 'App Document URI': Self.LastSubmit.'App Url', Chc_SolutionReview_Status: Chc_StatusImport.'In Progress'}));*/
             ViewForm(Form_AppReq);
         Width: =Parent.Width - Self.X - Self.X
         X: =Parent.Width * 0.1
@@ -300,7 +297,7 @@
                 DisplayMode: =Parent.DisplayMode
                 FocusedBorderThickness: =1
                 Height: =80
-                HintText: =$"Enter {Parent.DisplayName}"
+                HintText: =If(Self.DisplayMode = DisplayMode.Edit, $"Enter {Parent.DisplayName}", Blank())
                 HoverFill: =RGBA(186, 202, 226, 0)
                 Mode: =TextMode.MultiLine
                 PaddingLeft: =5
@@ -373,11 +370,10 @@
                 DisplayMode: =Parent.DisplayMode
                 FocusedBorderThickness: =1
                 InputTextPlaceholder: =$"Select {Parent.DisplayName}"
-                IsSearchable: =false
                 Items: =Choices('Who will develop this app? (AppRequests)')
                 NoSelectionText: =$"Select {Parent.DisplayName}"
                 SearchFields: =["Value"]
-                SearchItems: =[]
+                SearchItems: =Choices('Who will develop this app? (AppRequests)',DataCardValue151.SearchText)
                 SelectMultiple: =false
                 Tooltip: =Parent.DisplayName
                 Width: =(Parent.Width - 60) * 0.7
@@ -445,7 +441,7 @@
                 DisplayMode: =Parent.DisplayMode
                 FocusedBorderThickness: =1
                 Height: =80
-                HintText: =$"Enter {Parent.DisplayName}"
+                HintText: =If(Self.DisplayMode = DisplayMode.Edit, $"Enter {Parent.DisplayName}", Blank())
                 HoverFill: =RGBA(186, 202, 226, 0)
                 Mode: =TextMode.MultiLine
                 PaddingLeft: =5
@@ -518,7 +514,7 @@
                 DisplayMode: =Parent.DisplayMode
                 FocusedBorderThickness: =1
                 Height: =80
-                HintText: =$"Enter {Parent.DisplayName}"
+                HintText: =If(Self.DisplayMode = DisplayMode.Edit, $"Enter {Parent.DisplayName}", Blank())
                 HoverFill: =RGBA(186, 202, 226, 0)
                 Mode: =TextMode.MultiLine
                 PaddingLeft: =5
@@ -581,7 +577,7 @@
                 Width: =(Parent.Width - 60) * 0.3
                 Wrap: =false
                 X: =30
-                Y: =10 + (DateValue1.Height / 2) + (Self.Height / 2)
+                Y: =10 //+ (DateValue1.Height / 2) + (Self.Height / 2)
                 ZIndex: =1
 
             DateValue1 As datepicker:
@@ -607,13 +603,14 @@
                 BorderThickness: =1
                 Default: =Text(Hour(Parent.Default),"00")
                 DisplayMode: =Parent.DisplayMode
-                Height: =DateValue1.Height
+                Height: =If(Self.Visible, DateValue1.Height, 0)
                 Items: =["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
                 PaddingBottom: =5
                 PaddingLeft: =5
                 PaddingRight: =5
                 PaddingTop: =5
                 Tooltip: =Parent.DisplayName
+                Visible: =false
                 Width: =DateValue1.Width / 2 - 5
                 X: =DateValue1.X
                 Y: =DateValue1.Y + DateValue1.Height + 10
@@ -629,6 +626,7 @@
                 PaddingTop: =0
                 Text: |-
                     =":"
+                Visible: =false
                 Width: =10
                 Wrap: =false
                 X: =HourValue1.X + HourValue1.Width
@@ -647,6 +645,7 @@
                 PaddingRight: =5
                 PaddingTop: =5
                 Tooltip: =Parent.DisplayName
+                Visible: =false
                 Width: =HourValue1.Width
                 X: =HourValue1.X + HourValue1.Width + Separator1.Width
                 Y: =HourValue1.Y
@@ -685,7 +684,7 @@
             DisplayName: =DataSourceInfo([@AppRequests],DataSourceInfo.DisplayName,"cr0e5_apptype")
             Fill: =RGBA(0, 0, 0, 0)
             Height: =50
-            Required: =false
+            Required: =Self.Visible
             Update: =DataCardValue152.Selected.Value
             Visible: =ThisItem.'COE Approval Status' = 'COE Approval Status (AppRequests)'.Approved
             Width: =Parent.Width
@@ -739,6 +738,7 @@
 
             StarVisible155 As label:
                 Align: =Align.Center
+                Color: =RGBA(255, 0, 0, 1)
                 Height: =DataCardKey156.Height
                 Text: ="*"
                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
@@ -755,7 +755,7 @@
             DisplayName: =DataSourceInfo([@AppRequests],DataSourceInfo.DisplayName,"cr0e5_appurl")
             Fill: =RGBA(0, 0, 0, 0)
             Height: =50
-            Required: =false
+            Required: =Self.Visible
             Update: =If(First(DataCardValue152.SelectedItems).Value = 'App Type (AppRequests)'.Canvas, DataCardValue142.Text, Blank())
             Visible: =ThisItem.'COE Approval Status' = 'COE Approval Status (AppRequests)'.Approved && First(DataCardValue152.SelectedItems).Value = 'App Type (AppRequests)'.Canvas
             Width: =Parent.Width
@@ -808,6 +808,7 @@
 
             StarVisible142 As label:
                 Align: =Align.Center
+                Color: =RGBA(255, 0, 0, 1)
                 Height: =DataCardKey143.Height
                 Text: ="*"
                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
@@ -1036,7 +1037,7 @@
             Fill: =RGBA(0, 0, 0, 0)
             Height: =50
             Required: =false
-            Update: =DataCardValue145.Selected.Value
+            Update: =If(varIsDraft, 'COE Approval Status (AppRequests)'.Draft, If(ThisItem.'COE Approval Status' <> 'COE Approval Status (AppRequests)'.Approved, 'COE Approval Status (AppRequests)'.Pending, First(DataCardValue145.SelectedItems).Value))
             Visible: =Parent.Mode = FormMode.View
             Width: =Parent.Width
             X: =0
@@ -1130,7 +1131,7 @@
                 DisplayMode: =Parent.DisplayMode
                 FocusedBorderThickness: =1
                 Height: =80
-                HintText: ="Enter Comments"
+                HintText: =If(Self.DisplayMode = DisplayMode.Edit, "Enter Comments", "")
                 HoverFill: =RGBA(186, 202, 226, 0)
                 Mode: =TextMode.MultiLine
                 PaddingLeft: =5
@@ -1701,7 +1702,7 @@
         Width: =HeaderComponent_AppReq.Width
         X: =HeaderComponent_AppReq.X
         Y: =Form_AppReq.Y + Form_AppReq.Height + frm_Attach.Height
-        ZIndex: =4
+        ZIndex: =3
 
         btnDraft_2 As button:
             BorderColor: =btnTemplate.BorderColor

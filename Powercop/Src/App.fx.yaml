@@ -7,7 +7,7 @@ App As appinfo:
             Set(varItemId, If(IsBlank(Param("itemid")), 0, If(IsError(Value(Param("itemid"))), 0, Value(Param("itemid"))))),
             Set(varNavigated, false)
         );
-        Set(varIsCoE, !IsBlank(LookUp('COE Approver', 'Approver Email' = varUserEmailLower)));
+        Set(varIsCoE, !IsBlank(LookUp('COE Approvers', Email = varUserEmailLower)));
         Concurrent(
         ClearCollect(colNavItems,
             Table({Title: "Home", Icon: Icon.Home, Index: 1, Screen: 'Home Screen', HasAccess: true, 

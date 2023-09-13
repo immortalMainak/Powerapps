@@ -10,8 +10,8 @@
         AutoStart: =true
         Height: =0
         OnTimerStart: |-
-            =Concurrent(Refresh('App Governance Idea'), Refresh('COE Approver'), Refresh('App Governance Idea History'));
-            Set(varIsCoE, !IsBlank(LookUp('COE Approver', 'Approver Email' = varUserEmailLower)));
+            =Refresh('COE Approvers');
+            Set(varIsCoE, !IsBlank(LookUp('COE Approvers', Email = varUserEmailLower)));
             UpdateIf(colNavItems, Index = 2, {HasAccess: varIsCoE});
         Repeat: =true
         Visible: =false
