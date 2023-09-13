@@ -117,7 +117,7 @@
         "Name": "lblAccessDeniedMsg",
         "Parent": "AccessDeniedComponent",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 1722,
+        "PublishOrderIndex": 1723,
         "Rules": [
           {
             "Category": "Data",

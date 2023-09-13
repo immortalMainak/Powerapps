@@ -1104,7 +1104,8 @@
             Fill: =RGBA(0, 0, 0, 0)
             Height: =50
             Required: =false
-            Update: =DataCardValue146.Text
+            Update: |-
+                =If(!IsBlank(DataCardValue146.Text), $"{varUserName} ({varUserEmailLower}) [{Today()}]: {Char(10)}{DataCardValue146.Text} {If(!IsBlank(Self.Default), $"{Char(10)}{Char(10)}{Self.Default}", "")}")
             Width: =Parent.Width
             X: =0
             Y: =11
@@ -1112,8 +1113,9 @@
 
             DataCardKey148 As label:
                 AutoHeight: =true
+                FontWeight: =FontWeight.Semibold
                 Height: =34
-                Text: =Parent.DisplayName
+                Text: ="Comments"
                 Width: =(Parent.Width - 60) * 0.3
                 Wrap: =false
                 X: =30
@@ -1123,7 +1125,7 @@
             DataCardValue146 As text:
                 BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
                 BorderThickness: =1
-                Default: =Parent.Default
+                Default: =""
                 DelayOutput: =true
                 DisplayMode: =Parent.DisplayMode
                 FocusedBorderThickness: =1
@@ -1166,6 +1168,14 @@
                 Wrap: =false
                 Y: =DataCardKey148.Y
                 ZIndex: =4
+
+            Label146 As label:
+                Height: =If(IsBlank(Self.Text), 0, 80)  
+                Text: =Parent.Default
+                Width: =DataCardValue146.Width
+                X: =DataCardValue146.X
+                Y: =DataCardValue146.Y + DataCardValue146.Height + 5
+                ZIndex: =5
 
         "'Developer Name_DataCard3' As typedDataCard.textualEditCard":
             BorderStyle: =BorderStyle.Solid
