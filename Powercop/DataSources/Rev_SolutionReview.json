@@ -6,6 +6,7 @@
     "IsSampleData": false,
     "IsWritable": true,
     "LogicalName": "cat_rev_solutionreview",
+    "MaxGetRowsCount": 2000,
     "Name": "Rev_SolutionReview",
     "NativeCDSDataSourceInfoNameMapping": {
       "_ownerid_value": "Owner",

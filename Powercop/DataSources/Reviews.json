@@ -6,6 +6,7 @@
     "IsSampleData": false,
     "IsWritable": true,
     "LogicalName": "cat_review",
+    "MaxGetRowsCount": 2000,
     "Name": "Reviews",
     "NativeCDSDataSourceInfoNameMapping": {
       "_ownerid_value": "Owner",
