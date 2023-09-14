@@ -38263,36 +38263,6 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.icnBodyPublish_MReq.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.icnBodyPublish_MReq.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "My App Requests Screen",
-                "type": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.icnBodyPublish_MReq"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
                   "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.icnBodyPublish_MReq.TabIndex"
                 }
               ],
@@ -38317,6 +38287,36 @@
           },
           "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
           "ruleIndex": 3
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.icnBodyPublish_MReq.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.icnBodyPublish_MReq.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "My App Requests Screen",
+                "type": "'My App Requests Screen'.MyRequestsGalleryContainer_Req.galMyItems_MReq.icnBodyPublish_MReq"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
         },
         {
           "locations": [

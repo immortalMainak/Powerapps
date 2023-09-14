@@ -276,10 +276,12 @@
                 OnSelect: |-
                     =UpdateContext({varLoadSpinner: true});
                     Select(Parent);
-                    Patch(AppRequests, LookUp(AppRequests, Id = ThisItem.Id), {
+                    If(IsError(Patch(AppRequests, LookUp(AppRequests, Id = ThisItem.Id), {
                         'App Request Status': If(ThisItem.'App Request Status' = 'App Request Status (AppRequests)'.UAT, 'App Request Status (AppRequests)'.'Prod Deployment Requested', 'App Request Status (AppRequests)'.'UAT Deployment Requested'),
-                        'COE Comments': $"{varUserName} ({varUserEmailLower}) [{Today()}]: {Char(10)}{Self.Tooltip}{If(!IsBlank(ThisItem.'COE Comments'), $"{Char(10)}{Char(10)}{ThisItem.'COE Comments'}", Blank())}"});
-                    Notify("Request Updated Successfully", NotificationType.Success, 15000);
+                        'COE Comments': $"{varUserName} ({varUserEmailLower}) [{Today()}]: {Char(10)}{Self.Tooltip}{If(!IsBlank(ThisItem.'COE Comments'), $"{Char(10)}{Char(10)}{ThisItem.'COE Comments'}", Blank())}"})),
+                    Notify("Request Updated Successfully.", NotificationType.Success, 15000), 
+                    Notify("Sorry something went wrong. Please try again later.", NotificationType.Error, 15000));
+                    Refresh(AppRequests);
                     UpdateContext({varLoadSpinner: false});
                 PaddingBottom: =Self.PaddingTop
                 PaddingLeft: =Self.PaddingTop
