@@ -135,7 +135,7 @@
         "Name": "icnMenu",
         "Parent": "NavComponent",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 1730,
+        "PublishOrderIndex": 1731,
         "Rules": [
           {
             "Category": "Data",
@@ -350,7 +350,7 @@
             "Name": "galleryTemplate1",
             "Parent": "galNavItems",
             "PersistMetaDataIDKey": false,
-            "PublishOrderIndex": 1732,
+            "PublishOrderIndex": 1733,
             "Rules": [
               {
                 "Category": "Design",
@@ -602,7 +602,7 @@
             "Name": "btnNavItem",
             "Parent": "galNavItems",
             "PersistMetaDataIDKey": false,
-            "PublishOrderIndex": 1733,
+            "PublishOrderIndex": 1734,
             "Rules": [
               {
                 "Category": "Data",
@@ -997,7 +997,7 @@
             "Name": "icnNavItem",
             "Parent": "galNavItems",
             "PersistMetaDataIDKey": false,
-            "PublishOrderIndex": 1734,
+            "PublishOrderIndex": 1735,
             "Rules": [
               {
                 "Category": "Design",
@@ -1290,7 +1290,7 @@
         "Name": "galNavItems",
         "Parent": "NavComponent",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 1731,
+        "PublishOrderIndex": 1732,
         "Rules": [
           {
             "Category": "Data",

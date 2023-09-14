@@ -12,6 +12,10 @@
   "DatasetName": "default.cds",
   "EntityName": "Rev_SolutionReview",
   "InstanceUrl": "https://org6fa17a7e.crm.dynamics.com/",
+  "LocalReferenceDSJson": {
+    "entitySetName": "cat_rev_solutionreviews",
+    "logicalName": "cat_rev_solutionreview"
+  },
   "state": "Configured",
   "TableDefinition": {
     "BooleanOptionSetAttribute": "{\"@odata.context\":\"https://org6fa17a7e.crm.dynamics.com/api/data/v9.0/$metadata#EntityDefinitions('cat_rev_solutionreview')/Attributes/Microsoft.Dynamics.CRM.BooleanAttributeMetadata(MetadataId,LogicalName,SchemaName,DisplayName,OptionSet())\",\"value\":[]}",
