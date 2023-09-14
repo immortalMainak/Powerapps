@@ -1852,6 +1852,7 @@
             ZIndex: =7
 
         Label3 As label:
+            Align: =Align.Right
             Color: |-
                 =If(Self.Visible, If(Value(Substitute(Last(Split(Self.Text, " ")).Value, "%", "")) > Value(varCodeReviewPercentThreshold),
                 RGBA(0, 0, 0, 1), Color.Red), RGBA(0, 0, 0, 1))
