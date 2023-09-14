@@ -292,7 +292,7 @@
                 PaddingLeft: =Self.PaddingTop
                 PaddingRight: =Self.PaddingLeft
                 PaddingTop: =2
-                Tooltip: =If(Self.DisplayMode = DisplayMode.Disabled, $"Cannot initiate deployment as code review score less than threshold ({varCodeReviewPercentThreshold}%)", $"Initiate {If(ThisItem.'App Request Status' = 'App Request Status (AppRequests)'.UAT, "PROD", "UAT")} deployment")
+                Tooltip: =If(Self.DisplayMode = DisplayMode.Disabled, If(!IsBlank(ThisItem.'App Url'), "App not selected", $"Cannot initiate deployment as code review score less than threshold ({varCodeReviewPercentThreshold}%)"), $"Initiate {If(ThisItem.'App Request Status' = 'App Request Status (AppRequests)'.UAT, "PROD", "UAT")} deployment")
                 Visible: =ThisItem.'App Request Status' in ['App Request Status (AppRequests)'.'Build in progress', 'App Request Status (AppRequests)'.UAT]
                 Width: =Self.Height
                 X: =icnBodyCodeReview_MReq.X - Self.Width - If(icnBodyCodeReview_MReq.Visible, 10, 0)
