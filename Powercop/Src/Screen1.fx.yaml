@@ -7,7 +7,7 @@ Screen1 As screen:
         ZIndex: =1
 
     Label2 As label:
-        Text: =Text(First(Last(Rev_SolutionReview).Reviews).Review)
+        Text: =LookUp('Environment Variable Values', 'Environment Variable Definition'.'Schema Name' = "cr0e5_MinAcceptablePercentageCodeReview").Value
         X: =60
         Y: =20
         ZIndex: =3

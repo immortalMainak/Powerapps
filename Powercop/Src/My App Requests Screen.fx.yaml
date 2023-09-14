@@ -119,8 +119,8 @@
                 VerticalAlign: =lblGalleryContent.VerticalAlign
                 Width: =lblHeadDesc_MReq.Width
                 Wrap: =false
-                X: =lblBodyCoECodeReview_MReq.X + lblBodyCoECodeReview_MReq.Width
-                Y: =lblBodyCoECodeReview_MReq.Y
+                X: =lblBodyCodeReview_MReq.X + lblBodyCodeReview_MReq.Width
+                Y: =lblBodyCodeReview_MReq.Y
                 ZIndex: =4
 
             lblBodySubmitDate_MReq As label:
@@ -198,17 +198,17 @@
                 Y: =lblBodyID_MReq.Y + lblBodyID_MReq.Height
                 ZIndex: =8
 
-            lblBodyCoECodeReview_MReq As label:
+            lblBodyCodeReview_MReq As label:
                 Align: =Align.Center    
                 BorderColor: =lblGalleryContent.BorderColor
                 BorderStyle: =lblGalleryContent.BorderStyle
                 BorderThickness: =lblGalleryContent.BorderThickness
-                Color: =lblGalleryContent.Color
+                Color: =If(EndsWith(Self.Text, "%"), If(Value(Substitute(Self.Text, "%", "")) > Value(varCodeReviewPercentThreshold), lblGalleryContent.Color, Color.Red), lblGalleryContent.Color)
                 Font: =lblGalleryContent.Font
                 FontWeight: =lblGalleryContent.FontWeight
                 Height: =lblBodyID_MReq.Height
                 OnSelect: |-
-                    =If(!IsBlank(ThisItem.Review), With({varUrlTmp: $"https://apps.powerapps.com/play/e/a06474a2-552e-ea8b-9713-9211843f7b18/a/6a661ba5-ca81-4684-8eaa-4cfbcd21cbc1?tenantId=02aa9fc1-18bc-4798-a020-e01c854dd434&hint=7f540fbe-04c2-405d-8f60-c7898e9a1c56&sourcetime=1694667123716&source=portal&reviewid={Text(First(ThisItem.Review.Reviews).Review)}"}, Launch(varUrlTmp, {}, LaunchTarget.New)));
+                    =If(!IsBlank(ThisItem.Review), With({varUrlTmp: $"{varCodeReviewAppUrl}&reviewid={Text(First(ThisItem.Review.Reviews).Review)}"}, Launch(varUrlTmp, {}, LaunchTarget.New)));
                 Size: =lblGalleryContent.Size
                 Text: =If(ThisItem.'App Type' = 'App Type (AppRequests)'.'Model-driven', "NA", If(!IsBlank(ThisItem.'App Url'),  If(IsBlank(ThisItem.Review), "-", ThisItem.Review.Nb_SolutionScore * 100 & "%"), "-"))
                 Tooltip: =Self.Text
@@ -238,6 +238,33 @@
                 X: =icnViewComments_MReq.X - Self.Width - 10
                 Y: =icnViewComments_MReq.Y
                 ZIndex: =10
+
+            btnNavCodeReviewReport As button:
+                BorderThickness: =0
+                Color: =RGBA(0, 0, 0, 0)
+                DisabledBorderColor: =RGBA(166, 166, 166, 0)
+                DisabledColor: =RGBA(166, 166, 166, 0)
+                DisabledFill: =RGBA(244, 244, 244, 0)
+                Fill: =RGBA(0, 0, 0, 0)
+                FocusedBorderThickness: =0
+                Height: =lblBodyCodeReview_MReq.Height - lblBodyCodeReview_MReq.BorderThickness*2
+                HoverColor: =RGBA(255, 255, 255, 0)
+                HoverFill: =ColorFade(RGBA(56, 96, 178, 0), -20%)
+                OnSelect: |-
+                    =Select(Parent);
+                    Select(lblBodyCodeReview_MReq);
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =11
+                Text: ="Button"
+                Tooltip: =$"View Code Review Report - {lblBodyCodeReview_MReq.Text}"
+                Visible: =!IsBlank(ThisItem.Review)
+                Width: =lblBodyCodeReview_MReq.Width - lblBodyCodeReview_MReq.BorderThickness*2
+                X: =lblBodyCodeReview_MReq.X + lblBodyCodeReview_MReq.BorderThickness
+                Y: =lblBodyCodeReview_MReq.Y + lblBodyCodeReview_MReq.BorderThickness
+                ZIndex: =11
 
         galHeadContainer_MReq As groupContainer.horizontalAutoLayoutContainer:
             BorderColor: =lblGalleryHead.BorderColor
