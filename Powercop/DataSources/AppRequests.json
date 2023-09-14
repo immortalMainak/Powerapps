@@ -21,13 +21,13 @@
       "cr0e5_apprequest_ProcessSession": "Process Sessions",
       "cr0e5_apprequest_SyncErrors": "Sync Errors",
       "cr0e5_apprequestid": "AppRequest",
+      "cr0e5_apprequeststatus": "App Request Status",
       "cr0e5_approvaldate": "AppApprovalDate",
       "cr0e5_approvedby": "Approved By",
       "cr0e5_apptype": "App Type",
       "cr0e5_appurl": "App Url",
       "cr0e5_businessbenefits": "Business Benefits",
       "cr0e5_codereviewid": "CodeReviewId",
-      "cr0e5_coeapprovalstatus": "COE Approval Status",
       "cr0e5_comments": "COE Comments",
       "cr0e5_developername": "Developer Name",
       "cr0e5_id": "Id",
@@ -75,6 +75,37 @@
     }
   },
   {
+    "DisplayName": "App Request Status (AppRequests)",
+    "Name": "cr0e5_apprequest_cr0e5_apprequeststatus",
+    "OptionSetInfoNameMapping": {
+      "1": "Build Approval Requested",
+      "10": "Prod Deployment sent back to initiator",
+      "11": "Prod Deployment Rejected",
+      "12": "Production",
+      "13": "Draft",
+      "2": "Build Approval sent back to initiator",
+      "3": "Build Approval Cancelled",
+      "4": "Build in progress",
+      "5": "UAT Deployment Requested",
+      "6": "UAT Deployment sent back to initiator",
+      "7": "UAT Deployment Rejected",
+      "8": "Prod Deployment Requested",
+      "9": "UAT"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr0e5_apprequeststatus",
+        "OptionSetReferenceEntityName": "AppRequests"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr0e5_apprequeststatus",
+    "RelatedEntityName": "AppRequests",
+    "Type": "OptionSetInfo"
+  },
+  {
     "DisplayName": "App Type (AppRequests)",
     "Name": "cr0e5_apprequest_cr0e5_apptype",
     "OptionSetInfoNameMapping": {
@@ -91,28 +122,6 @@
     },
     "OptionSetTypeKey": "PicklistType",
     "RelatedColumnInvariantName": "cr0e5_apptype",
-    "RelatedEntityName": "AppRequests",
-    "Type": "OptionSetInfo"
-  },
-  {
-    "DisplayName": "COE Approval Status (AppRequests)",
-    "Name": "cr0e5_apprequest_cr0e5_coeapprovalstatus",
-    "OptionSetInfoNameMapping": {
-      "1": "Draft",
-      "2": "Pending",
-      "3": "Approved",
-      "4": "Denied"
-    },
-    "OptionSetIsBooleanValued": false,
-    "OptionSetIsGlobal": false,
-    "OptionSetReference": {
-      "OptionSetReferenceItem0": {
-        "OptionSetReferenceColumnName": "cr0e5_coeapprovalstatus",
-        "OptionSetReferenceEntityName": "AppRequests"
-      }
-    },
-    "OptionSetTypeKey": "PicklistType",
-    "RelatedColumnInvariantName": "cr0e5_coeapprovalstatus",
     "RelatedEntityName": "AppRequests",
     "Type": "OptionSetInfo"
   },

@@ -55,6 +55,7 @@ App As appinfo:
             {Title: "Create Business Unit in Production", Index: 4}
             )
         );
+    SizeBreakpoints: =[600, 900, 1200, 1400, 1600, 1800]
     StartScreen: =Switch(Lower(Param("screen")), "req", 'App Request Screen', "coe", 'CoE Approval Screen', "mreq", 'My App Requests Screen', "crev", 'Code Review Screen', "allapps", 'All Apps Screen', "dash", 'Request Dashboard Screen', 'Home Screen')
     Theme: =PowerAppsTheme
 

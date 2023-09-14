@@ -131,7 +131,7 @@
         "Name": "lblHeadTitle",
         "Parent": "HeaderComponent",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 1742,
+        "PublishOrderIndex": 1746,
         "Rules": [
           {
             "Category": "Data",
@@ -501,7 +501,7 @@
         "Name": "imgLogoHead",
         "Parent": "HeaderComponent",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 1743,
+        "PublishOrderIndex": 1747,
         "Rules": [
           {
             "Category": "Data",
@@ -783,7 +783,7 @@
         "Name": "imgAppLogo",
         "Parent": "HeaderComponent",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 1744,
+        "PublishOrderIndex": 1748,
         "Rules": [
           {
             "Category": "Data",
@@ -1044,7 +1044,7 @@
         "Name": "Rectangle1",
         "Parent": "HeaderComponent",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 1745,
+        "PublishOrderIndex": 1749,
         "Rules": [
           {
             "Category": "Design",

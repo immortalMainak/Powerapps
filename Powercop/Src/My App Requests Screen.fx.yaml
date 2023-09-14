@@ -36,7 +36,7 @@
             BorderThickness: =lblGalleryHead.BorderThickness
             DelayItemLoading: =true
             Height: =Parent.Height - Self.Y
-            Items: =Search(AddColumns(Filter(Filter(AppRequests, InitiatorEmail = varUserEmailLower), (IsBlank(dteFilterStartDate_MReq.SelectedDate) || 'App Submitted Date' >= dteFilterStartDate_MReq.SelectedDate), (IsBlank(dteFilterEndDate_MReq.SelectedDate) || 'App Submitted Date' <= dteFilterEndDate_MReq.SelectedDate), (IsBlank(cmbFilterRequestor_MReq.SelectedItems) || IsEmpty(cmbFilterRequestor_MReq.SelectedItems) || Text('COE Approval Status') in cmbFilterRequestor_MReq.SelectedItems.Value)), "Desc", 'App Description', "AppNameTxt", 'App Name', "StatusTxt", Text('COE Approval Status'), "DeveloperName", 'Developer Name', "ApproverName", 'Approved By', "CommentsTxt", 'COE Comments', "Review",  If(!IsBlank('App Url'), LookUp(SortByColumns(AddColumns(Rev_SolutionReview, "AppUrlTxt", Text('App Document URI')), "modifiedon", SortOrder.Descending), AppUrlTxt = 'App Url' && Chc_SolutionReview_Status = Chc_StatusImport.Done), Blank())), txtSearch_MReq.Text, "Desc", "AppNameTxt", "StatusTxt", "DeveloperName", "ApproverName", "CommentsTxt")
+            Items: =Search(AddColumns(Filter(Filter(AppRequests, InitiatorEmail = varUserEmailLower), (IsBlank(dteFilterStartDate_MReq.SelectedDate) || 'App Submitted Date' >= dteFilterStartDate_MReq.SelectedDate), (IsBlank(dteFilterEndDate_MReq.SelectedDate) || 'App Submitted Date' <= dteFilterEndDate_MReq.SelectedDate), (IsBlank(cmbFilterRequestor_MReq.SelectedItems) || IsEmpty(cmbFilterRequestor_MReq.SelectedItems) || Text('App Request Status') in cmbFilterRequestor_MReq.SelectedItems.Value)), "Desc", 'App Description', "AppNameTxt", 'App Name', "StatusTxt", Text('App Request Status'), "DeveloperName", 'Developer Name', "ApproverName", 'Approved By', "CommentsTxt", 'COE Comments', "Review",  If(!IsBlank('App Url'), LookUp(SortByColumns(AddColumns(Rev_SolutionReview, "AppUrlTxt", Text('App Document URI')), "modifiedon", SortOrder.Descending), AppUrlTxt = 'App Url' && Chc_SolutionReview_Status = Chc_StatusImport.Done), Blank())), txtSearch_MReq.Text, "Desc", "AppNameTxt", "StatusTxt", "DeveloperName", "ApproverName", "CommentsTxt")
             Layout: =Layout.Vertical
             LoadingSpinner: =LoadingSpinner.Data
             TemplatePadding: =0
@@ -156,7 +156,8 @@
                 PaddingRight: =Self.PaddingLeft
                 PaddingTop: =2
                 Tooltip: ="View Info"
-                Width: =Self.Height
+                Visible: =Not(ThisItem.'App Request Status' in ['App Request Status (AppRequests)'.'Build Approval Cancelled', 'App Request Status (AppRequests)'.'UAT Deployment Rejected', 'App Request Status (AppRequests)'.'Prod Deployment Rejected'])
+                Width: =If(Self.Visible, Self.Height, 0)
                 X: =lblBodySubmitDate_MReq.X + lblBodySubmitDate_MReq.Width - Self.Width - If(Parent.AllItemsCount * Parent.TemplateHeight > Parent.Height, 20, 10)
                 Y: =lblBodySubmitDate_MReq.Y + (lblBodySubmitDate_MReq.Height - Self.Height) * 0.5
                 ZIndex: =6
@@ -172,8 +173,8 @@
                 PaddingTop: =2
                 Tooltip: =$"{If(varShowCommentsId = Value(ThisItem.Id), "Collapse", "Expand")} Comments"
                 Visible: =!IsBlank(ThisItem.CommentsTxt)
-                Width: =Self.Height
-                X: =icnViewInfo_MReq.X - Self.Width - 10
+                Width: =If(Self.Visible, Self.Height, 0)
+                X: =icnViewInfo_MReq.X - Self.Width - If(icnViewInfo_MReq.Visible, 10, 0)
                 Y: =icnViewInfo_MReq.Y
                 ZIndex: =7
 
@@ -208,11 +209,10 @@
                 FontWeight: =lblGalleryContent.FontWeight
                 Height: =lblBodyID_MReq.Height
                 OnSelect: |-
-                    =If(!IsBlank(ThisItem.Review), With({varUrlTmp: $"{varCodeReviewAppUrl}&reviewid={Text(First(ThisItem.Review.Reviews).Review)}"}, Launch(varUrlTmp, {}, LaunchTarget.New)));
+                    =If(!IsBlank(ThisItem.Review), With({varUrlTmp: $"{varCodeReviewAppUrl}&{varCodeReviewQueryString}={Text(First(SortByColumns(ThisItem.Review.Reviews, "modifiedon", SortOrder.Descending)).Review)}"}, Launch(varUrlTmp, {}, LaunchTarget.New)));
                 Size: =lblGalleryContent.Size
                 Text: =If(ThisItem.'App Type' = 'App Type (AppRequests)'.'Model-driven', "NA", If(!IsBlank(ThisItem.'App Url'),  If(IsBlank(ThisItem.Review), "-", ThisItem.Review.Nb_SolutionScore * 100 & "%"), "-"))
                 Tooltip: =Self.Text
-                Underline: =!IsBlank(ThisItem.Review)
                 VerticalAlign: =lblGalleryContent.VerticalAlign
                 Width: =lblHeadCodeReview_MReq.Width
                 Wrap: =false
@@ -233,9 +233,11 @@
                 PaddingRight: =Self.PaddingLeft
                 PaddingTop: =2
                 Tooltip: ="Attach app and perform code review"
-                Visible: =ThisItem.'COE Approval Status' = 'COE Approval Status (AppRequests)'.Approved
-                Width: =Self.Height
-                X: =icnViewComments_MReq.X - Self.Width - 10
+                Visible: |-
+                    =//ThisItem.'COE Approval Status' = 'COE Approval Status (AppRequests)'.Approved
+                    ThisItem.'App Request Status' = 'App Request Status (AppRequests)'.'Build in progress'
+                Width: =If(Self.Visible, Self.Height, 0)
+                X: =icnViewComments_MReq.X - Self.Width - If(icnViewComments_MReq.Visible, 10, 0)
                 Y: =icnViewComments_MReq.Y
                 ZIndex: =10
 
@@ -265,6 +267,29 @@
                 X: =lblBodyCodeReview_MReq.X + lblBodyCodeReview_MReq.BorderThickness
                 Y: =lblBodyCodeReview_MReq.Y + lblBodyCodeReview_MReq.BorderThickness
                 ZIndex: =11
+
+            icnBodyPublish_MReq As icon.Publish:
+                Color: =RGBA(0, 0, 0, 1)
+                Height: =icnBodyCodeReview_MReq.Height
+                Icon: =Icon.Publish
+                OnSelect: |-
+                    =UpdateContext({varLoadSpinner: true});
+                    Select(Parent);
+                    Patch(AppRequests, LookUp(AppRequests, Id = ThisItem.Id), {
+                        'App Request Status': If(ThisItem.'App Request Status' = 'App Request Status (AppRequests)'.UAT, 'App Request Status (AppRequests)'.'Prod Deployment Requested', 'App Request Status (AppRequests)'.'UAT Deployment Requested'),
+                        'COE Comments': $"{varUserName} ({varUserEmailLower}) [{Today()}]: {Char(10)}{Self.Tooltip}{If(!IsBlank(ThisItem.'COE Comments'), $"{Char(10)}{Char(10)}{ThisItem.'COE Comments'}", Blank())}"});
+                    Notify("Request Updated Successfully", NotificationType.Success, 15000);
+                    UpdateContext({varLoadSpinner: false});
+                PaddingBottom: =Self.PaddingTop
+                PaddingLeft: =Self.PaddingTop
+                PaddingRight: =Self.PaddingLeft
+                PaddingTop: =2
+                Tooltip: =$"Initiate {If(ThisItem.'App Request Status' = 'App Request Status (AppRequests)'.UAT, "PROD", "UAT")} deployment"
+                Visible: =ThisItem.'App Request Status' in ['App Request Status (AppRequests)'.'Build in progress', 'App Request Status (AppRequests)'.UAT]
+                Width: =Self.Height
+                X: =icnBodyCodeReview_MReq.X - Self.Width - If(icnBodyCodeReview_MReq.Visible, 10, 0)
+                Y: =icnBodyCodeReview_MReq.Y
+                ZIndex: =12
 
         galHeadContainer_MReq As groupContainer.horizontalAutoLayoutContainer:
             BorderColor: =lblGalleryHead.BorderColor
