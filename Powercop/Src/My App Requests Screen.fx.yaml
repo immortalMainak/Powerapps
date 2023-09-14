@@ -134,7 +134,7 @@
                 Height: =lblBodyID_MReq.Height
                 OnSelect: =Select(Parent)
                 Size: =lblGalleryContent.Size
-                Text: =DateValue(ThisItem.'App Submitted Date')
+                Text: =DateValue(If(!IsBlank(ThisItem.'App Submitted Date'), ThisItem.'App Submitted Date', ThisItem.'Created On'))
                 Tooltip: =Self.Text
                 VerticalAlign: =lblGalleryContent.VerticalAlign
                 Width: =lblHeadSubmitDate_MReq.Width - Self.BorderThickness
