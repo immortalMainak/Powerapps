@@ -1862,7 +1862,7 @@
                 =With({varReviewTmp: If(!IsBlank(varItem.'App Url'), LookUp(SortByColumns(AddColumns(Rev_SolutionReview, "AppUrlTxt", Text('App Document URI')), "modifiedon", SortOrder.Descending), AppUrlTxt = varItem.'App Url' && Chc_SolutionReview_Status = Chc_StatusImport.Done), Blank())}, If(!IsBlank(varReviewTmp), $"Code Review Score: {varReviewTmp.Nb_SolutionScore * 100}%", Blank()))
             Underline: =true
             Visible: =!IsBlank(Self.Text)
-            Width: =200
+            Width: =225
             X: =btnDraft_2.X - Self.Width - If(btnDraft_2.Visible, 20, 0)
             Y: =btnDraft_2.Y
             ZIndex: =8
