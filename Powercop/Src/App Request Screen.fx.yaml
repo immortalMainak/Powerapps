@@ -1857,14 +1857,14 @@
                 RGBA(0, 0, 0, 1), Color.Red), RGBA(0, 0, 0, 1))
             FontWeight: =FontWeight.Semibold
             OnSelect: |-
-                =With({varUrlTemp: varCodeReviewAppUrl & "&" & varCodeReviewQueryString & "=" & Text(First(SortByColumns(LookUp(SortByColumns(AddColumns(Rev_SolutionReview, "AppUrlTxt", Text('App Document URI')), "modifiedon", SortOrder.Descending), AppUrlTxt = varItem.'App Url' && Chc_SolutionReview_Status = Chc_StatusImport.Done).Reviews, "modifiedon", SortOrder.Descending)).Review)},  Launch(varUrlTemp, {}, LaunchTarget.New));
+                =With({varUrlTemp: varCodeReviewAppUrl & If(IsMatch(varCodeReviewAppUrl, "?", MatchOptions.Contains), "&", "?") & varCodeReviewQueryString & "=" & Text(First(SortByColumns(LookUp(SortByColumns(AddColumns(Rev_SolutionReview, "AppUrlTxt", Text('App Document URI')), "modifiedon", SortOrder.Descending), AppUrlTxt = varItem.'App Url' && Chc_SolutionReview_Status = Chc_StatusImport.Done).Reviews, "modifiedon", SortOrder.Descending)).Review)},  Launch(varUrlTemp, {}, LaunchTarget.New));
             Text: |-
                 =With({varReviewTmp: If(!IsBlank(varItem.'App Url'), LookUp(SortByColumns(AddColumns(Rev_SolutionReview, "AppUrlTxt", Text('App Document URI')), "modifiedon", SortOrder.Descending), AppUrlTxt = varItem.'App Url' && Chc_SolutionReview_Status = Chc_StatusImport.Done), Blank())}, If(!IsBlank(varReviewTmp), $"Code Review Score: {varReviewTmp.Nb_SolutionScore * 100}%", Blank()))
             Underline: =true
             Visible: =!IsBlank(Self.Text)
             Width: =200
-            X: =btnDraft_13.X - Self.Width - If(btnDraft_2.Visible, 20, 0)
-            Y: =btnSubmit_2.Y
+            X: =btnDraft_2.X - Self.Width - If(btnDraft_2.Visible, 20, 0)
+            Y: =btnDraft_2.Y
             ZIndex: =8
 
         btnDraft_13 As button:

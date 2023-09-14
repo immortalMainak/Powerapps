@@ -163,6 +163,7 @@
                 ZIndex: =6
 
             icnViewComments_MReq As icon.DocumentwithContent:
+                Color: =RGBA(0, 0, 0, 1)
                 Height: =icnViewInfo_MReq.Height
                 Icon: =If(varShowCommentsId = Value(ThisItem.Id), Icon.CancelBadge, Icon.DocumentWithContent)
                 OnSelect: |-
@@ -209,7 +210,7 @@
                 FontWeight: =lblGalleryContent.FontWeight
                 Height: =lblBodyID_MReq.Height
                 OnSelect: |-
-                    =If(!IsBlank(ThisItem.Review), With({varUrlTmp: $"{varCodeReviewAppUrl}&{varCodeReviewQueryString}={Text(First(SortByColumns(ThisItem.Review.Reviews, "modifiedon", SortOrder.Descending)).Review)}"}, Launch(varUrlTmp, {}, LaunchTarget.New)));
+                    =If(!IsBlank(ThisItem.Review), With({varUrlTmp: $"{varCodeReviewAppUrl}{If(IsMatch(varCodeReviewAppUrl, "?", MatchOptions.Contains), "&", "?")}{varCodeReviewQueryString}={Text(First(SortByColumns(ThisItem.Review.Reviews, "modifiedon", SortOrder.Descending)).Review)}"}, Launch(varUrlTmp, {}, LaunchTarget.New)));
                 Size: =lblGalleryContent.Size
                 Text: =If(ThisItem.'App Type' = 'App Type (AppRequests)'.'Model-driven', "NA", If(!IsBlank(ThisItem.'App Url'),  If(IsBlank(ThisItem.Review), "-", ThisItem.Review.Nb_SolutionScore * 100 & "%"), "-"))
                 Tooltip: =Self.Text
