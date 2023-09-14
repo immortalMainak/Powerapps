@@ -17,6 +17,7 @@
         BorderThickness: =1
         Fill: =RGBA(237, 237, 237, 1)
         FontWeight: =FontWeight.Semibold
+        Size: =12
         Text: ="Text"
         X: =56
         Y: =260
@@ -25,6 +26,7 @@
     lblGalleryContent As label:
         BorderColor: =lblGalleryHead.BorderColor
         BorderThickness: =lblGalleryHead.BorderThickness
+        Size: =11
         Text: =
         Wrap: =false
         X: =56

@@ -3,7 +3,7 @@
     OnVisible: |-
         =UpdateContext({varLoadSpinner: true});
         Reset(NavComponent_MReq);
-        UpdateContext({varFilterPopup: false, varShowCommentsId: 0, 
+        UpdateContext({varFilterPopup: false, varShowCommentsId: 0, varAppAttach: Blank(),
             varSelectedRequestType: First(colRequestTypes).Index});
         UpdateContext({varLoadSpinner: false});
 
@@ -36,7 +36,7 @@
             BorderThickness: =lblGalleryHead.BorderThickness
             DelayItemLoading: =true
             Height: =Parent.Height - Self.Y
-            Items: =Search(AddColumns(Filter(Filter(AppRequests, InitiatorEmail = varUserEmailLower), (IsBlank(dteFilterStartDate_MReq.SelectedDate) || 'App Submitted Date' >= dteFilterStartDate_MReq.SelectedDate), (IsBlank(dteFilterEndDate_MReq.SelectedDate) || 'App Submitted Date' <= dteFilterEndDate_MReq.SelectedDate), (IsBlank(cmbFilterRequestor_MReq.SelectedItems) || IsEmpty(cmbFilterRequestor_MReq.SelectedItems) || Text('COE Approval Status') in cmbFilterRequestor_MReq.SelectedItems.Value)), "Desc", 'App Description', "AppNameTxt", 'App Name', "StatusTxt", Text('COE Approval Status'), "DeveloperName", 'Developer Name', "ApproverName", 'Approved By', "CommentsTxt", 'COE Comments', "Review",  If(!IsBlank('App Url'), LookUp(SortByColumns(Rev_SolutionReview, "modifiedon", SortOrder.Descending), Text('App Document URI') = 'App Url' && Chc_SolutionReview_Status = Chc_StatusImport.Done), Blank())), txtSearch_MReq.Text, "Desc", "AppNameTxt", "StatusTxt", "DeveloperName", "ApproverName", "CommentsTxt")
+            Items: =Search(AddColumns(Filter(Filter(AppRequests, InitiatorEmail = varUserEmailLower), (IsBlank(dteFilterStartDate_MReq.SelectedDate) || 'App Submitted Date' >= dteFilterStartDate_MReq.SelectedDate), (IsBlank(dteFilterEndDate_MReq.SelectedDate) || 'App Submitted Date' <= dteFilterEndDate_MReq.SelectedDate), (IsBlank(cmbFilterRequestor_MReq.SelectedItems) || IsEmpty(cmbFilterRequestor_MReq.SelectedItems) || Text('COE Approval Status') in cmbFilterRequestor_MReq.SelectedItems.Value)), "Desc", 'App Description', "AppNameTxt", 'App Name', "StatusTxt", Text('COE Approval Status'), "DeveloperName", 'Developer Name', "ApproverName", 'Approved By', "CommentsTxt", 'COE Comments', "Review",  If(!IsBlank('App Url'), LookUp(SortByColumns(AddColumns(Rev_SolutionReview, "AppUrlTxt", Text('App Document URI')), "modifiedon", SortOrder.Descending), AppUrlTxt = 'App Url' && Chc_SolutionReview_Status = Chc_StatusImport.Done), Blank())), txtSearch_MReq.Text, "Desc", "AppNameTxt", "StatusTxt", "DeveloperName", "ApproverName", "CommentsTxt")
             Layout: =Layout.Vertical
             LoadingSpinner: =LoadingSpinner.Data
             TemplatePadding: =0
@@ -94,10 +94,9 @@
                 Font: =lblGalleryContent.Font
                 FontWeight: =lblGalleryContent.FontWeight
                 Height: =lblBodyID_MReq.Height
-                OnSelect: |-
-                    =If(!IsBlank(ThisItem.Review), With({varUrlTmp: $"https://apps.powerapps.com/play/e/a06474a2-552e-ea8b-9713-9211843f7b18/a/6a661ba5-ca81-4684-8eaa-4cfbcd21cbc1?tenantId=02aa9fc1-18bc-4798-a020-e01c854dd434&hint=7f540fbe-04c2-405d-8f60-c7898e9a1c56&sourcetime=1694667123716&source=portal&reviewid={Text(First(ThisItem.Review.Reviews).Review)}"}, Launch(varUrlTmp, {}, LaunchTarget.New)));
+                OnSelect: =Select(Parent)
                 Size: =lblGalleryContent.Size
-                Text: =ThisItem.StatusTxt & " (" & If(ThisItem.'App Type' = 'App Type (AppRequests)'.'Model-driven', "NA", If(!IsBlank(ThisItem.'App Url'),  If(IsBlank(ThisItem.Review), "-", ThisItem.Review.Nb_SolutionScore * 100 & "%"), "-")) & ")"
+                Text: =ThisItem.StatusTxt
                 Tooltip: =Self.Text
                 VerticalAlign: =lblGalleryContent.VerticalAlign
                 Width: =lblHeadStatus_MReq.Width
@@ -120,7 +119,8 @@
                 VerticalAlign: =lblGalleryContent.VerticalAlign
                 Width: =lblHeadDesc_MReq.Width
                 Wrap: =false
-                X: =lblBodyCoEStatus_MReq.X + lblBodyCoEStatus_MReq.Width
+                X: =lblBodyCoECodeReview_MReq.X + lblBodyCoECodeReview_MReq.Width
+                Y: =lblBodyCoECodeReview_MReq.Y
                 ZIndex: =4
 
             lblBodySubmitDate_MReq As label:
@@ -198,6 +198,47 @@
                 Y: =lblBodyID_MReq.Y + lblBodyID_MReq.Height
                 ZIndex: =8
 
+            lblBodyCoECodeReview_MReq As label:
+                Align: =Align.Center    
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =lblBodyID_MReq.Height
+                OnSelect: |-
+                    =If(!IsBlank(ThisItem.Review), With({varUrlTmp: $"https://apps.powerapps.com/play/e/a06474a2-552e-ea8b-9713-9211843f7b18/a/6a661ba5-ca81-4684-8eaa-4cfbcd21cbc1?tenantId=02aa9fc1-18bc-4798-a020-e01c854dd434&hint=7f540fbe-04c2-405d-8f60-c7898e9a1c56&sourcetime=1694667123716&source=portal&reviewid={Text(First(ThisItem.Review.Reviews).Review)}"}, Launch(varUrlTmp, {}, LaunchTarget.New)));
+                Size: =lblGalleryContent.Size
+                Text: =If(ThisItem.'App Type' = 'App Type (AppRequests)'.'Model-driven', "NA", If(!IsBlank(ThisItem.'App Url'),  If(IsBlank(ThisItem.Review), "-", ThisItem.Review.Nb_SolutionScore * 100 & "%"), "-"))
+                Tooltip: =Self.Text
+                Underline: =!IsBlank(ThisItem.Review)
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadCodeReview_MReq.Width
+                Wrap: =false
+                X: =lblBodyCoEStatus_MReq.X + lblBodyCoEStatus_MReq.Width
+                Y: =lblBodyCoEStatus_MReq.Y
+                ZIndex: =9
+
+            icnBodyCodeReview_MReq As icon.Tools:
+                Color: =RGBA(0, 0, 0, 1)
+                FocusedBorderThickness: =0
+                Height: =icnViewComments_MReq.Height
+                Icon: =Icon.Tools
+                OnSelect: |-
+                    =Select(Parent);
+                    UpdateContext({varAppAttach: ThisItem});
+                PaddingBottom: =Self.PaddingTop
+                PaddingLeft: =Self.PaddingTop
+                PaddingRight: =Self.PaddingLeft
+                PaddingTop: =2
+                Tooltip: ="Attach app and perform code review"
+                Visible: =ThisItem.'COE Approval Status' = 'COE Approval Status (AppRequests)'.Approved
+                Width: =Self.Height
+                X: =icnViewComments_MReq.X - Self.Width - 10
+                Y: =icnViewComments_MReq.Y
+                ZIndex: =10
+
         galHeadContainer_MReq As groupContainer.horizontalAutoLayoutContainer:
             BorderColor: =lblGalleryHead.BorderColor
             BorderStyle: =lblGalleryHead.BorderStyle
@@ -229,7 +270,7 @@
                 Text: ="ID"
                 Tooltip: =Self.Text
                 VerticalAlign: =lblGalleryHead.VerticalAlign
-                Width: =Parent.Width * 0.1
+                Width: =Parent.Width * 0.07
                 Wrap: =false
                 ZIndex: =1
 
@@ -247,7 +288,7 @@
                 Text: ="App Name"
                 Tooltip: =Self.Text
                 VerticalAlign: =lblGalleryHead.VerticalAlign
-                Width: =Parent.Width * 0.3
+                Width: =Parent.Width * 0.27
                 Wrap: =false
                 ZIndex: =2
 
@@ -262,12 +303,29 @@
                 FontWeight: =lblGalleryHead.FontWeight
                 Height: =Parent.Height
                 Size: =lblGalleryHead.Size
-                Text: ="Status (Code Review)"
+                Text: ="Status"
                 Tooltip: =Self.Text
                 VerticalAlign: =lblGalleryHead.VerticalAlign
-                Width: =Parent.Width * 0.15
+                Width: =Parent.Width * 0.1
                 Wrap: =false
                 ZIndex: =3
+
+            lblHeadCodeReview_MReq As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="Code Review"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.08
+                ZIndex: =4
 
             lblHeadDesc_MReq As label:
                 Align: =lblGalleryHead.Align
@@ -283,9 +341,9 @@
                 Text: ="Description"
                 Tooltip: =Self.Text
                 VerticalAlign: =lblGalleryHead.VerticalAlign
-                Width: =Parent.Width * 0.3
+                Width: =Parent.Width * 0.32
                 Wrap: =false
-                ZIndex: =4
+                ZIndex: =5
 
             lblHeadSubmitDate_MReq As label:
                 Align: =lblGalleryHead.Align
@@ -301,9 +359,9 @@
                 Text: ="Submit Date"
                 Tooltip: =Self.Text
                 VerticalAlign: =lblGalleryHead.VerticalAlign
-                Width: =Parent.Width * 0.15
+                Width: =Parent.Width * 0.16
                 Wrap: =false
-                ZIndex: =5
+                ZIndex: =6
 
         icnFilter_MReq As icon.FilterFlat:
             Height: =40
@@ -363,6 +421,7 @@
             RadiusTopRight: =0
             Size: =lblGalleryHead.Size
             Text: ="Code Review"
+            Visible: =false
             X: =Parent.Width - Self.Width - 20
             Y: =txtSearch_MReq.Y
             ZIndex: =6
@@ -1326,6 +1385,172 @@
                 X: =cmbFilterRequestor_MReq.X
                 Y: =cmbFilterRequestor_MReq.Y + cmbFilterRequestor_MReq.Height + 20
                 ZIndex: =7
+
+        icnRefresh As icon.Reload:
+            FocusedBorderThickness: =0
+            Height: =txtSearch_MReq.Height
+            Icon: =Icon.Reload
+            OnSelect: =Concurrent(Refresh(AppRequests), Refresh(Rev_SolutionReview));
+            PaddingBottom: =Self.PaddingTop
+            PaddingLeft: =Self.PaddingTop
+            PaddingRight: =Self.PaddingLeft
+            PaddingTop: =5
+            Tooltip: ="Ref"
+            Width: =Self.Height
+            X: =Parent.Width - Self.Width - 20
+            Y: =txtSearch_MReq.Y
+            ZIndex: =15
+
+    AppAttachContainer As groupContainer.manualLayoutContainer:
+        DropShadow: =DropShadow.None
+        Fill: =SpinnerComponent_MReq.Fill
+        Height: =Parent.Height -Self.Y
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Visible: =!IsBlank(varAppAttach)
+        Width: =Parent.Width - Self.X - Self.X
+        X: =HeaderComponent_MReq.X
+        Y: =HeaderComponent_MReq.Y + HeaderComponent_MReq.Height
+        ZIndex: =3
+
+        rectBackgroundAppAttach As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =200
+            Width: =Parent.Width * 0.5
+            X: =(Parent.Width - Self.Width)*0.5
+            Y: =(Parent.Height - Self.Height) * 0.5
+            ZIndex: =1
+
+        cmbAppAttach As combobox:
+            DefaultSelectedItems: =If(First(cmbAppType.SelectedItems).Value = 'App Type (AppRequests)'.Canvas, Filter(Filter(ShowColumns(AddColumns(PowerAppsforMakers.GetApps({}).value, "AppUrl",properties.appUris.documentUri.value, "NameNew", properties.displayName), "AppUrl", "NameNew"), !IsBlank(AppUrl)),AppUrl = varAppAttach.'App Url'), Blank())
+            DisplayFields: =["NameNew"]
+            InputTextPlaceholder: ="Select App"
+            Items: =Filter(ShowColumns(AddColumns(PowerAppsforMakers.GetApps({}).value, "AppUrl", properties.appUris.documentUri.value, "NameNew", properties.displayName), "AppUrl", "NameNew"), !IsBlank(AppUrl))
+            NoSelectionText: ="Select App"
+            Reset: =true
+            SearchFields: =["NameNew"]
+            SearchItems: =Search(Filter(ShowColumns(AddColumns(PowerAppsforMakers.GetApps({}).value, "AppUrl", properties.appUris.documentUri.value, "NameNew", properties.displayName), "AppUrl", "NameNew"), !IsBlank(AppUrl)),cmbAppAttach.SearchText,"NameNew")
+            SelectMultiple: =false
+            Visible: =lblApp.Visible
+            Width: =cmbAppType.Width
+            X: =cmbAppType.X
+            Y: =lblApp.Y
+            ZIndex: =2
+
+        cmbAppType As combobox:
+            DefaultSelectedItems: =Filter(Choices('App Type (AppRequests)'), Value = varAppAttach.'App Type')
+            DisplayFields: =["Value"]
+            InputTextPlaceholder: ="Select App Type"
+            Items: =Choices('App Type (AppRequests)')
+            NoSelectionText: ="Select App Type"
+            OnChange: =Reset(cmbAppAttach);
+            SearchFields: =["Value"]
+            SearchItems: =Choices('App Type (AppRequests)',cmbAppType.SearchText)
+            SelectMultiple: =false
+            Width: =rectBackgroundAppAttach.Width - lblAppType.Width - (lblAppType.X - rectBackgroundAppAttach.X) * 2
+            X: =lblAppType.X + lblAppType.Width
+            Y: =lblAppType.Y
+            ZIndex: =3
+
+        lblAppType As label:
+            FontWeight: =FontWeight.Semibold
+            Size: =12
+            Text: ="App Type"
+            Width: =100
+            X: =rectBackgroundAppAttach.X + 20
+            Y: =rectBackgroundAppAttach.Y + 20
+            ZIndex: =4
+
+        lblApp As label:
+            FontWeight: =lblAppType.FontWeight
+            Size: =lblAppType.Size
+            Text: ="App"
+            Visible: =First(cmbAppType.SelectedItems).Value = 'App Type (AppRequests)'.Canvas
+            Width: =lblAppType.Width
+            X: =lblAppType.X
+            Y: =lblAppType.Y + lblAppType.Height + (lblAppType.Y - rectBackgroundAppAttach.Y)
+            ZIndex: =5
+
+        btnSubmitReq As button:
+            BorderColor: =btnTemplate.BorderColor
+            BorderStyle: =btnTemplate.BorderStyle
+            BorderThickness: =btnTemplate.BorderThickness
+            Color: =btnTemplate.Color
+            DisabledBorderColor: =btnTemplate.DisabledBorderColor
+            DisabledColor: =btnTemplate.DisabledBorderColor
+            DisabledFill: =btnTemplate.DisabledFill
+            DisplayMode: =If(First(cmbAppType.SelectedItems).Value = 'App Type (AppRequests)'.'Model-driven' || ('App Type (AppRequests)'.Canvas = First(cmbAppType.SelectedItems).Value && !IsBlank(First(cmbAppAttach.SelectedItems).AppUrl)), DisplayMode.Edit, DisplayMode.Disabled)
+            Fill: =btnTemplate.Fill
+            FocusedBorderColor: =btnTemplate.FocusedBorderColor
+            FocusedBorderThickness: =btnTemplate.FocusedBorderThickness
+            Font: =btnTemplate.Font
+            FontWeight: =btnTemplate.FontWeight
+            HoverBorderColor: =btnTemplate.HoverBorderColor
+            HoverColor: =btnTemplate.HoverColor
+            HoverFill: =btnTemplate.HoverFill
+            OnSelect: |-
+                =UpdateContext({varLoadSpinner: true});
+                Patch(AppRequests, LookUp(AppRequests, Id = varAppAttach.Id), 
+                    {'App Type': cmbAppType.Selected.Value, 'App Url': First(cmbAppAttach.SelectedItems).AppUrl});
+                UpdateContext({varLoadSpinner: false});
+                Select(btnCancelReq);
+            PressedBorderColor: =btnTemplate.PressedBorderColor
+            PressedColor: =btnTemplate.PressedColor
+            PressedFill: =btnTemplate.PressedFill
+            RadiusBottomLeft: =btnTemplate.RadiusBottomLeft
+            RadiusBottomRight: =btnTemplate.RadiusBottomRight
+            RadiusTopLeft: =btnTemplate.RadiusTopLeft
+            RadiusTopRight: =btnTemplate.RadiusTopRight
+            Size: =btnTemplate.Size
+            Text: ="Submit"
+            Width: =120
+            X: =btnCancelReq.X - Self.Width - 20
+            Y: =btnCancelReq.Y
+            ZIndex: =6
+
+        btnCancelReq As button:
+            BorderColor: =btnTemplate.BorderColor
+            BorderStyle: =btnTemplate.BorderStyle
+            BorderThickness: =btnTemplate.BorderThickness
+            Color: =btnTemplate.Color
+            DisabledBorderColor: =btnTemplate.DisabledBorderColor
+            DisabledColor: =btnTemplate.DisabledBorderColor
+            DisabledFill: =btnTemplate.DisabledFill
+            Fill: =btnTemplate.Fill
+            FocusedBorderColor: =btnTemplate.FocusedBorderColor
+            FocusedBorderThickness: =btnTemplate.FocusedBorderThickness
+            Font: =btnTemplate.Font
+            FontWeight: =btnTemplate.FontWeight
+            HoverBorderColor: =btnTemplate.HoverBorderColor
+            HoverColor: =btnTemplate.HoverColor
+            HoverFill: =btnTemplate.HoverFill
+            OnSelect: |-
+                =UpdateContext({varAppAttach: Blank()});
+            PressedBorderColor: =btnTemplate.PressedBorderColor
+            PressedColor: =btnTemplate.PressedColor
+            PressedFill: =btnTemplate.PressedFill
+            RadiusBottomLeft: =btnTemplate.RadiusBottomLeft
+            RadiusBottomRight: =btnTemplate.RadiusBottomRight
+            RadiusTopLeft: =btnTemplate.RadiusTopLeft
+            RadiusTopRight: =btnTemplate.RadiusTopRight
+            Size: =btnTemplate.Size
+            Text: ="Cancel"
+            Width: =120
+            X: =cmbAppAttach.X + cmbAppAttach.Width - Self.Width
+            Y: =cmbAppAttach.Y + cmbAppAttach.Height + (lblAppType.Y - rectBackgroundAppAttach.Y)
+            ZIndex: =7
+
+        lblAppAttachHead As label:
+            Align: =Align.Center
+            Fill: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Text: ="App Request - " & varAppAttach.Id
+            Width: =rectBackgroundAppAttach.Width
+            X: =rectBackgroundAppAttach.X
+            Y: =rectBackgroundAppAttach.Y - Self.Height
+            ZIndex: =8
 
     HeaderComponent_MReq As HeaderComponent:
         BackgroundColor: =lblHeader.Fill
