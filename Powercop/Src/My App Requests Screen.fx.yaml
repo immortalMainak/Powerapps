@@ -3,7 +3,7 @@
     OnVisible: |-
         =UpdateContext({varLoadSpinner: true});
         Reset(NavComponent_MReq);
-        UpdateContext({varFilterPopup: false, varShowCommentsId: 0, varAppAttach: Blank(),
+        UpdateContext({varFilterPopup: false, varShowCommentsId: 0, varAppAttach: Blank(), varDefaultApp: Blank(),
             varSelectedRequestType: First(colRequestTypes).Index});
         UpdateContext({varLoadSpinner: false});
 
@@ -228,7 +228,9 @@
                 Icon: =Icon.Tools
                 OnSelect: |-
                     =Select(Parent);
-                    UpdateContext({varAppAttach: ThisItem});
+                    UpdateContext({varLoadSpinner: true});
+                    UpdateContext({varAppAttach: ThisItem, varDefaultApp: If(IsBlank(ThisItem.'App Url'), Blank(), LookUp(Filter(ShowColumns(AddColumns(PowerAppsforMakers.GetApps({}).value, "AppUrl",properties.appUris.documentUri.value, "NameNew", properties.displayName), "AppUrl", "NameNew"), !IsBlank(AppUrl)),AppUrl = ThisItem.'App Url'))});
+                    UpdateContext({varLoadSpinner: false});
                 PaddingBottom: =Self.PaddingTop
                 PaddingLeft: =Self.PaddingTop
                 PaddingRight: =Self.PaddingLeft
@@ -382,7 +384,7 @@
                 Text: ="Code Review"
                 Tooltip: =Self.Text
                 VerticalAlign: =lblGalleryHead.VerticalAlign
-                Width: =Parent.Width * 0.08
+                Width: =Parent.Width * 0.06
                 ZIndex: =4
 
             lblHeadDesc_MReq As label:
@@ -399,7 +401,7 @@
                 Text: ="Description"
                 Tooltip: =Self.Text
                 VerticalAlign: =lblGalleryHead.VerticalAlign
-                Width: =Parent.Width * 0.32
+                Width: =Parent.Width * 0.3
                 Wrap: =false
                 ZIndex: =5
 
@@ -417,7 +419,7 @@
                 Text: ="Submit Date"
                 Tooltip: =Self.Text
                 VerticalAlign: =lblGalleryHead.VerticalAlign
-                Width: =Parent.Width * 0.16
+                Width: =Parent.Width * 0.2
                 Wrap: =false
                 ZIndex: =6
 
@@ -1480,7 +1482,7 @@
             ZIndex: =1
 
         cmbAppAttach As combobox:
-            DefaultSelectedItems: =If(First(cmbAppType.SelectedItems).Value = 'App Type (AppRequests)'.Canvas, Filter(Filter(ShowColumns(AddColumns(PowerAppsforMakers.GetApps({}).value, "AppUrl",properties.appUris.documentUri.value, "NameNew", properties.displayName), "AppUrl", "NameNew"), !IsBlank(AppUrl)),AppUrl = varAppAttach.'App Url'), Blank())
+            DefaultSelectedItems: =If(First(cmbAppType.SelectedItems).Value = 'App Type (AppRequests)'.Canvas, varDefaultApp, Blank())
             DisplayFields: =["NameNew"]
             InputTextPlaceholder: ="Select App"
             Items: =Filter(ShowColumns(AddColumns(PowerAppsforMakers.GetApps({}).value, "AppUrl", properties.appUris.documentUri.value, "NameNew", properties.displayName), "AppUrl", "NameNew"), !IsBlank(AppUrl))
@@ -1583,7 +1585,7 @@
             HoverColor: =btnTemplate.HoverColor
             HoverFill: =btnTemplate.HoverFill
             OnSelect: |-
-                =UpdateContext({varAppAttach: Blank()});
+                =UpdateContext({varAppAttach: Blank(), varDefaultApp: Blank()});
             PressedBorderColor: =btnTemplate.PressedBorderColor
             PressedColor: =btnTemplate.PressedColor
             PressedFill: =btnTemplate.PressedFill
