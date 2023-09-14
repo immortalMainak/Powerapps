@@ -36,7 +36,7 @@
             BorderThickness: =lblGalleryHead.BorderThickness
             DelayItemLoading: =true
             Height: =Parent.Height - Self.Y
-            Items: =Search(AddColumns(Filter(Filter(AppRequests, InitiatorEmail = varUserEmailLower), (IsBlank(dteFilterStartDate_MReq.SelectedDate) || 'App Submitted Date' >= dteFilterStartDate_MReq.SelectedDate), (IsBlank(dteFilterEndDate_MReq.SelectedDate) || 'App Submitted Date' <= dteFilterEndDate_MReq.SelectedDate), (IsBlank(cmbFilterRequestor_MReq.SelectedItems) || IsEmpty(cmbFilterRequestor_MReq.SelectedItems) || Text('App Request Status') in cmbFilterRequestor_MReq.SelectedItems.Value)), "Desc", 'App Description', "AppNameTxt", 'App Name', "StatusTxt", Text('App Request Status'), "DeveloperName", 'Developer Name', "ApproverName", 'Approved By', "CommentsTxt", 'COE Comments', "Review",  If(!IsBlank('App Url'), LookUp(SortByColumns(AddColumns(Rev_SolutionReview, "AppUrlTxt", Text('App Document URI')), "modifiedon", SortOrder.Descending), AppUrlTxt = 'App Url' && Chc_SolutionReview_Status = Chc_StatusImport.Done), Blank())), txtSearch_MReq.Text, "Desc", "AppNameTxt", "StatusTxt", "DeveloperName", "ApproverName", "CommentsTxt")
+            Items: =Search(AddColumns(Filter(Filter(AppRequests, InitiatorEmail = varUserEmailLower), (IsBlank(dteFilterStartDate_MReq.SelectedDate) || 'App Submitted Date' >= dteFilterStartDate_MReq.SelectedDate), (IsBlank(dteFilterEndDate_MReq.SelectedDate) || 'App Submitted Date' <= dteFilterEndDate_MReq.SelectedDate), (IsBlank(cmbFilterRequestor_MReq.SelectedItems) || IsEmpty(cmbFilterRequestor_MReq.SelectedItems) || 'App Request Status' in cmbFilterRequestor_MReq.SelectedItems.Value)), "Desc", 'App Description', "AppNameTxt", 'App Name', "StatusTxt", Text('App Request Status'), "DeveloperName", 'Developer Name', "ApproverName", 'Approved By', "CommentsTxt", 'COE Comments', "Review",  If(!IsBlank('App Url'), LookUp(SortByColumns(AddColumns(Rev_SolutionReview, "AppUrlTxt", Text('App Document URI')), "modifiedon", SortOrder.Descending), AppUrlTxt = 'App Url' && Chc_SolutionReview_Status = Chc_StatusImport.Done), Blank())), txtSearch_MReq.Text, "Desc", "AppNameTxt", "StatusTxt", "DeveloperName", "ApproverName", "CommentsTxt")
             Layout: =Layout.Vertical
             LoadingSpinner: =LoadingSpinner.Data
             TemplatePadding: =0
@@ -271,10 +271,13 @@
 
             icnBodyPublish_MReq As icon.Publish:
                 Color: =RGBA(0, 0, 0, 1)
+                DisabledColor: =RGBA(149, 149, 149, 1)
+                DisplayMode: =If((ThisItem.'App Type' = 'App Type (AppRequests)'.'Model-driven' || (ThisItem.'App Type' = 'App Type (AppRequests)'.Canvas && Value(ThisItem.Review.Nb_SolutionScore) * 100 > Value(varCodeReviewPercentThreshold))),DisplayMode.Edit, DisplayMode.Disabled)
                 Height: =icnBodyCodeReview_MReq.Height
                 Icon: =Icon.Publish
                 OnSelect: |-
-                    =UpdateContext({varLoadSpinner: true});
+                    =If(Self.DisplayMode = DisplayMode.Disabled, Select(Parent), 
+                    UpdateContext({varLoadSpinner: true});
                     Select(Parent);
                     If(IsError(Patch(AppRequests, LookUp(AppRequests, Id = ThisItem.Id), {
                         'App Request Status': If(ThisItem.'App Request Status' = 'App Request Status (AppRequests)'.UAT, 'App Request Status (AppRequests)'.'Prod Deployment Requested', 'App Request Status (AppRequests)'.'UAT Deployment Requested'),
@@ -282,12 +285,12 @@
                     Notify("Request Updated Successfully.", NotificationType.Success, 15000), 
                     Notify("Sorry something went wrong. Please try again later.", NotificationType.Error, 15000));
                     Refresh(AppRequests);
-                    UpdateContext({varLoadSpinner: false});
+                    UpdateContext({varLoadSpinner: false}));
                 PaddingBottom: =Self.PaddingTop
                 PaddingLeft: =Self.PaddingTop
                 PaddingRight: =Self.PaddingLeft
                 PaddingTop: =2
-                Tooltip: =$"Initiate {If(ThisItem.'App Request Status' = 'App Request Status (AppRequests)'.UAT, "PROD", "UAT")} deployment"
+                Tooltip: =If(Self.DisplayMode = DisplayMode.Disabled, $"Cannot initiate deployment as code review score less than threshold ({varCodeReviewPercentThreshold}%)", $"Initiate {If(ThisItem.'App Request Status' = 'App Request Status (AppRequests)'.UAT, "PROD", "UAT")} deployment")
                 Visible: =ThisItem.'App Request Status' in ['App Request Status (AppRequests)'.'Build in progress', 'App Request Status (AppRequests)'.UAT]
                 Width: =Self.Height
                 X: =icnBodyCodeReview_MReq.X - Self.Width - If(icnBodyCodeReview_MReq.Visible, 10, 0)
@@ -1413,13 +1416,11 @@
                 DisplayFields: =["Value"]
                 FontWeight: =FontWeight.Lighter
                 InputTextPlaceholder: =$"Select {lblFilterStatus_MReq.Text}"
-                Items: |-
-                    =[{Index: 1, Value: "Draft"}, {Index: 2, Value: "Denied"}, {Index: 3, Value: "Approved"}, {Index: 4, Value: "Pending"}]
+                Items: =Choices('App Request Status (AppRequests)')
                 NoSelectionText: =$"Select {lblFilterStatus_MReq.Text}"
                 Reset: =true
                 SearchFields: =["Value"]
-                SearchItems: |-
-                    =Search([{Index: 1, Value: "Draft"}, {Index: 2, Value: "Denied"}, {Index: 3, Value: "Approved"}, {Index: 4, Value: "Pending"}],cmbFilterRequestor_MReq.SearchText,"Value")
+                SearchItems: =Choices('App Request Status (AppRequests)',cmbFilterRequestor_MReq.SearchText)
                 Width: =dteFilterStartDate_MReq.Width
                 X: =lblFilterStatus_MReq.X
                 Y: =lblFilterStatus_MReq.Y + lblFilterStatus_MReq.Height + 10
