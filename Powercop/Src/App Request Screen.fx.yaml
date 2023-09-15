@@ -203,35 +203,64 @@
             ViewForm(Form_AppReq);
         Width: =Parent.Width - Self.X - Self.X
         X: =Parent.Width * 0.05
-        Y: =HeaderComponent_AppReq.Y + HeaderComponent_AppReq.Height
+        Y: =HeaderComponent_AppReq.Y + HeaderComponent_AppReq.Height + 20
         ZIndex: =2
+
+        DataCard1 As typedDataCard.blankCard:
+            BorderStyle: =BorderStyle.Solid
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+            Label4 As label:
+                Align: =Align.Center
+                Fill: =RGBA(237, 237, 237, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =Parent.Height
+                Size: =14
+                Text: ="App Details"
+                Width: =Parent.Width
+                ZIndex: =1
 
         "'App Name_DataCard9' As typedDataCard.textualEditCard":
             BorderStyle: =BorderStyle.Solid
             DataField: ="cr0e5_name"
             Default: =ThisItem.'App Name'
-            DisplayMode: =Parent.DisplayMode
+            DisplayMode: =If(IsBlank(varItem) || varItem.'App Request Status' in ['App Request Status (AppRequests)'.'Build Approval Requested', 'App Request Status (AppRequests)'.'Build Approval sent back to initiator', 'App Request Status (AppRequests)'.Draft], Parent.DisplayMode, DisplayMode.View)
             DisplayName: =DataSourceInfo([@AppRequests],DataSourceInfo.DisplayName,"cr0e5_name")
             Fill: =RGBA(0, 0, 0, 0)
-            Height: =50
+            Height: =Label140.Y*2 + Label140.Height
             MaxLength: =DataSourceInfo([@AppRequests], DataSourceInfo.MaxLength, "cr0e5_name")
             Required: =true
             Update: =DataCardValue140.Text
-            Width: =1229
-            X: =0
+            Width: =Parent.Width
+            X: =1
             Y: =0
             ZIndex: =1
+
+            Label140 As label:
+                BorderThickness: =1
+                Height: =DataCardValue140.Height + Self.BorderThickness*2
+                Text: =""
+                Width: =DataCardValue140.Width + Self.BorderThickness*2
+                X: =DataCardValue140.X - Self.BorderThickness
+                Y: =DataCardValue140.Y - Self.BorderThickness
+                ZIndex: =1
 
             DataCardKey140 As label:
                 AutoHeight: =true
                 FontWeight: =FontWeight.Semibold
                 Height: =34
                 Text: =Parent.DisplayName
-                Width: =(Parent.Width - 60) * 0.3
+                Width: =(Parent.Width - 60) * 0.2
                 Wrap: =false
                 X: =30
                 Y: =10 + (DataCardValue140.Height / 2) - (Self.Height / 2)
-                ZIndex: =1
+                ZIndex: =2
 
             DataCardValue140 As text:
                 BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
@@ -248,11 +277,11 @@
                 RadiusBottomRight: =0
                 RadiusTopLeft: =0
                 RadiusTopRight: =0
-                Tooltip: =Parent.DisplayName
-                Width: =(Parent.Width - 60) * 0.7
+                Tooltip: =If(Self.DisplayMode = DisplayMode.View, Self.Text, Parent.DisplayName)
+                Width: =(Parent.Width - 60) * 0.8
                 X: =DataCardKey140.X + DataCardKey140.Width
                 Y: =10
-                ZIndex: =2
+                ZIndex: =3
 
             ErrorMessage139 As label:
                 AutoHeight: =true
@@ -267,7 +296,7 @@
                 Width: =Parent.Width - 60
                 X: =30
                 Y: =DataCardValue140.Y + DataCardValue140.Height
-                ZIndex: =3
+                ZIndex: =4
 
             StarVisible139 As label:
                 Align: =Align.Center
@@ -278,16 +307,16 @@
                 Width: =30
                 Wrap: =false
                 Y: =DataCardKey140.Y
-                ZIndex: =4
+                ZIndex: =5
 
         "'App Description_DataCard3' As typedDataCard.textualMultiLineEditCard":
             BorderStyle: =BorderStyle.Solid
             DataField: ="cr0e5_appdescription"
             Default: =ThisItem.'App Description'
-            DisplayMode: =Parent.DisplayMode
+            DisplayMode: =If(IsBlank(varItem) || varItem.'App Request Status' in ['App Request Status (AppRequests)'.'Build Approval Requested', 'App Request Status (AppRequests)'.'Build Approval sent back to initiator', 'App Request Status (AppRequests)'.Draft], Parent.DisplayMode, DisplayMode.View)
             DisplayName: =DataSourceInfo([@AppRequests],DataSourceInfo.DisplayName,"cr0e5_appdescription")
             Fill: =RGBA(0, 0, 0, 0)
-            Height: =50
+            Height: =Label139.Height + Label139.Y*2
             Required: =false
             Update: =DataCardValue139.Text
             Width: =1229
@@ -295,16 +324,25 @@
             Y: =1
             ZIndex: =1
 
+            Label139 As label:
+                BorderThickness: =1
+                Height: =DataCardValue139.Height + Self.BorderThickness*2
+                Text: =""
+                Width: =DataCardValue139.Width + Self.BorderThickness*2
+                X: =DataCardValue139.X - Self.BorderThickness
+                Y: =DataCardValue139.Y - Self.BorderThickness
+                ZIndex: =1
+
             DataCardKey139 As label:
                 AutoHeight: =true
                 FontWeight: =FontWeight.Semibold
                 Height: =34
                 Text: =Parent.DisplayName
-                Width: =(Parent.Width - 60) * 0.3
+                Width: =(Parent.Width - 60) * 0.2
                 Wrap: =false
                 X: =30
                 Y: =10 + (DataCardValue139.Height / 2) - (Self.Height / 2)
-                ZIndex: =1
+                ZIndex: =2
 
             DataCardValue139 As text:
                 BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
@@ -322,11 +360,11 @@
                 RadiusBottomRight: =0
                 RadiusTopLeft: =0
                 RadiusTopRight: =0
-                Tooltip: =Parent.DisplayName
-                Width: =(Parent.Width - 60) * 0.7
+                Tooltip: =If(Self.DisplayMode = DisplayMode.View, Self.Text, Parent.DisplayName)
+                Width: =(Parent.Width - 60) * 0.8
                 X: =DataCardKey139.X + DataCardKey139.Width
                 Y: =10
-                ZIndex: =2
+                ZIndex: =3
 
             ErrorMessage138 As label:
                 AutoHeight: =true
@@ -341,7 +379,7 @@
                 Width: =Parent.Width - 60
                 X: =30
                 Y: =DataCardValue139.Y + DataCardValue139.Height
-                ZIndex: =3
+                ZIndex: =4
 
             StarVisible138 As label:
                 Align: =Align.Center
@@ -351,13 +389,177 @@
                 Width: =30
                 Wrap: =false
                 Y: =DataCardKey139.Y
+                ZIndex: =5
+
+        "'App Related Queries_DataCard3' As typedDataCard.textualMultiLineEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr0e5_apprelatedqueries"
+            Default: =ThisItem.'App Related Queries'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@AppRequests],DataSourceInfo.DisplayName,"cr0e5_apprelatedqueries")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =Label141.Y*2 + Label141.Height
+            Required: =false
+            Update: =DataCardValue141.Text
+            Width: =1229
+            X: =0
+            Y: =2
+            ZIndex: =1
+
+            Label141 As label:
+                BorderThickness: =1
+                Height: =DataCardValue141.Height + Self.BorderThickness*2
+                Text: =""
+                Width: =DataCardValue141.Width + Self.BorderThickness*2
+                X: =DataCardValue141.X - Self.BorderThickness
+                Y: =DataCardValue141.Y - Self.BorderThickness
+                ZIndex: =1
+
+            DataCardKey141 As label:
+                AutoHeight: =true
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.2
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue141.Height / 2) - (Self.Height / 2)
+                ZIndex: =2
+
+            DataCardValue141 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =1
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =1
+                Height: =80
+                HintText: =If(Self.DisplayMode = DisplayMode.Edit, $"Enter {Parent.DisplayName}", Blank())
+                HoverFill: =RGBA(186, 202, 226, 0)
+                Mode: =TextMode.MultiLine
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.8
+                X: =DataCardKey141.X + DataCardKey141.Width
+                Y: =10
+                ZIndex: =3
+
+            ErrorMessage140 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue141.Y + DataCardValue141.Height
                 ZIndex: =4
+
+            StarVisible140 As label:
+                Align: =Align.Center
+                Height: =DataCardKey141.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey141.Y
+                ZIndex: =5
+
+        "'Business Benefits_DataCard1' As typedDataCard.textualMultiLineEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr0e5_businessbenefits"
+            Default: =ThisItem.'Business Benefits'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@AppRequests],DataSourceInfo.DisplayName,"cr0e5_businessbenefits")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =Label144.Y*2 + Label144.Height
+            Required: =false
+            Update: =DataCardValue144.Text
+            Width: =1229
+            X: =0
+            Y: =3
+            ZIndex: =1
+
+            Label144 As label:
+                BorderThickness: =1
+                Height: =DataCardValue144.Height + Self.BorderThickness*2
+                Text: =""
+                Width: =DataCardValue144.Width + Self.BorderThickness*2
+                X: =DataCardValue144.X - Self.BorderThickness
+                Y: =DataCardValue144.Y - Self.BorderThickness
+                ZIndex: =1
+
+            DataCardKey146 As label:
+                AutoHeight: =true
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.2
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue144.Height / 2) - (Self.Height / 2)
+                ZIndex: =2
+
+            DataCardValue144 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =1
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =1
+                Height: =80
+                HintText: =If(Self.DisplayMode = DisplayMode.Edit, $"Enter {Parent.DisplayName}", Blank())
+                HoverFill: =RGBA(186, 202, 226, 0)
+                Mode: =TextMode.MultiLine
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =(Parent.Width - 60) * 0.8
+                X: =DataCardKey146.X + DataCardKey146.Width
+                Y: =10
+                ZIndex: =3
+
+            ErrorMessage145 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue144.Y + DataCardValue144.Height
+                ZIndex: =4
+
+            StarVisible145 As label:
+                Align: =Align.Center
+                Height: =DataCardKey146.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey146.Y
+                ZIndex: =5
 
         "'Who will develop this app?_DataCard1' As typedDataCard.comboBoxOptionSetSingleEditCard":
             BorderStyle: =BorderStyle.Solid
             DataField: ="cr0e5_whowilldevelopthisapp"
             Default: =ThisItem.'Who will develop this app?'
-            DisplayMode: =If(IsBlank(varItem) || (!IsBlank(varItem) && (varItem.'App Request Status' = 'App Request Status (AppRequests)'.'Build Approval Requested' || varItem.'App Request Status' = 'App Request Status (AppRequests)'.'Build Approval sent back to initiator')), Parent.DisplayMode, DisplayMode.View)
+            DisplayMode: =If(IsBlank(varItem) || varItem.'App Request Status' in ['App Request Status (AppRequests)'.'Build Approval Requested', 'App Request Status (AppRequests)'.'Build Approval sent back to initiator', 'App Request Status (AppRequests)'.Draft], Parent.DisplayMode, DisplayMode.View)
             DisplayName: =DataSourceInfo([@AppRequests],DataSourceInfo.DisplayName,"cr0e5_whowilldevelopthisapp")
             Fill: =RGBA(0, 0, 0, 0)
             Height: =50
@@ -366,7 +568,7 @@
             Visible: =true
             Width: =1229
             X: =0
-            Y: =2
+            Y: =4
             ZIndex: =1
 
             DataCardKey155 As label:
@@ -425,152 +627,6 @@
                 Y: =DataCardKey155.Y
                 ZIndex: =4
 
-        "'App Related Queries_DataCard3' As typedDataCard.textualMultiLineEditCard":
-            BorderStyle: =BorderStyle.Solid
-            DataField: ="cr0e5_apprelatedqueries"
-            Default: =ThisItem.'App Related Queries'
-            DisplayMode: =Parent.DisplayMode
-            DisplayName: =DataSourceInfo([@AppRequests],DataSourceInfo.DisplayName,"cr0e5_apprelatedqueries")
-            Fill: =RGBA(0, 0, 0, 0)
-            Height: =50
-            Required: =false
-            Update: =DataCardValue141.Text
-            Width: =1229
-            X: =0
-            Y: =3
-            ZIndex: =1
-
-            DataCardKey141 As label:
-                AutoHeight: =true
-                FontWeight: =FontWeight.Semibold
-                Height: =34
-                Text: =Parent.DisplayName
-                Width: =(Parent.Width - 60) * 0.3
-                Wrap: =false
-                X: =30
-                Y: =10 + (DataCardValue141.Height / 2) - (Self.Height / 2)
-                ZIndex: =1
-
-            DataCardValue141 As text:
-                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
-                BorderThickness: =1
-                Default: =Parent.Default
-                DelayOutput: =true
-                DisplayMode: =Parent.DisplayMode
-                FocusedBorderThickness: =1
-                Height: =80
-                HintText: =If(Self.DisplayMode = DisplayMode.Edit, $"Enter {Parent.DisplayName}", Blank())
-                HoverFill: =RGBA(186, 202, 226, 0)
-                Mode: =TextMode.MultiLine
-                PaddingLeft: =5
-                RadiusBottomLeft: =0
-                RadiusBottomRight: =0
-                RadiusTopLeft: =0
-                RadiusTopRight: =0
-                Tooltip: =Parent.DisplayName
-                Width: =(Parent.Width - 60) * 0.7
-                X: =DataCardKey141.X + DataCardKey141.Width
-                Y: =10
-                ZIndex: =2
-
-            ErrorMessage140 As label:
-                AutoHeight: =true
-                Height: =10
-                Live: =Live.Assertive
-                PaddingBottom: =0
-                PaddingLeft: =0
-                PaddingRight: =0
-                PaddingTop: =0
-                Text: =Parent.Error
-                Visible: =Parent.DisplayMode=DisplayMode.Edit
-                Width: =Parent.Width - 60
-                X: =30
-                Y: =DataCardValue141.Y + DataCardValue141.Height
-                ZIndex: =3
-
-            StarVisible140 As label:
-                Align: =Align.Center
-                Height: =DataCardKey141.Height
-                Text: ="*"
-                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
-                Width: =30
-                Wrap: =false
-                Y: =DataCardKey141.Y
-                ZIndex: =4
-
-        "'Business Benefits_DataCard1' As typedDataCard.textualMultiLineEditCard":
-            BorderStyle: =BorderStyle.Solid
-            DataField: ="cr0e5_businessbenefits"
-            Default: =ThisItem.'Business Benefits'
-            DisplayMode: =Parent.DisplayMode
-            DisplayName: =DataSourceInfo([@AppRequests],DataSourceInfo.DisplayName,"cr0e5_businessbenefits")
-            Fill: =RGBA(0, 0, 0, 0)
-            Height: =50
-            Required: =false
-            Update: =DataCardValue144.Text
-            Width: =1229
-            X: =0
-            Y: =4
-            ZIndex: =1
-
-            DataCardKey146 As label:
-                AutoHeight: =true
-                FontWeight: =FontWeight.Semibold
-                Height: =34
-                Text: =Parent.DisplayName
-                Width: =(Parent.Width - 60) * 0.3
-                Wrap: =false
-                X: =30
-                Y: =10 + (DataCardValue144.Height / 2) - (Self.Height / 2)
-                ZIndex: =1
-
-            DataCardValue144 As text:
-                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
-                BorderThickness: =1
-                Default: =Parent.Default
-                DelayOutput: =true
-                DisplayMode: =Parent.DisplayMode
-                FocusedBorderThickness: =1
-                Height: =80
-                HintText: =If(Self.DisplayMode = DisplayMode.Edit, $"Enter {Parent.DisplayName}", Blank())
-                HoverFill: =RGBA(186, 202, 226, 0)
-                Mode: =TextMode.MultiLine
-                PaddingLeft: =5
-                RadiusBottomLeft: =0
-                RadiusBottomRight: =0
-                RadiusTopLeft: =0
-                RadiusTopRight: =0
-                Tooltip: =Parent.DisplayName
-                Width: =(Parent.Width - 60) * 0.7
-                X: =DataCardKey146.X + DataCardKey146.Width
-                Y: =10
-                ZIndex: =2
-
-            ErrorMessage145 As label:
-                AutoHeight: =true
-                Height: =10
-                Live: =Live.Assertive
-                PaddingBottom: =0
-                PaddingLeft: =0
-                PaddingRight: =0
-                PaddingTop: =0
-                Text: =Parent.Error
-                Visible: =Parent.DisplayMode=DisplayMode.Edit
-                Width: =Parent.Width - 60
-                X: =30
-                Y: =DataCardValue144.Y + DataCardValue144.Height
-                ZIndex: =3
-
-            StarVisible145 As label:
-                Align: =Align.Center
-                Height: =DataCardKey146.Height
-                Text: ="*"
-                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
-                Width: =30
-                Wrap: =false
-                Y: =DataCardKey146.Y
-                ZIndex: =4
-
         "'App Submitted Date_DataCard3' As typedDataCard.dateTimeEditCard":
             BorderStyle: =BorderStyle.Solid
             DataField: ="cr0e5_requestraiseddate"
@@ -605,6 +661,7 @@
                 DisplayMode: =Parent.DisplayMode
                 EndYear: =Year(Today())+100
                 FocusedBorderThickness: =1
+                InputTextPlaceholder: =""
                 IsEditable: =true
                 PaddingBottom: =0
                 PaddingLeft: =5

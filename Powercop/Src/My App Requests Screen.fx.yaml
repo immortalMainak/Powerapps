@@ -47,6 +47,26 @@
             Y: =galHeadContainer_MReq.Y  + galHeadContainer_MReq.Height
             ZIndex: =1
 
+            lblBodyActions_MReq As label:
+                Align: =lblGalleryContent.Align
+                BorderColor: =lblGalleryContent.BorderColor
+                BorderStyle: =lblGalleryContent.BorderStyle
+                BorderThickness: =lblGalleryContent.BorderThickness
+                Color: =lblGalleryContent.Color
+                Font: =lblGalleryContent.Font
+                FontWeight: =lblGalleryContent.FontWeight
+                Height: =lblBodyID_MReq.Height
+                OnSelect: =Select(Parent)
+                Size: =lblGalleryContent.Size
+                Text: =""
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryContent.VerticalAlign
+                Width: =lblHeadActions_MReq.Width - Self.BorderThickness
+                Wrap: =false
+                X: =lblBodySubmitDate_MReq.X + lblBodySubmitDate_MReq.Width
+                Y: =lblBodySubmitDate_MReq.Y
+                ZIndex: =1
+
             lblBodyID_MReq As label:
                 Align: =Align.Center
                 BorderColor: =lblGalleryContent.BorderColor
@@ -64,7 +84,7 @@
                 Width: =lblHeadID_MReq.Width - Self.X
                 Wrap: =false
                 X: =Self.BorderThickness
-                ZIndex: =1
+                ZIndex: =2
 
             lblBodyAppName_MReq As label:
                 Align: =lblGalleryContent.Align
@@ -81,9 +101,8 @@
                 Tooltip: =Self.Text
                 VerticalAlign: =lblGalleryContent.VerticalAlign
                 Width: =lblHeadAppName_MReq.Width
-                Wrap: =false
                 X: =lblBodyID_MReq.X + lblBodyID_MReq.Width
-                ZIndex: =2
+                ZIndex: =3
 
             lblBodyCoEStatus_MReq As label:
                 Align: =Align.Center    
@@ -100,9 +119,8 @@
                 Tooltip: =Self.Text
                 VerticalAlign: =lblGalleryContent.VerticalAlign
                 Width: =lblHeadStatus_MReq.Width
-                Wrap: =false
                 X: =lblBodyAppName_MReq.X + lblBodyAppName_MReq.Width
-                ZIndex: =3
+                ZIndex: =4
 
             lblBodyAppDesc_MReq As label:
                 BorderColor: =lblGalleryContent.BorderColor
@@ -118,13 +136,12 @@
                 Tooltip: =Self.Text
                 VerticalAlign: =lblGalleryContent.VerticalAlign
                 Width: =lblHeadDesc_MReq.Width
-                Wrap: =false
                 X: =lblBodyCodeReview_MReq.X + lblBodyCodeReview_MReq.Width
                 Y: =lblBodyCodeReview_MReq.Y
-                ZIndex: =4
+                ZIndex: =5
 
             lblBodySubmitDate_MReq As label:
-                Align: =lblGalleryContent.Align
+                Align: =Align.Center
                 BorderColor: =lblGalleryContent.BorderColor
                 BorderStyle: =lblGalleryContent.BorderStyle
                 BorderThickness: =lblGalleryContent.BorderThickness
@@ -140,44 +157,7 @@
                 Width: =lblHeadSubmitDate_MReq.Width - Self.BorderThickness
                 Wrap: =false
                 X: =lblBodyAppDesc_MReq.X + lblBodyAppDesc_MReq.Width
-                ZIndex: =5
-
-            icnViewInfo_MReq As icon.Information:
-                FocusedBorderThickness: =0
-                Height: =30
-                Icon: =Icon.Information
-                OnSelect: |-
-                    =UpdateContext({varLoadSpinner: true});
-                    Concurrent(Select(Parent), Set(varItemId, Value(ThisItem.Id)), Set(varNavigated, true));
-                    UpdateContext({varLoadSpinner: false});
-                    Navigate('App Request Screen', ScreenTransition.None);
-                PaddingBottom: =Self.PaddingTop
-                PaddingLeft: =Self.PaddingTop
-                PaddingRight: =Self.PaddingLeft
-                PaddingTop: =2
-                Tooltip: ="View Info"
-                Visible: =Not(ThisItem.'App Request Status' in ['App Request Status (AppRequests)'.'Build Approval Rejected', 'App Request Status (AppRequests)'.'UAT Deployment Rejected', 'App Request Status (AppRequests)'.'Prod Deployment Rejected'])
-                Width: =If(Self.Visible, Self.Height, 0)
-                X: =lblBodySubmitDate_MReq.X + lblBodySubmitDate_MReq.Width - Self.Width - If(Parent.AllItemsCount * Parent.TemplateHeight > Parent.Height, 20, 10)
-                Y: =lblBodySubmitDate_MReq.Y + (lblBodySubmitDate_MReq.Height - Self.Height) * 0.5
                 ZIndex: =6
-
-            icnViewComments_MReq As icon.DocumentwithContent:
-                Color: =RGBA(0, 0, 0, 1)
-                Height: =icnViewInfo_MReq.Height
-                Icon: =If(varShowCommentsId = Value(ThisItem.Id), Icon.CancelBadge, Icon.DocumentWithContent)
-                OnSelect: |-
-                    =UpdateContext({varShowCommentsId: If(varShowCommentsId = Value(ThisItem.Id), 0, ThisItem.Id)});
-                PaddingBottom: =Self.PaddingTop
-                PaddingLeft: =Self.PaddingTop
-                PaddingRight: =Self.PaddingLeft
-                PaddingTop: =2
-                Tooltip: =$"{If(varShowCommentsId = Value(ThisItem.Id), "Collapse", "Expand")} Comments"
-                Visible: =!IsBlank(ThisItem.CommentsTxt)
-                Width: =If(Self.Visible, Self.Height, 0)
-                X: =icnViewInfo_MReq.X - Self.Width - If(icnViewInfo_MReq.Visible, 10, 0)
-                Y: =icnViewInfo_MReq.Y
-                ZIndex: =7
 
             lblBodyComments_MReq As label:
                 Align: =lblGalleryContent.Align
@@ -198,7 +178,7 @@
                 Wrap: =false
                 X: =lblBodyID_MReq.X
                 Y: =lblBodyID_MReq.Y + lblBodyID_MReq.Height
-                ZIndex: =8
+                ZIndex: =7
 
             lblBodyCodeReview_MReq As label:
                 Align: =Align.Center    
@@ -219,30 +199,7 @@
                 Wrap: =false
                 X: =lblBodyCoEStatus_MReq.X + lblBodyCoEStatus_MReq.Width
                 Y: =lblBodyCoEStatus_MReq.Y
-                ZIndex: =9
-
-            icnBodyCodeReview_MReq As icon.Tools:
-                Color: =RGBA(0, 0, 0, 1)
-                FocusedBorderThickness: =0
-                Height: =icnViewComments_MReq.Height
-                Icon: =Icon.Tools
-                OnSelect: |-
-                    =Select(Parent);
-                    UpdateContext({varLoadSpinner: true});
-                    UpdateContext({varAppAttach: ThisItem});
-                    UpdateContext({varLoadSpinner: false});
-                PaddingBottom: =Self.PaddingTop
-                PaddingLeft: =Self.PaddingTop
-                PaddingRight: =Self.PaddingLeft
-                PaddingTop: =2
-                Tooltip: ="Attach app and perform code review"
-                Visible: |-
-                    =//ThisItem.'COE Approval Status' = 'COE Approval Status (AppRequests)'.Approved
-                    ThisItem.'App Request Status' = 'App Request Status (AppRequests)'.'Build in progress'
-                Width: =If(Self.Visible, Self.Height, 0)
-                X: =icnViewComments_MReq.X - Self.Width - If(icnViewComments_MReq.Visible, 10, 0)
-                Y: =icnViewComments_MReq.Y
-                ZIndex: =10
+                ZIndex: =8
 
             btnNavCodeReviewReport As button:
                 BorderThickness: =0
@@ -269,11 +226,94 @@
                 Width: =lblBodyCodeReview_MReq.Width - lblBodyCodeReview_MReq.BorderThickness*2
                 X: =lblBodyCodeReview_MReq.X + lblBodyCodeReview_MReq.BorderThickness
                 Y: =lblBodyCodeReview_MReq.Y + lblBodyCodeReview_MReq.BorderThickness
+                ZIndex: =9
+
+            imgComments_MReq As image:
+                DisplayMode: =icnViewComments_MReq.DisplayMode
+                Height: =icnViewComments_MReq.Height
+                Image: =comments
+                OnSelect: =Select(Parent)
+                Visible: =icnViewComments_MReq.Visible
+                Width: =icnViewComments_MReq.Width
+                X: =icnViewComments_MReq.X
+                Y: =icnViewComments_MReq.Y
+                ZIndex: =10
+
+            icnViewComments_MReq As icon.DocumentwithContent:
+                BorderColor: =RGBA(0, 18, 107, 0)
+                Color: =RGBA(0, 0, 0, 0)
+                DisabledBorderColor: =RGBA(166, 166, 166, 0)
+                DisabledColor: =RGBA(244, 244, 244, 0)
+                Height: =icnViewInfo_MReq.Height
+                Icon: =If(varShowCommentsId = Value(ThisItem.Id), Icon.CancelBadge, Icon.DocumentWithContent)
+                OnSelect: |-
+                    =UpdateContext({varShowCommentsId: If(varShowCommentsId = Value(ThisItem.Id), 0, ThisItem.Id)});
+                PaddingBottom: =Self.PaddingTop
+                PaddingLeft: =Self.PaddingTop
+                PaddingRight: =Self.PaddingLeft
+                PaddingTop: =2
+                Tooltip: =$"{If(varShowCommentsId = Value(ThisItem.Id), "Collapse", "Expand")} Comments"
+                Visible: =!IsBlank(ThisItem.CommentsTxt)
+                Width: =If(Self.Visible, 50, 0)
+                X: =lblBodyActions_MReq.X + lblBodyActions_MReq.Width - Self.Width - If(Parent.AllItemsCount * Parent.TemplateHeight > Parent.Height, 20, 10)
+                Y: =icnViewInfo_MReq.Y
                 ZIndex: =11
 
+            icnViewInfo_MReq As icon.Information:
+                BorderColor: =RGBA(0, 18, 107, 0)
+                Color: =RGBA(0, 18, 107, 0)
+                DisabledBorderColor: =RGBA(166, 166, 166, 0)
+                DisabledColor: =RGBA(244, 244, 244, 0)
+                FocusedBorderThickness: =0
+                Height: =30
+                Icon: =Icon.Information
+                OnSelect: |-
+                    =UpdateContext({varLoadSpinner: true});
+                    Concurrent(Select(Parent), Set(varItemId, Value(ThisItem.Id)), Set(varNavigated, true));
+                    UpdateContext({varLoadSpinner: false});
+                    Navigate('App Request Screen', ScreenTransition.None);
+                PaddingBottom: =Self.PaddingTop
+                PaddingLeft: =Self.PaddingTop
+                PaddingRight: =Self.PaddingLeft
+                PaddingTop: =2
+                Tooltip: ="View Info"
+                Visible: =Not(ThisItem.'App Request Status' in ['App Request Status (AppRequests)'.'Build Approval Rejected', 'App Request Status (AppRequests)'.'UAT Deployment Rejected', 'App Request Status (AppRequests)'.'Prod Deployment Rejected'])
+                Width: =If(Self.Visible, 50, 0)
+                X: =icnViewComments_MReq.X - Self.Width - If(icnViewComments_MReq.Visible, 10, 0)
+                Y: =lblBodyActions_MReq.Y + (lblBodyActions_MReq.Height - Self.Height) * 0.5
+                ZIndex: =12
+
+            btnInfo_MReq As button:
+                BorderColor: =RGBA(9, 33, 98, 1)
+                BorderThickness: =1
+                Color: |-
+                    =//RGBA(255, 255, 255, 1)
+                    Self.BorderColor
+                DisplayMode: =icnViewInfo_MReq.DisplayMode
+                Fill: =RGBA(0, 0, 0, 0)
+                FocusedBorderThickness: =1
+                Height: =icnViewInfo_MReq.Height
+                OnSelect: |-
+                    =Select(Parent);
+                    Select(icnViewInfo_MReq);
+                PaddingBottom: =Self.PaddingTop
+                PaddingLeft: =Self.PaddingTop
+                PaddingRight: =Self.PaddingLeft
+                PaddingTop: =2
+                Size: =11
+                Text: ="INFO"
+                Tooltip: =icnViewInfo_MReq.Tooltip
+                Visible: =icnViewInfo_MReq.Visible
+                Width: =icnViewInfo_MReq.Width
+                X: =icnViewInfo_MReq.X
+                Y: =icnViewInfo_MReq.Y
+                ZIndex: =13
+
             icnBodyPublish_MReq As icon.Publish:
-                Color: =RGBA(0, 0, 0, 1)
-                DisabledColor: =RGBA(149, 149, 149, 1)
+                BorderColor: =RGBA(0, 18, 107, 0)
+                Color: =RGBA(0, 0, 0, 0)
+                DisabledBorderColor: =RGBA(166, 166, 166, 0)
+                DisabledColor: =RGBA(149, 149, 149, 0)
                 DisplayMode: =If((ThisItem.'App Type' = 'App Type (AppRequests)'.'Model-driven' || (ThisItem.'App Type' = 'App Type (AppRequests)'.Canvas && Value(ThisItem.Review.Nb_SolutionScore) * 100 > Value(varCodeReviewPercentThreshold))),DisplayMode.Edit, DisplayMode.Disabled)
                 Height: =icnBodyCodeReview_MReq.Height
                 Icon: =Icon.Publish
@@ -294,10 +334,88 @@
                 PaddingTop: =2
                 Tooltip: =If(Self.DisplayMode = DisplayMode.Disabled, If(IsBlank(ThisItem.'App Url'), "App not selected", $"Cannot initiate deployment as code review score less than threshold ({varCodeReviewPercentThreshold}%)"), $"Initiate {If(ThisItem.'App Request Status' = 'App Request Status (AppRequests)'.UAT, "PROD", "UAT")} deployment")
                 Visible: =ThisItem.'App Request Status' in ['App Request Status (AppRequests)'.'Build in progress', 'App Request Status (AppRequests)'.UAT]
-                Width: =Self.Height
-                X: =icnBodyCodeReview_MReq.X - Self.Width - If(icnBodyCodeReview_MReq.Visible, 10, 0)
+                Width: =If(Self.Visible, 50, 0)
+                X: =icnViewInfo_MReq.X - Self.Width - If(icnViewInfo_MReq.Visible, 10, 0)
                 Y: =icnBodyCodeReview_MReq.Y
-                ZIndex: =12
+                ZIndex: =14
+
+            btnPublish_MReq As button:
+                BorderColor: =RGBA(9, 33, 98, 1)
+                BorderThickness: =1
+                Color: |-
+                    =//RGBA(255, 255, 255, 1)
+                    Self.BorderColor
+                DisplayMode: =icnBodyPublish_MReq.DisplayMode
+                Fill: =RGBA(0, 0, 0, 0)
+                FocusedBorderThickness: =1
+                Height: =icnBodyPublish_MReq.Height
+                OnSelect: |-
+                    =Select(Parent);
+                    Select(icnViewInfo_MReq);
+                PaddingBottom: =Self.PaddingTop
+                PaddingLeft: =Self.PaddingTop
+                PaddingRight: =Self.PaddingLeft
+                PaddingTop: =2
+                Size: =11
+                Text: =If(ThisItem.'App Request Status' = 'App Request Status (AppRequests)'.UAT, "PROD", "UAT")
+                Tooltip: =icnBodyPublish_MReq.Tooltip
+                Visible: =icnBodyPublish_MReq.Visible
+                Width: =icnBodyPublish_MReq.Width
+                X: =icnBodyPublish_MReq.X
+                Y: =icnBodyPublish_MReq.Y
+                ZIndex: =15
+
+            icnBodyCodeReview_MReq As icon.Tools:
+                BorderColor: =RGBA(0, 18, 107, 0)
+                Color: =RGBA(0, 0, 0, 0)
+                DisabledBorderColor: =RGBA(166, 166, 166, 0)
+                DisabledColor: =RGBA(244, 244, 244, 0)
+                FocusedBorderThickness: =0
+                Height: =icnViewComments_MReq.Height
+                Icon: =Icon.Tools
+                OnSelect: |-
+                    =Select(Parent);
+                    UpdateContext({varLoadSpinner: true});
+                    UpdateContext({varAppAttach: ThisItem});
+                    UpdateContext({varLoadSpinner: false});
+                PaddingBottom: =Self.PaddingTop
+                PaddingLeft: =Self.PaddingTop
+                PaddingRight: =Self.PaddingLeft
+                PaddingTop: =2
+                Tooltip: ="Attach app and perform code review"
+                Visible: |-
+                    =//ThisItem.'COE Approval Status' = 'COE Approval Status (AppRequests)'.Approved
+                    ThisItem.'App Request Status' = 'App Request Status (AppRequests)'.'Build in progress'
+                Width: =If(Self.Visible, 50, 0)
+                X: =icnBodyPublish_MReq.X - Self.Width - If(icnBodyPublish_MReq.Visible, 10, 0)
+                Y: =icnViewComments_MReq.Y
+                ZIndex: =16
+
+            btnCodeReivew_MReq As button:
+                BorderColor: =RGBA(9, 33, 98, 1)
+                BorderThickness: =1
+                Color: |-
+                    =//RGBA(255, 255, 255, 1)
+                    Self.BorderColor
+                DisplayMode: =icnBodyCodeReview_MReq.DisplayMode
+                Fill: =RGBA(0, 0, 0, 0)
+                FocusedBorderThickness: =1
+                Height: =icnBodyCodeReview_MReq.Height
+                OnSelect: |-
+                    =Select(Parent);
+                    Select(icnBodyCodeReview_MReq);
+                PaddingBottom: =Self.PaddingTop
+                PaddingLeft: =Self.PaddingTop
+                PaddingRight: =Self.PaddingLeft
+                PaddingTop: =2
+                Size: =11
+                Text: ="APP"
+                Tooltip: =icnBodyCodeReview_MReq.Tooltip
+                Visible: =icnBodyCodeReview_MReq.Visible
+                Width: =icnBodyCodeReview_MReq.Width
+                X: =icnBodyCodeReview_MReq.X
+                Y: =icnBodyCodeReview_MReq.Y
+                ZIndex: =17
 
         galHeadContainer_MReq As groupContainer.horizontalAutoLayoutContainer:
             BorderColor: =lblGalleryHead.BorderColor
@@ -348,7 +466,7 @@
                 Text: ="App Name"
                 Tooltip: =Self.Text
                 VerticalAlign: =lblGalleryHead.VerticalAlign
-                Width: =Parent.Width * 0.27
+                Width: =Parent.Width * 0.2
                 Wrap: =false
                 ZIndex: =2
 
@@ -366,7 +484,7 @@
                 Text: ="Status"
                 Tooltip: =Self.Text
                 VerticalAlign: =lblGalleryHead.VerticalAlign
-                Width: =Parent.Width * 0.1
+                Width: =Parent.Width * 0.11
                 Wrap: =false
                 ZIndex: =3
 
@@ -419,9 +537,26 @@
                 Text: ="Submit Date"
                 Tooltip: =Self.Text
                 VerticalAlign: =lblGalleryHead.VerticalAlign
-                Width: =Parent.Width * 0.2
-                Wrap: =false
+                Width: =Parent.Width * 0.07
                 ZIndex: =6
+
+            lblHeadActions_MReq As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="Actions"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.19
+                Wrap: =false
+                ZIndex: =7
 
         icnFilter_MReq As icon.FilterFlat:
             Height: =40

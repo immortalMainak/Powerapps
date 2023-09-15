@@ -702,7 +702,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btnCodeReview_AllApps",
-      "ParentIndex": 7,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -3117,7 +3117,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "icnFilter_AllApps",
-      "ParentIndex": 4,
+      "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -7707,7 +7707,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lblSearch_AllApps",
-      "ParentIndex": 5,
+      "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -8363,7 +8363,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "txtSearch_AllApps",
-      "ParentIndex": 6,
+      "ParentIndex": 7,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
