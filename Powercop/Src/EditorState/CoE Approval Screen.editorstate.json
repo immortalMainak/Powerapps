@@ -4635,7 +4635,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btnApprove_CoE",
-      "ParentIndex": 7,
+      "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -9502,7 +9502,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "cmbDeveloperSelect_CoE",
-      "ParentIndex": 6,
+      "ParentIndex": 7,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {

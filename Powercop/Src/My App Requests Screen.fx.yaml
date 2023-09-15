@@ -1552,6 +1552,7 @@
                 =UpdateContext({varLoadSpinner: true});
                 Patch(AppRequests, LookUp(AppRequests, Id = varAppAttach.Id), 
                     {'App Type': cmbAppType.Selected.Value, 'App Url': First(cmbAppAttach.SelectedItems).AppUrl});
+                Refresh(AppRequests);
                 UpdateContext({varLoadSpinner: false});
                 Select(btnCancelReq);
             PressedBorderColor: =btnTemplate.PressedBorderColor

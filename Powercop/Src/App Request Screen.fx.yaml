@@ -1125,8 +1125,8 @@
                 ZIndex: =4
 
             Label146 As label:
+                AutoHeight: =true
                 Height: =If(IsBlank(Self.Text), 0, 80)  
-                Overflow: =Overflow.Scroll
                 Text: =Parent.Default
                 Width: =DataCardValue146.Width
                 X: =DataCardValue146.X
@@ -1917,7 +1917,7 @@
             DisabledBorderColor: =btnTemplate.DisabledBorderColor
             DisabledColor: =btnTemplate.DisabledBorderColor
             DisabledFill: =btnTemplate.DisabledFill
-            DisplayMode: =If(IsBlank(TextInput2), DisplayMode.Disabled, If(!ComboBox1.Visible || (ComboBox1.Visible && (IsEmpty(ComboBox1.SelectedItems) || IsBlank(ComboBox1.SelectedItems))), DisplayMode.Disabled, DisplayMode.Edit))
+            DisplayMode: =If(IsBlank(TextInput2), DisplayMode.Disabled, If(ComboBox1.Visible, If(IsEmpty(ComboBox1.SelectedItems) || IsBlank(ComboBox1.SelectedItems), DisplayMode.Disabled, DisplayMode.Edit), DisplayMode.Edit))
             Fill: =RGBA(54, 176, 75, 1)
             FocusedBorderColor: =btnTemplate.FocusedBorderColor
             FocusedBorderThickness: =btnTemplate.FocusedBorderThickness
