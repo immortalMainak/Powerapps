@@ -346,6 +346,7 @@
             Height: =50
             Required: =true
             Update: =DataCardValue151.Selected.Value
+            Visible: =true
             Width: =Parent.Width
             X: =0
             Y: =2
