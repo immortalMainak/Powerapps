@@ -9502,7 +9502,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "cmbDeveloperSelect_CoE",
-      "ParentIndex": 5,
+      "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -64646,7 +64646,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lblAllComments_CoE",
-      "ParentIndex": 4,
+      "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -67350,7 +67350,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lblAssignDeveloper_CoE",
-      "ParentIndex": 3,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -96791,7 +96791,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "txtComments",
-      "ParentIndex": 6,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {

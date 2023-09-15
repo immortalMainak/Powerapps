@@ -1,5 +1,5 @@
 "'CoE Approval Screen' As screen":
-    OnHidden: =Concurrent(Reset(NavComponent_CoE), Set(varItemId, 0));
+    OnHidden: =Reset(NavComponent_CoE);
     OnVisible: |-
         =UpdateContext({varLoadSpinner: true});
         Reset(NavComponent_CoE);
@@ -49,7 +49,9 @@
             Height: |-
                 =With({varMaxHeight: Parent.Height - Self.Y, varMinHeight: Self.TemplateHeight, varTotalHeight: Self.AllItemsCount * Self.TemplateHeight}, If(varTotalHeight > varMaxHeight, varMaxHeight, If(varTotalHeight > varMinHeight, varTotalHeight, varMinHeight)))
             Items: |-
-                =Search(Filter(AddColumns(Filter('App Governance Idea', 'COE Approval Status'.Value = "Pending"), "History", With({varIdTmp: ID}, Filter(ShowColumns('App Governance Idea History', "MainID", "COE_x0020_Comments"), MainID = varIdTmp))), (IsBlank(dteFilterStartDate_CoE.SelectedDate) || 'App Submitted Date' >= dteFilterStartDate_CoE.SelectedDate), (IsBlank(dteFilterEndDate_CoE.SelectedDate) || 'App Submitted Date' <= dteFilterEndDate_CoE.SelectedDate), (IsBlank(cmbFilterRequestor_CoE.SelectedItems) || IsEmpty(cmbFilterRequestor_CoE.SelectedItems) || 'Requestor Email' in Lower(cmbFilterRequestor_CoE.SelectedItems.Mail))), txtSearch_CoE.Text, "Idea_x0020_Name", "Requestor_x0020_Email", "Title", "Idea_x0020_Description")
+                =/*Search(Filter(AddColumns(Filter('App Governance Idea', 'COE Approval Status'.Value = "Pending"), "History", With({varIdTmp: ID}, Filter(ShowColumns('App Governance Idea History', "MainID", "COE_x0020_Comments"), MainID = varIdTmp))), (IsBlank(dteFilterStartDate_CoE.SelectedDate) || 'App Submitted Date' >= dteFilterStartDate_CoE.SelectedDate), (IsBlank(dteFilterEndDate_CoE.SelectedDate) || 'App Submitted Date' <= dteFilterEndDate_CoE.SelectedDate), (IsBlank(cmbFilterRequestor_CoE.SelectedItems) || IsEmpty(cmbFilterRequestor_CoE.SelectedItems) || 'Requestor Email' in Lower(cmbFilterRequestor_CoE.SelectedItems.Mail))), txtSearch_CoE.Text, "Idea_x0020_Name", "Requestor_x0020_Email", "Title", "Idea_x0020_Description")*/
+                Search(AddColumns(Filter(Filter(AppRequests, 'App Request Status' = 'App Request Status (AppRequests)'.'Build Approval Requested'|| 'App Request Status' = 'App Request Status (AppRequests)'.'UAT Deployment Requested' || 'App Request Status' = 'App Request Status (AppRequests)'.'Prod Deployment Requested'), 
+                (IsBlank(dteFilterStartDate_CoE.SelectedDate) || 'App Submitted Date' >= dteFilterStartDate_CoE.SelectedDate), (IsBlank(dteFilterEndDate_CoE.SelectedDate) || 'App Submitted Date' <= dteFilterEndDate_CoE.SelectedDate), (IsBlank(cmbFilterRequestor_CoE.SelectedItems) || IsEmpty(cmbFilterRequestor_CoE.SelectedItems) || InitiatorEmail in Lower(cmbFilterRequestor_CoE.SelectedItems.Mail))), "Desc", 'App Description', "AppNameTxt", 'App Name', "StatusTxt", Text('App Request Status'), "DeveloperName", 'Developer Name', "ApproverName", 'Approved By', "CommentsTxt", 'COE Comments'), txtSearch_CoE.Text, "Desc", "AppNameTxt", "StatusTxt", "DeveloperName", "ApproverName", "CommentsTxt")
             Layout: =Layout.Vertical
             LoadingSpinner: =LoadingSpinner.Data
             TemplatePadding: =0
@@ -71,7 +73,7 @@
                 Height: =Parent.TemplateHeight
                 OnSelect: =Select(Parent)
                 Size: =lblGalleryContent.Size
-                Text: =ThisItem.ID
+                Text: =ThisItem.Id
                 Tooltip: =Self.Text
                 VerticalAlign: =lblGalleryContent.VerticalAlign
                 Width: =lblHeadID_CoE.Width
@@ -109,7 +111,7 @@
                 Height: =Parent.TemplateHeight
                 OnSelect: =Select(Parent)
                 Size: =lblGalleryContent.Size
-                Text: =ThisItem.'Requestor Name'
+                Text: =ThisItem.AppNameTxt
                 Tooltip: =Self.Text
                 VerticalAlign: =lblGalleryContent.VerticalAlign
                 Width: =lblHeadRequestorName_CoE.Width
@@ -129,7 +131,7 @@
                 Height: =Parent.TemplateHeight
                 OnSelect: =Select(Parent)
                 Size: =lblGalleryContent.Size
-                Text: =DateValue(ThisItem.'App Submitted Date')
+                Text: =DateValue(If(IsBlank(ThisItem.'App Submitted Date'), ThisItem.'Created On', ThisItem.'App Submitted Date'))
                 Tooltip: =Self.Text
                 VerticalAlign: =lblGalleryContent.VerticalAlign
                 Width: =lblHeadSubmitDate_CoE.Width
@@ -141,12 +143,17 @@
             icnViewInfo_CoE As icon.Information:
                 FocusedBorderThickness: =0
                 Height: =30
-                Icon: =Icon.More
+                Icon: =Icon.Information
                 OnSelect: |-
-                    =UpdateContext({varLoadSpinner: true});
-                    Concurrent(Select(Parent), Set(varItemId, ThisItem.ID));
-                    Select(btnHiddenLoadItem);
+                    =//UpdateContext({varLoadSpinner: true});
+                    //Concurrent(Select(Parent), Set(varItemId, ThisItem.ID));
+                    
+                    //Select(btnHiddenLoadItem);
+                    //UpdateContext({varLoadSpinner: false});
+                    UpdateContext({varLoadSpinner: true});
+                    Concurrent(Select(Parent), Set(varItemId, Value(ThisItem.Id)), Set(varNavigated, true));
                     UpdateContext({varLoadSpinner: false});
+                    Navigate('App Request Screen', ScreenTransition.None);
                 PaddingBottom: =Self.PaddingTop
                 PaddingLeft: =Self.PaddingTop
                 PaddingRight: =Self.PaddingLeft
@@ -1068,7 +1075,7 @@
         RadiusBottomRight: =0
         RadiusTopLeft: =0
         RadiusTopRight: =0
-        Visible: =varItemId > 0 && varSelectedRequestType = 1
+        Visible: =varItemId > 0 && varSelectedRequestType = 1 && false
         Width: =Parent.Width * 0.5
         X: =Parent.Width - Self.Width 
         Y: =ApprovalGalleryContainer_CoE.Y + 5

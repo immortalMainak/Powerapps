@@ -7824,7 +7824,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "icnBodyCodeReview_MReq",
-      "ParentIndex": 10,
+      "ParentIndex": 9,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -8959,7 +8959,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "icnViewComments_MReq",
-      "ParentIndex": 9,
+      "ParentIndex": 10,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
