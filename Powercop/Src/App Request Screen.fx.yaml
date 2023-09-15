@@ -1845,7 +1845,7 @@
             RadiusTopRight: =btnTemplate.RadiusTopRight
             Size: =btnTemplate.Size
             Text: =If(Form_AppReq.Mode = FormMode.View, "Edit",  "Submit")
-            Visible: =IsBlank(varItem) || (!IsBlank(varItem) && varItem.InitiatorEmail = varUserEmailLower)
+            Visible: =IsBlank(varItem) || (!IsBlank(varItem) && varItem.InitiatorEmail = varUserEmailLower && Not(varItem.'App Request Status' in ['App Request Status (AppRequests)'.UAT, 'App Request Status (AppRequests)'.Production]))
             Width: =If(Self.Visible, 120, 0)
             X: =btnCancelReset_2.X - Self.Width - If(btnCancelReset_2.Visible, 20, 0)
             Y: =btnCancelReset_2.Y
@@ -1864,18 +1864,18 @@
             Underline: =true
             Visible: =!IsBlank(Self.Text)
             Width: =225
-            X: =btnDraft_2.X - Self.Width - If(btnDraft_2.Visible, 20, 0)
-            Y: =btnDraft_2.Y
+            X: =btnCancelReset_2.X + btnCancelReset_2.Width - Self.Width
+            Y: =btnCancelReset_2.Y + btnCancelReset_2.Height + btnCancelReset_2.Y
             ZIndex: =8
 
-        btnDraft_13 As button:
+        btnApprove As button:
             BorderColor: =RGBA(99, 139, 44, 1)
             BorderStyle: =btnTemplate.BorderStyle
             BorderThickness: =btnTemplate.BorderThickness
             DisabledBorderColor: =btnTemplate.DisabledBorderColor
             DisabledColor: =btnTemplate.DisabledBorderColor
             DisabledFill: =btnTemplate.DisabledFill
-            DisplayMode: =If(IsBlank(TextInput2), DisplayMode.Disabled, DisplayMode.Edit)
+            DisplayMode: =If(IsBlank(TextInput2) && (!ComboBox1.Visible || (ComboBox1.Visible && (IsEmpty(ComboBox1.SelectedItems) || IsBlank(ComboBox1.SelectedItems)))), DisplayMode.Disabled, DisplayMode.Edit)
             Fill: =RGBA(54, 176, 75, 1)
             FocusedBorderColor: =btnTemplate.FocusedBorderColor
             FocusedBorderThickness: =btnTemplate.FocusedBorderThickness
@@ -1885,9 +1885,132 @@
             HoverBorderColor: =ColorFade(Self.BorderColor, -15%)
             HoverColor: =Self.Color
             HoverFill: =ColorFade(Self.Fill, -15%)
-            OnSelect: |-
-                =UpdateContext({varIsDraft: true});
-                SubmitForm(Form_AppReq);
+            OnSelect: |
+                =UpdateContext(
+                    {
+                        varLoadSpinner: true,
+                        varProp: Blank(),
+                        varStatusTmp: Blank(),
+                        varCommentsTmp: Blank(),
+                        varApproverTmp: Blank()
+                    }
+                );
+                UpdateContext(
+                    {
+                        varStatusTmp: Switch(
+                            varItem.'App Request Status',
+                            'App Request Status (AppRequests)'.'Build Approval Requested',
+                            'App Request Status (AppRequests)'.'Build in progress',
+                            'App Request Status (AppRequests)'.'UAT Deployment Requested',
+                            'App Request Status (AppRequests)'.UAT,
+                            'App Request Status (AppRequests)'.'Prod Deployment Requested',
+                            'App Request Status (AppRequests)'.Production,
+                            'App Request Status (AppRequests)'.'Build in progress'
+                        ),
+                        varApproverTmp: $"{varUserName} ({varUserEmailLower})"
+                    }
+                );
+                UpdateContext(
+                    {
+                        varCommentsTmp: If(
+                            !IsBlank(TextInput2.Text),
+                            $"{varUserName} ({varUserEmailLower}) [{Today()}]: {Text(varStatusTmp)}{Char(10)}{TextInput2.Text} {If(
+                                !IsBlank(varItem.'COE Comments'),
+                                $"{Char(10)}{Char(10)}{varItem.'COE Comments'}",
+                                ""
+                            )}",
+                            varItem.'COE Comments'
+                        )
+                    }
+                );
+                Patch(
+                    varProp,
+                    {
+                        'App Request Status': varStatusTmp,
+                        'COE Comments': varCommentsTmp
+                    }
+                );
+                Switch(
+                    varItem.'App Request Status',
+                    'App Request Status (AppRequests)'.'Build Approval Requested',
+                    Patch(
+                        varProp,
+                        {
+                            AppApprovalDate: Today(),
+                            'Approved By': varApproverTmp
+                        }
+                    ),
+                    'App Request Status (AppRequests)'.'UAT Deployment Requested',
+                    Patch(
+                        varProp,
+                        {
+                            'UAT Approval Date': Today(),
+                            'UAT Approved By': varApproverTmp
+                        }
+                    ),
+                    'App Request Status (AppRequests)'.'Prod Deployment Requested',
+                    Patch(
+                        varProp,
+                        {
+                            'PROD Deployment Date': Today(),
+                            'PROD Approved By': varApproverTmp
+                        }
+                    ),
+                    Patch(
+                        varProp,
+                        {
+                            AppApprovalDate: Today(),
+                            'Approved By': varApproverTmp
+                        }
+                    )
+                );
+                If(
+                    !IsBlank(varProp),
+                    With(
+                        {
+                            varItemTmp: IfError(
+                                Patch(
+                                    AppRequests,
+                                    LookUp(
+                                        AppRequests,
+                                        Id = varItem.Id
+                                    ),
+                                    varProp
+                                ),
+                                Blank()
+                            )
+                        },
+                        If(
+                            !IsBlank(varItemTmp),
+                            UpdateContext({varItem: varItemTmp});
+                            Notify(
+                                "Request updated successfully.",
+                                NotificationType.Success,
+                                15000
+                            ),
+                            Notify(
+                                "Sorry something went wrong. Please try again later.",
+                                NotificationType.Error,
+                                15000
+                            )
+                        )
+                    );
+                    
+                );
+                Concurrent(
+                    Refresh(AppRequests),
+                    Reset(TextInput2),
+                    Reset(ComboBox1)
+                );
+                UpdateContext(
+                    {
+                        varLoadSpinner: false,
+                        varProp: Blank(),
+                        varStatusTmp: Blank(),
+                        varCommentsTmp: Blank(),
+                        varApproverTmp: Blank()
+                    }
+                );
             PressedBorderColor: =btnTemplate.PressedBorderColor
             PressedColor: =btnTemplate.PressedColor
             PressedFill: =btnTemplate.PressedFill
@@ -1896,9 +2019,11 @@
             RadiusTopLeft: =btnTemplate.RadiusTopLeft
             RadiusTopRight: =btnTemplate.RadiusTopRight
             Size: =btnTemplate.Size
-            Text: ="Draft"
-            Visible: =false
-            Width: =If(Self.Visible, 120, 0)
+            Text: |-
+                =Switch(varItem.'App Request Status', 'App Request Status (AppRequests)'.'Build Approval Requested', "Build Approval", 'App Request Status (AppRequests)'.'UAT Deployment Requested', "UAT Deployment Approval", 
+                'App Request Status (AppRequests)'.'Prod Deployment Requested', "PROD Deployment Approval", Blank())
+            Visible: =TextInput2.Visible && !IsBlank(Self.Text)
+            Width: =If(Self.Visible, 300, 0)
             X: =TextInput2.X + TextInput2.Width + TextInput2.Y
             Y: =btnCancelReset_2.Y
             ZIndex: =9
@@ -1906,7 +2031,7 @@
         TextInput2 As text:
             BorderThickness: =1
             Default: =""
-            Height: =Parent.Height - Self.Y * 2
+            Height: =Parent.Height - Self.Y - btnCancelReset_2.Y
             HintText: ="Comments (Required)"
             Mode: =TextMode.MultiLine
             PaddingLeft: =5
@@ -1914,12 +2039,326 @@
             RadiusBottomRight: =0
             RadiusTopLeft: =0
             RadiusTopRight: =0
+            Reset: =true
             Size: =12
-            Visible: =false
+            Visible: =varIsCoE && varItem.'App Request Status' in ['App Request Status (AppRequests)'.'Build Approval Requested', 'App Request Status (AppRequests)'.'Prod Deployment Requested', 'App Request Status (AppRequests)'.'UAT Deployment Requested']
             Width: =350
             X: =Form_AppReq.X + 30
-            Y: =Label3.Y
+            Y: =ComboBox1.Y + ComboBox1.Height
             ZIndex: =10
+
+        ComboBox1 As combobox:
+            DefaultSelectedItems: |-
+                =If(!IsBlank(varItem), Filter(ForAll(Split(varItem.'Developer Name', ")"), With({varEmailTmp: Last(Split(ThisRecord.Value, "(")).Value}, Office365Users.SearchUser({searchTerm: varEmailTmp, top: 1}))), !IsBlank(Value)), Blank())
+            DisplayFields: =["DisplayName","Mail"]
+            Height: =If(Self.Visible, 40, 0)
+            InputTextPlaceholder: ="Select Developer(s)"
+            Items: |-
+                =Office365Users.SearchUser({searchTerm: Self.SearchText, top: 10})
+            NoSelectionText: ="Select Developer(s)"
+            Reset: =true
+            SearchFields: =["DisplayName","Mail"]
+            SearchItems: |-
+                =Search(Office365Users.SearchUser({searchTerm: Self.SearchText, top: 10}),ComboBox1.SearchText,"DisplayName","Mail")
+            Template: =ListItemTemplate.Double
+            Visible: =TextInput2.Visible && varItem.'Who will develop this app?' in ['Who will develop this app? (AppRequests)'.'Developer assisted App development', 'Who will develop this app? (AppRequests)'.'I want COE to build the app']
+            Width: =TextInput2.Width
+            X: =Form_AppReq.X + 30
+            Y: =btnCancelReset_2.Y
+            ZIndex: =11
+
+        btnSendToInitiator As button:
+            BorderColor: =RGBA(221, 79, 14, 1)
+            BorderStyle: =btnTemplate.BorderStyle
+            BorderThickness: =btnTemplate.BorderThickness
+            Color: =RGBA(26, 26, 26, 1)
+            DisabledBorderColor: =btnTemplate.DisabledBorderColor
+            DisabledColor: =btnTemplate.DisabledBorderColor
+            DisabledFill: =btnTemplate.DisabledFill
+            DisplayMode: =If(IsBlank(TextInput2), DisplayMode.Disabled, DisplayMode.Edit)
+            Fill: =RGBA(251, 188, 159, 1)
+            FocusedBorderColor: =btnTemplate.FocusedBorderColor
+            FocusedBorderThickness: =btnTemplate.FocusedBorderThickness
+            Font: =btnTemplate.Font
+            FontWeight: =btnTemplate.FontWeight
+            Height: =If(Self.Visible, 40, 0)
+            HoverBorderColor: =ColorFade(Self.BorderColor, -15%)
+            HoverColor: =Self.Color
+            HoverFill: =ColorFade(Self.Fill, -15%)
+            OnSelect: |
+                =UpdateContext(
+                    {
+                        varLoadSpinner: true,
+                        varProp: Blank(),
+                        varStatusTmp: Blank(),
+                        varCommentsTmp: Blank(),
+                        varApproverTmp: Blank()
+                    }
+                );
+                UpdateContext(
+                    {
+                        varStatusTmp: Switch(
+                            varItem.'App Request Status',
+                            'App Request Status (AppRequests)'.'Build Approval Requested',
+                            'App Request Status (AppRequests)'.'Build Approval sent back to initiator',
+                            'App Request Status (AppRequests)'.'UAT Deployment Requested',
+                            'App Request Status (AppRequests)'.'UAT Deployment sent back to initiator',
+                            'App Request Status (AppRequests)'.'Prod Deployment Requested',
+                            'App Request Status (AppRequests)'.'Prod Deployment sent back to initiator',
+                            'App Request Status (AppRequests)'.'Build Approval sent back to initiator'
+                        ),
+                        varApproverTmp: $"{varUserName} ({varUserEmailLower})"
+                    }
+                );
+                UpdateContext(
+                    {
+                        varCommentsTmp: If(
+                            !IsBlank(TextInput2.Text),
+                            $"{varUserName} ({varUserEmailLower}) [{Today()}]: {Text(varStatusTmp)}{Char(10)}{TextInput2.Text} {If(
+                                !IsBlank(varItem.'COE Comments'),
+                                $"{Char(10)}{Char(10)}{varItem.'COE Comments'}",
+                                ""
+                            )}",
+                            varItem.'COE Comments'
+                        )
+                    }
+                );
+                Patch(
+                    varProp,
+                    {
+                        'App Request Status': varStatusTmp,
+                        'COE Comments': varCommentsTmp
+                    }
+                );
+                Switch(
+                    varItem.'App Request Status',
+                    'App Request Status (AppRequests)'.'Build Approval Requested',
+                    Patch(
+                        varProp,
+                        {'Approved By': varApproverTmp}
+                    ),
+                    'App Request Status (AppRequests)'.'UAT Deployment Requested',
+                    Patch(
+                        varProp,
+                        {'UAT Approved By': varApproverTmp}
+                    ),
+                    'App Request Status (AppRequests)'.'Prod Deployment Requested',
+                    Patch(
+                        varProp,
+                        {'PROD Approved By': varApproverTmp}
+                    ),
+                    Patch(
+                        varProp,
+                        {'Approved By': varApproverTmp}
+                    )
+                );
+                If(
+                    !IsBlank(varProp),
+                    With(
+                        {
+                            varItemTmp: IfError(
+                                Patch(
+                                    AppRequests,
+                                    LookUp(
+                                        AppRequests,
+                                        Id = varItem.Id
+                                    ),
+                                    varProp
+                                ),
+                                Blank()
+                            )
+                        },
+                        If(
+                            !IsBlank(varItemTmp),
+                            UpdateContext({varItem: varItemTmp});
+                            Notify(
+                                "Request updated successfully.",
+                                NotificationType.Success,
+                                15000
+                            ),
+                            Notify(
+                                "Sorry something went wrong. Please try again later.",
+                                NotificationType.Error,
+                                15000
+                            )
+                        )
+                    )
+                );
+                Concurrent(
+                    Refresh(AppRequests),
+                    Reset(TextInput2),
+                    Reset(ComboBox1)
+                );
+                UpdateContext(
+                    {
+                        varLoadSpinner: false,
+                        varProp: Blank(),
+                        varStatusTmp: Blank(),
+                        varCommentsTmp: Blank(),
+                        varApproverTmp: Blank()
+                    }
+                );
+            PressedBorderColor: =btnTemplate.PressedBorderColor
+            PressedColor: =btnTemplate.PressedColor
+            PressedFill: =btnTemplate.PressedFill
+            RadiusBottomLeft: =btnTemplate.RadiusBottomLeft
+            RadiusBottomRight: =btnTemplate.RadiusBottomRight
+            RadiusTopLeft: =btnTemplate.RadiusTopLeft
+            RadiusTopRight: =btnTemplate.RadiusTopRight
+            Size: =btnTemplate.Size
+            Text: |-
+                =Switch(varItem.'App Request Status', 'App Request Status (AppRequests)'.'Build Approval Requested', "Send Build Request To Initiator", 'App Request Status (AppRequests)'.'UAT Deployment Requested', "Send UAT Request To Initiatorl", 
+                'App Request Status (AppRequests)'.'Prod Deployment Requested', "Send PROD Request To Initiator", Blank())
+            Visible: =TextInput2.Visible && !IsBlank(Self.Text)
+            Width: =If(Self.Visible, 300, 0)
+            X: =TextInput2.X + TextInput2.Width + TextInput2.Y
+            Y: =btnApprove.Y + btnApprove.Height + btnApprove.Y
+            ZIndex: =12
+
+        btnTerminateRequest As button:
+            BorderColor: =RGBA(172, 62, 11, 1)
+            BorderStyle: =btnTemplate.BorderStyle
+            BorderThickness: =btnTemplate.BorderThickness
+            DisabledBorderColor: =btnTemplate.DisabledBorderColor
+            DisabledColor: =btnTemplate.DisabledBorderColor
+            DisabledFill: =btnTemplate.DisabledFill
+            DisplayMode: =If(IsBlank(TextInput2), DisplayMode.Disabled, DisplayMode.Edit)
+            Fill: =RGBA(221, 79, 14, 1)
+            FocusedBorderColor: =btnTemplate.FocusedBorderColor
+            FocusedBorderThickness: =btnTemplate.FocusedBorderThickness
+            Font: =btnTemplate.Font
+            FontWeight: =btnTemplate.FontWeight
+            Height: =If(Self.Visible, 40, 0)
+            HoverBorderColor: =ColorFade(Self.BorderColor, -15%)
+            HoverColor: =Self.Color
+            HoverFill: =ColorFade(Self.Fill, -15%)
+            OnSelect: |
+                =UpdateContext(
+                    {
+                        varLoadSpinner: true,
+                        varProp: Blank(),
+                        varStatusTmp: Blank(),
+                        varCommentsTmp: Blank(),
+                        varApproverTmp: Blank()
+                    }
+                );
+                UpdateContext(
+                    {
+                        varStatusTmp: Switch(
+                            varItem.'App Request Status',
+                            'App Request Status (AppRequests)'.'Build Approval Requested',
+                            'App Request Status (AppRequests)'.'Build Approval Rejected',
+                            'App Request Status (AppRequests)'.'UAT Deployment Requested',
+                            'App Request Status (AppRequests)'.'UAT Deployment Rejected',
+                            'App Request Status (AppRequests)'.'Prod Deployment Requested',
+                            'App Request Status (AppRequests)'.'Prod Deployment Rejected',
+                            'App Request Status (AppRequests)'.'Build Approval Rejected'
+                        ),
+                        varApproverTmp: $"{varUserName} ({varUserEmailLower})"
+                    }
+                );
+                UpdateContext(
+                    {
+                        varCommentsTmp: If(
+                            !IsBlank(TextInput2.Text),
+                            $"{varUserName} ({varUserEmailLower}) [{Today()}]: {Text(varStatusTmp)}{Char(10)}{TextInput2.Text} {If(
+                                !IsBlank(varItem.'COE Comments'),
+                                $"{Char(10)}{Char(10)}{varItem.'COE Comments'}",
+                                ""
+                            )}",
+                            varItem.'COE Comments'
+                        )
+                    }
+                );
+                Patch(
+                    varProp,
+                    {
+                        'App Request Status': varStatusTmp,
+                        'COE Comments': varCommentsTmp
+                    }
+                );
+                Switch(
+                    varItem.'App Request Status',
+                    'App Request Status (AppRequests)'.'Build Approval Requested',
+                    Patch(
+                        varProp,
+                        {'Approved By': varApproverTmp}
+                    ),
+                    'App Request Status (AppRequests)'.'UAT Deployment Requested',
+                    Patch(
+                        varProp,
+                        {'UAT Approved By': varApproverTmp}
+                    ),
+                    'App Request Status (AppRequests)'.'Prod Deployment Requested',
+                    Patch(
+                        varProp,
+                        {'PROD Approved By': varApproverTmp}
+                    ),
+                    Patch(
+                        varProp,
+                        {'Approved By': varApproverTmp}
+                    )
+                );
+                If(
+                    !IsBlank(varProp),
+                    With(
+                        {
+                            varItemTmp: IfError(
+                                Patch(
+                                    AppRequests,
+                                    LookUp(
+                                        AppRequests,
+                                        Id = varItem.Id
+                                    ),
+                                    varProp
+                                ),
+                                Blank()
+                            )
+                        },
+                        If(
+                            !IsBlank(varItemTmp),
+                            UpdateContext({varItem: varItemTmp});
+                            Notify(
+                                "Request updated successfully.",
+                                NotificationType.Success,
+                                15000
+                            ),
+                            Notify(
+                                "Sorry something went wrong. Please try again later.",
+                                NotificationType.Error,
+                                15000
+                            )
+                        )
+                    )
+                );
+                Concurrent(
+                    Refresh(AppRequests),
+                    Reset(TextInput2),
+                    Reset(ComboBox1)
+                );
+                UpdateContext(
+                    {
+                        varLoadSpinner: false,
+                        varProp: Blank(),
+                        varStatusTmp: Blank(),
+                        varCommentsTmp: Blank(),
+                        varApproverTmp: Blank()
+                    }
+                );
+            PressedBorderColor: =btnTemplate.PressedBorderColor
+            PressedColor: =btnTemplate.PressedColor
+            PressedFill: =btnTemplate.PressedFill
+            RadiusBottomLeft: =btnTemplate.RadiusBottomLeft
+            RadiusBottomRight: =btnTemplate.RadiusBottomRight
+            RadiusTopLeft: =btnTemplate.RadiusTopLeft
+            RadiusTopRight: =btnTemplate.RadiusTopRight
+            Size: =btnTemplate.Size
+            Text: ="Cancel(Terminate) Request"
+            Visible: =TextInput2.Visible && !IsBlank(Self.Text)
+            Width: =If(Self.Visible, 300, 0)
+            X: =TextInput2.X + TextInput2.Width + TextInput2.Y
+            Y: =btnSendToInitiator.Y + btnSendToInitiator.Height + btnApprove.Y
+            ZIndex: =13
 
     DeletePopupContainer As groupContainer.manualLayoutContainer:
         DropShadow: =DropShadow.None

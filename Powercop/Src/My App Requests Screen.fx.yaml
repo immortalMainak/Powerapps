@@ -156,7 +156,7 @@
                 PaddingRight: =Self.PaddingLeft
                 PaddingTop: =2
                 Tooltip: ="View Info"
-                Visible: =Not(ThisItem.'App Request Status' in ['App Request Status (AppRequests)'.'Build Approval Cancelled', 'App Request Status (AppRequests)'.'UAT Deployment Rejected', 'App Request Status (AppRequests)'.'Prod Deployment Rejected'])
+                Visible: =Not(ThisItem.'App Request Status' in ['App Request Status (AppRequests)'.'Build Approval Rejected', 'App Request Status (AppRequests)'.'UAT Deployment Rejected', 'App Request Status (AppRequests)'.'Prod Deployment Rejected'])
                 Width: =If(Self.Visible, Self.Height, 0)
                 X: =lblBodySubmitDate_MReq.X + lblBodySubmitDate_MReq.Width - Self.Width - If(Parent.AllItemsCount * Parent.TemplateHeight > Parent.Height, 20, 10)
                 Y: =lblBodySubmitDate_MReq.Y + (lblBodySubmitDate_MReq.Height - Self.Height) * 0.5
