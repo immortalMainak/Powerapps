@@ -285,7 +285,7 @@
             Tooltip: =If(varFilterPopup, "Close Filter", "Filter")
             Width: =Self.Height
             X: =10
-            Y: =10
+            Y: =HeaderComponent_CoE.Y + HeaderComponent_CoE.Height + 10
             ZIndex: =3
 
         lblSearch_CoE As label:
