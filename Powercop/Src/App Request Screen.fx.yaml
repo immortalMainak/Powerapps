@@ -217,7 +217,7 @@
             MaxLength: =DataSourceInfo([@AppRequests], DataSourceInfo.MaxLength, "cr0e5_name")
             Required: =true
             Update: =DataCardValue140.Text
-            Width: =Parent.Width
+            Width: =1229
             X: =0
             Y: =0
             ZIndex: =1
@@ -290,7 +290,7 @@
             Height: =50
             Required: =false
             Update: =DataCardValue139.Text
-            Width: =Parent.Width
+            Width: =1229
             X: =0
             Y: =1
             ZIndex: =1
@@ -364,7 +364,7 @@
             Required: =true
             Update: =DataCardValue151.Selected.Value
             Visible: =true
-            Width: =Parent.Width
+            Width: =1229
             X: =0
             Y: =2
             ZIndex: =1
@@ -435,7 +435,7 @@
             Height: =50
             Required: =false
             Update: =DataCardValue141.Text
-            Width: =Parent.Width
+            Width: =1229
             X: =0
             Y: =3
             ZIndex: =1
@@ -508,7 +508,7 @@
             Height: =50
             Required: =false
             Update: =DataCardValue144.Text
-            Width: =Parent.Width
+            Width: =1229
             X: =0
             Y: =4
             ZIndex: =1
@@ -582,7 +582,7 @@
             Required: =false
             Update: =DateValue1.SelectedDate + Time(Value(HourValue1.Selected.Value), Value(MinuteValue1.Selected.Value), 0)
             Visible: =Parent.Mode = FormMode.View
-            Width: =Parent.Width
+            Width: =1229
             X: =0
             Y: =5
             ZIndex: =1
@@ -705,7 +705,7 @@
             Required: =Self.Visible
             Update: =DataCardValue152.Selected.Value
             Visible: =ThisItem.'App Request Status' = 'App Request Status (AppRequests)'.'Build in progress'
-            Width: =Parent.Width
+            Width: =1229
             X: =0
             Y: =6
             ZIndex: =1
@@ -778,7 +778,7 @@
             Required: =Self.Visible
             Update: =If(First(DataCardValue152.SelectedItems).Value = 'App Type (AppRequests)'.Canvas, DataCardValue142.Text, Blank())
             Visible: =ThisItem.'App Request Status' = 'App Request Status (AppRequests)'.'Build in progress' && First(DataCardValue152.SelectedItems).Value = 'App Type (AppRequests)'.Canvas
-            Width: =Parent.Width
+            Width: =1229
             X: =0
             Y: =7
             ZIndex: =1
@@ -845,10 +845,11 @@
                 FocusedBorderThickness: =1
                 Height: =DataCardValue142.Height
                 InputTextPlaceholder: ="Select App"
-                Items: =Filter(ShowColumns(AddColumns(PowerAppsforMakers.GetApps({}).value, "AppUrl", properties.appUris.documentUri.value, "NameNew", properties.displayName), "AppUrl", "NameNew"), !IsBlank(AppUrl))
+                IsSearchable: =false
+                Items: =Filter(ShowColumns(AddColumns(PowerAppsforMakers.GetApps({}).value, "AppUrl", properties.appUris.documentUri.value, "NameNew", properties.displayName), "AppUrl", "NameNew", "name"), !IsBlank(AppUrl))
                 NoSelectionText: ="Select App"
                 SearchFields: =["NameNew"]
-                SearchItems: =Search(Filter(ShowColumns(AddColumns(PowerAppsforMakers.GetApps({}).value, "AppUrl", properties.appUris.documentUri.value, "NameNew", properties.displayName), "AppUrl", "NameNew"), !IsBlank(AppUrl)),ComboBox142.SearchText,"NameNew")
+                SearchItems: =[]
                 SelectMultiple: =false
                 Width: =DataCardValue142.Width
                 X: =DataCardValue142.X
@@ -866,7 +867,7 @@
             Required: =false
             Update: =If(!IsBlank(DateValue2.SelectedDate), DateValue2.SelectedDate + Time(Value(HourValue2.Selected.Value), Value(MinuteValue2.Selected.Value), 0), Blank())
             Visible: =Parent.Mode = FormMode.View && !IsBlank(Self.Default)
-            Width: =Parent.Width
+            Width: =1229
             X: =0
             Y: =8
             ZIndex: =1
@@ -988,7 +989,7 @@
             Required: =false
             Update: =DataCardValue143.Text
             Visible: =Parent.Mode = FormMode.View && !IsBlank(Self.Default)
-            Width: =Parent.Width
+            Width: =1229
             X: =0
             Y: =9
             ZIndex: =1
@@ -1060,7 +1061,7 @@
             Required: =false
             Update: |-
                 =If(!IsBlank(DataCardValue146.Text), $"{varUserName} ({varUserEmailLower}) [{Today()}]: {Char(10)}{DataCardValue146.Text} {If(!IsBlank(Self.Default), $"{Char(10)}{Char(10)}{Self.Default}", "")}")
-            Width: =Parent.Width
+            Width: =1229
             X: =0
             Y: =10
             ZIndex: =1
@@ -1145,7 +1146,7 @@
             Required: =false
             Update: =DataCardValue147.Text
             Visible: =Parent.Mode = FormMode.New && !IsBlank(Self.Default)
-            Width: =Parent.Width
+            Width: =1229
             X: =0
             Y: =11
             ZIndex: =1
@@ -1218,7 +1219,7 @@
             Required: =false
             Update: =DataCardValue3.Selected.Value
             Visible: =Parent.Mode = FormMode.View
-            Width: =Parent.Width
+            Width: =1229
             X: =0
             Y: =12
             ZIndex: =1
@@ -1289,7 +1290,7 @@
             Required: =false
             Update: =DataCardValue148.Text
             Visible: =false
-            Width: =1092
+            Width: =1229
             X: =0
             Y: =13
             ZIndex: =1
@@ -1358,7 +1359,7 @@
             Required: =false
             Update: =DataCardValue149.Text
             Visible: =false
-            Width: =1092
+            Width: =1229
             X: =0
             Y: =14
             ZIndex: =1
@@ -1427,7 +1428,7 @@
             Required: =false
             Update: =DataCardValue150.Text
             Visible: =Parent.Mode = FormMode.View && !IsBlank(Self.Default)
-            Width: =Parent.Width
+            Width: =1229
             X: =0
             Y: =15
             ZIndex: =1
@@ -1497,7 +1498,7 @@
             Required: =false
             Update: =If(!IsBlank(DateValue4.SelectedDate), DateValue4.SelectedDate + Time(Value(HourValue4.Selected.Value), Value(MinuteValue4.Selected.Value), 0), Blank())
             Visible: =Parent.Mode = FormMode.View && !IsBlank(Self.Default)
-            Width: =Parent.Width
+            Width: =1229
             X: =0
             Y: =16
             ZIndex: =1
@@ -1616,7 +1617,7 @@
             Required: =false
             Update: =If(!IsBlank(DateValue3.SelectedDate), DateValue3.SelectedDate + Time(Value(HourValue3.Selected.Value), Value(MinuteValue3.Selected.Value), 0), Blank())
             Visible: =Parent.Mode = FormMode.View && !IsBlank(Self.Default)
-            Width: =Parent.Width
+            Width: =1229
             X: =0
             Y: =17
             ZIndex: =1
@@ -2111,7 +2112,7 @@
         ComboBox1 As combobox:
             BorderThickness: =1
             DefaultSelectedItems: |-
-                =If(!IsBlank(varItem), Filter(ForAll(Split(varItem.'Developer Name', ")"), With({varEmailTmp: Last(Split(ThisRecord.Value, "(")).Value}, Office365Users.SearchUser({searchTerm: varEmailTmp, top: 1}))), !IsBlank(Value)), Blank())
+                =If(!IsBlank(varItem), Filter(ForAll(Filter(Split(varItem.'Developer Name', ")"), !IsBlank(Value)),First(Office365Users.SearchUser({searchTerm: Last(Split(ThisRecord.Value, "(")).Value, top: 1}))), !IsBlank(Mail)), Blank())
             DisplayFields: =["DisplayName","Mail"]
             FocusedBorderThickness: =1
             Height: =If(Self.Visible, 40, 0)
@@ -2125,7 +2126,7 @@
                 =Search(Filter(Office365Users.SearchUser({searchTerm: Self.SearchText, top: 50}), !IsBlank(Mail), AccountEnabled),ComboBox1.SearchText,"DisplayName","Mail")
             Size: =12
             Template: =ListItemTemplate.Double
-            Visible: =TextInput2.Visible && varItem.'Who will develop this app?' in ['Who will develop this app? (AppRequests)'.'Developer assisted App development', 'Who will develop this app? (AppRequests)'.'I want COE to build the app']
+            Visible: =TextInput2.Visible && varItem.'Who will develop this app?' in ['Who will develop this app? (AppRequests)'.'Developer assisted App development', 'Who will develop this app? (AppRequests)'.'I want COE to build the app'] && varItem.'App Request Status' = 'App Request Status (AppRequests)'.'Build Approval Requested'
             Width: =TextInput2.Width
             X: =Form_AppReq.X + 30
             Y: =btnCancelReset_2.Y

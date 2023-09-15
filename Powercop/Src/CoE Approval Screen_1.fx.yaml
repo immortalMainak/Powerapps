@@ -2508,7 +2508,7 @@
                 Required: =true
                 Update: =DataCardValue108_1.Text
                 Visible: =false
-                Width: =662
+                Width: =479
                 X: =0
                 Y: =0
                 ZIndex: =5
@@ -2576,7 +2576,7 @@
                 MaxLength: =DataSourceInfo([@'App Solution Consulting'], DataSourceInfo.MaxLength, "ProposeAppName")
                 Required: =false
                 Update: =DataCardValue109_1.Text
-                Width: =Parent.Width
+                Width: =479
                 X: =0
                 Y: =1
                 ZIndex: =5
@@ -2665,7 +2665,7 @@
                 MaxLength: =DataSourceInfo([@'App Solution Consulting'], DataSourceInfo.MaxLength, "ProblemsolvedbytheApp")
                 Required: =false
                 Update: =DataCardValue110_1.Text
-                Width: =Parent.Width
+                Width: =479
                 X: =0
                 Y: =2
                 ZIndex: =5
@@ -2753,7 +2753,7 @@
                 MaxLength: =DataSourceInfo([@'App Solution Consulting'], DataSourceInfo.MaxLength, "Benefittotheorganization")
                 Required: =false
                 Update: =DataCardValue111_1.Text
-                Width: =Parent.Width
+                Width: =479
                 X: =0
                 Y: =3
                 ZIndex: =5
@@ -2839,7 +2839,7 @@
                 Height: =50
                 Required: =true
                 Update: =DataCardValue112_1.SelectedItems
-                Width: =Parent.Width
+                Width: =479
                 X: =0
                 Y: =4
                 ZIndex: =5
@@ -2924,7 +2924,7 @@
                 Required: =false
                 Update: =DataCardValue113_1.Text
                 Visible: =false
-                Width: =Parent.Width
+                Width: =479
                 X: =0
                 Y: =5
                 ZIndex: =5
@@ -3011,7 +3011,7 @@
                 Required: =false
                 Update: =DataCardValue114_1.SelectedDate
                 Visible: =false
-                Width: =662
+                Width: =479
                 X: =0
                 Y: =6
                 ZIndex: =5
@@ -3078,7 +3078,7 @@
                 Required: =false
                 Update: =DataCardValue115_1.Text
                 Visible: =false
-                Width: =662
+                Width: =479
                 X: =0
                 Y: =7
                 ZIndex: =5
@@ -3147,7 +3147,7 @@
                 Required: =false
                 Update: =DataCardValue116_1.Text
                 Visible: =false
-                Width: =662
+                Width: =479
                 X: =0
                 Y: =8
                 ZIndex: =5
@@ -3215,7 +3215,7 @@
                 Required: =false
                 Update: =Value(DataCardValue117_1.Text)
                 Visible: =false
-                Width: =662
+                Width: =479
                 X: =0
                 Y: =9
                 ZIndex: =5
@@ -3282,7 +3282,7 @@
                 Height: =Label118_1.Y + Label118_1.Height + Label118_1.BorderThickness*2
                 Required: =false
                 Update: =DataCardValue118_1.Attachments
-                Width: =662
+                Width: =479
                 X: =0
                 Y: =10
                 ZIndex: =5
@@ -3630,7 +3630,7 @@
                 Required: =true
                 Update: =DataCardValue119_1.Text
                 Visible: =false
-                Width: =662
+                Width: =479
                 X: =0
                 Y: =0
                 ZIndex: =5
@@ -3698,7 +3698,7 @@
                 MaxLength: =DataSourceInfo([@'Assistance Required'], DataSourceInfo.MaxLength, "AppName")
                 Required: =false
                 Update: =DataCardValue120_1.Text
-                Width: =Parent.Width
+                Width: =479
                 X: =0
                 Y: =1
                 ZIndex: =5
@@ -3785,7 +3785,7 @@
                 MaxLength: =DataSourceInfo([@'Assistance Required'], DataSourceInfo.MaxLength, "Problem")
                 Required: =false
                 Update: =DataCardValue121_1.Text
-                Width: =Parent.Width
+                Width: =479
                 X: =0
                 Y: =2
                 ZIndex: =5
@@ -3873,7 +3873,7 @@
                 MaxLength: =DataSourceInfo([@'Assistance Required'], DataSourceInfo.MaxLength, "Query")
                 Required: =false
                 Update: =DataCardValue122_1.Text
-                Width: =Parent.Width
+                Width: =479
                 X: =0
                 Y: =3
                 ZIndex: =5
@@ -3959,7 +3959,7 @@
                 Height: =50
                 Required: =false
                 Update: =DataCardValue123_1.Value
-                Width: =Parent.Width
+                Width: =479
                 X: =0
                 Y: =4
                 ZIndex: =5
@@ -4036,7 +4036,7 @@
                 Height: =Label129_1.Y + Label129_1.Height + Label129_1.BorderThickness
                 Required: =false
                 Update: =DataCardValue129_1.Attachments
-                Width: =662
+                Width: =479
                 X: =0
                 Y: =5
                 ZIndex: =5
@@ -4378,7 +4378,7 @@
                 MaxLength: =DataSourceInfo([@'Create Business Unit in Production'], DataSourceInfo.MaxLength, "BusinessUnitName")
                 Required: =false
                 Update: =DataCardValue125_1.Text
-                Width: =Parent.Width
+                Width: =479
                 X: =0
                 Y: =0
                 ZIndex: =5
@@ -4464,7 +4464,7 @@
                 Height: =50
                 Required: =false
                 Update: =Value(DataCardValue126_1.Text)
-                Width: =Parent.Width
+                Width: =479
                 X: =0
                 Y: =1
                 ZIndex: =5
@@ -4550,7 +4550,7 @@
                 MaxLength: =DataSourceInfo([@'Create Business Unit in Production'], DataSourceInfo.MaxLength, "EnvironmentOwner")
                 Required: =false
                 Update: =DataCardValue127_1.Text
-                Width: =Parent.Width
+                Width: =479
                 X: =0
                 Y: =2
                 ZIndex: =5
@@ -4635,7 +4635,7 @@
                 Height: =50
                 Required: =false
                 Update: =Value(DataCardValue128_1.Text)
-                Width: =Parent.Width
+                Width: =479
                 X: =0
                 Y: =3
                 ZIndex: =5
@@ -4720,7 +4720,7 @@
                 Height: =Label136_1.Y + Label136_1.Height + Label136_1.BorderThickness*3
                 Required: =false
                 Update: =DataCardValue136_1.Attachments
-                Width: =Parent.Width
+                Width: =479
                 X: =0
                 Y: =4
                 ZIndex: =5
@@ -4980,6 +4980,7 @@
         ZIndex: =8
 
     SpinnerComponent_CoE_1 As SpinnerComponent:
+        Height: =700
         Visible: =varLoadSpinner
         Width: =Parent.Width - Self.X
         ZIndex: =9
@@ -4994,6 +4995,6 @@
         Height: =Parent.Height - Self.Y
         Visible: =!LookUp(colNavItems, Screen = App.ActiveScreen).HasAccess
         Width: =Parent.Width
-        Y: =HeaderComponent_CoE_1.Y + HeaderComponent_CoE_1.Height
+        Y: =60
         ZIndex: =11
 

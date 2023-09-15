@@ -4,68 +4,54 @@ Screen2 As screen:
         BorderStyle: =BorderStyle.Solid
         DisplayMode: =DisplayMode.Edit
         Fill: =RGBA(0, 0, 0, 0)
-        Height: =728
-        Items: ='Environment Variable Values'
+        Height: =700
+        Items: =PowerAppsforMakers.GetApps({}).value
         Width: =1326
         X: =40
-        Y: =40
+        Y: =0
         ZIndex: =1
 
-        "'Environment Variable Definition_Column1' As dataTableColumn.complexTypeColumn":
+        id_Column1 As dataTableColumn.textualColumn:
             DisplayMode: =DisplayMode.Edit
-            FieldDisplayName: ="Environment Variable Definition"
-            FieldName: ="EnvironmentVariableDefinitionId"
-            FieldVariantName: ="complexTypeColumn"
+            FieldDisplayName: ="id"
+            FieldName: ="id"
+            FieldVariantName: ="textualColumn"
             Height: =Parent.Height
             LayoutHeight: =Parent.Height
             Order: =1
-            Text: =ThisItem.'Environment Variable Definition'.'Environment Variable Definition'
+            Text: =ThisItem.id
             Width: =100
             X: =0
             Y: =0
             ZIndex: =1
 
-        "'Environment Variable Value_Column1' As dataTableColumn.textualColumn":
+        name_Column1 As dataTableColumn.textualColumn:
             DisplayMode: =DisplayMode.Edit
-            FieldDisplayName: ="Environment Variable Value"
-            FieldName: ="environmentvariablevalueid"
+            FieldDisplayName: ="name"
+            FieldName: ="name"
             FieldVariantName: ="textualColumn"
             Height: =Parent.Height
             LayoutHeight: =Parent.Height
             Order: =2
-            Text: =ThisItem.'Environment Variable Value'
+            Text: =ThisItem.name
             Width: =100
             X: =0
             Y: =0
             ZIndex: =2
 
-        "'Schema Name_Column1' As dataTableColumn.textualColumn":
+        type_Column1 As dataTableColumn.textualColumn:
             DisplayMode: =DisplayMode.Edit
-            FieldDisplayName: ="Schema Name"
-            FieldName: ="schemaname"
+            FieldDisplayName: ="type"
+            FieldName: ="type"
             FieldVariantName: ="textualColumn"
             Height: =Parent.Height
             LayoutHeight: =Parent.Height
             Order: =3
-            Text: =ThisItem.'Schema Name'
+            Text: =ThisItem.type
             Width: =100
             X: =0
             Y: =0
             ZIndex: =3
-
-        EnvironmentVariableValueIdUnique_Column1 As dataTableColumn.textualColumn:
-            DisplayMode: =DisplayMode.Edit
-            FieldDisplayName: ="EnvironmentVariableValueIdUnique"
-            FieldName: ="environmentvariablevalueidunique"
-            FieldVariantName: ="textualColumn"
-            Height: =Parent.Height
-            LayoutHeight: =Parent.Height
-            Order: =4
-            Text: =ThisItem.EnvironmentVariableValueIdUnique
-            Width: =100
-            X: =0
-            Y: =0
-            ZIndex: =4
 
     Button1 As button:
         OnSelect: |-

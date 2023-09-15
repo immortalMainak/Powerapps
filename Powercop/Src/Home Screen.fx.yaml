@@ -14,7 +14,7 @@
         Width: =HeaderComponent_Home.Width
         WrapCount: =3
         X: =HeaderComponent_Home.X
-        Y: =TextInput1.Y + TextInput1.Height
+        Y: =62
         ZIndex: =1
 
         btnNav As button:

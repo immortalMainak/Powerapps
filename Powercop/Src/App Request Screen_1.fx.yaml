@@ -42,7 +42,7 @@
             Height: =50
             Required: =true
             Update: =DataCardValue130_1.Selected
-            Width: =Parent.Width
+            Width: =1092
             X: =0
             Y: =6
             ZIndex: =1
@@ -115,7 +115,7 @@
             Required: =false
             Update: =DataCardValue44_1.SelectedItems
             Visible: =CountRows(ThisItem.'Developer Name') > 0
-            Width: =Parent.Width
+            Width: =1092
             X: =0
             Y: =8
             ZIndex: =1
@@ -185,7 +185,7 @@
             Required: =false
             Update: =DataCardValue1_1.Text
             Visible: =false
-            Width: =Parent.Width
+            Width: =1092
             X: =0
             Y: =0
             ZIndex: =2
@@ -254,7 +254,7 @@
             Required: =false
             Update: =DataCardValue2_1.Text
             Visible: =false
-            Width: =800
+            Width: =1092
             X: =0
             Y: =1
             ZIndex: =2
@@ -322,7 +322,7 @@
             MaxLength: =DataSourceInfo([@'App Governance Idea'], DataSourceInfo.MaxLength, "Idea_x0020_Name")
             Required: =true
             Update: =DataCardValue3_1.Text
-            Width: =Parent.Width
+            Width: =1092
             X: =0
             Y: =2
             ZIndex: =2
@@ -395,7 +395,7 @@
             MaxLength: =DataSourceInfo([@'App Governance Idea'], DataSourceInfo.MaxLength, "Idea_x0020_Description")
             Required: =true
             Update: =DataCardValue4_1.Text
-            Width: =Parent.Width
+            Width: =1092
             X: =0
             Y: =3
             ZIndex: =2
@@ -470,7 +470,7 @@
             MaxLength: =DataSourceInfo([@'App Governance Idea'], DataSourceInfo.MaxLength, "Idea_x0020_Related_x0020_Queries")
             Required: =false
             Update: =DataCardValue5_1.Text
-            Width: =Parent.Width
+            Width: =1092
             X: =0
             Y: =4
             ZIndex: =2
@@ -544,7 +544,7 @@
             Required: =false
             Update: =DataCardValue6_1.SelectedDate
             Visible: =false
-            Width: =Parent.Width
+            Width: =1092
             X: =0
             Y: =5
             ZIndex: =2
@@ -612,7 +612,7 @@
             Required: =false
             Update: =DataCardValue7_1.Value
             Visible: =false
-            Width: =Parent.Width
+            Width: =1092
             X: =0
             Y: =7
             ZIndex: =2
@@ -679,7 +679,7 @@
             Required: =false
             Update: =DataCardValue8_1.Selected
             Visible: =false
-            Width: =800
+            Width: =1092
             X: =0
             Y: =9
             ZIndex: =2
@@ -745,7 +745,7 @@
             Height: =50
             Required: =false
             Update: =DataCardValue12_1.Attachments
-            Width: =Parent.Width
+            Width: =1092
             X: =0
             Y: =10
             ZIndex: =2
@@ -816,7 +816,7 @@
         Visible: =false
         Width: =HeaderComponent_AppReq_1.Width
         X: =HeaderComponent_AppReq_1.X
-        Y: =Form_AppReq_1.Y + Form_AppReq_1.Height
+        Y: =580
         ZIndex: =2
 
         btnCancelReset_10 As button:
@@ -912,7 +912,7 @@
         RadiusTopRight: =0
         Width: =HeaderComponent_AppReq_1.Width
         X: =HeaderComponent_AppReq_1.X
-        Y: =Form_AppReq_1.Y + Form_AppReq_1.Height
+        Y: =580
         ZIndex: =3
 
         btnDraft_12 As button:
@@ -1063,7 +1063,7 @@
         Visible: =varShowDeletePopup
         Width: =Parent.Width - Self.X - Self.X
         X: =HeaderComponent_AppReq_1.X
-        Y: =HeaderComponent_AppReq_1.Y + HeaderComponent_AppReq_1.Height
+        Y: =2
         ZIndex: =4
 
         lblDeleteMsg_AppReq_9 As label:
@@ -1132,7 +1132,7 @@
         ZIndex: =5
 
     SpinnerComponent_AppReq_1 As SpinnerComponent:
-        Height: =Parent.Height - Self.Y
+        Height: =700
         Visible: =varLoadSpinner
         Width: =Parent.Width - Self.X
         ZIndex: =6
@@ -1147,6 +1147,6 @@
         Height: =Parent.Height - Self.Y
         Visible: =!LookUp(colNavItems, Screen = App.ActiveScreen).HasAccess
         Width: =Parent.Width
-        Y: =HeaderComponent_AppReq_1.Y + HeaderComponent_AppReq_1.Height
+        Y: =2
         ZIndex: =8
 

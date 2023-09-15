@@ -487,6 +487,6 @@
         Height: =Parent.Height - Self.Y
         Visible: =!LookUp(colNavItems, Screen = App.ActiveScreen).HasAccess
         Width: =Parent.Width
-        Y: =HeaderComponent_MReq_1.Y + HeaderComponent_MReq_1.Height
+        Y: =60
         ZIndex: =7
 

@@ -37,7 +37,7 @@
             Required: =true
             Update: =DataCardValue23.Text
             Visible: =false
-            Width: =Parent.Width
+            Width: =1092
             X: =0
             Y: =0
             ZIndex: =2
@@ -110,7 +110,7 @@
             MaxLength: =DataSourceInfo([@'Deployment Requests'], DataSourceInfo.MaxLength, "AppName")
             Required: =true
             Update: =DataCardValue24.Text
-            Width: =Parent.Width
+            Width: =1092
             X: =0
             Y: =1
             ZIndex: =2
@@ -183,7 +183,7 @@
             MaxLength: =DataSourceInfo([@'Deployment Requests'], DataSourceInfo.MaxLength, "BusinessUnit")
             Required: =false
             Update: =DataCardValue25.Text
-            Width: =Parent.Width
+            Width: =1092
             X: =0
             Y: =2
             ZIndex: =2
@@ -255,7 +255,7 @@
             MaxLength: =DataSourceInfo([@'Deployment Requests'], DataSourceInfo.MaxLength, "FromEnvironment")
             Required: =true
             Update: =DataCardValue26.Text
-            Width: =Parent.Width
+            Width: =1092
             X: =0
             Y: =3
             ZIndex: =2
@@ -328,7 +328,7 @@
             MaxLength: =DataSourceInfo([@'Deployment Requests'], DataSourceInfo.MaxLength, "ToEnvironment")
             Required: =true
             Update: =DataCardValue27.Text
-            Width: =Parent.Width
+            Width: =1092
             X: =0
             Y: =4
             ZIndex: =2
@@ -401,7 +401,7 @@
             MaxLength: =DataSourceInfo([@'Deployment Requests'], DataSourceInfo.MaxLength, "Appversion")
             Required: =false
             Update: =DataCardValue28.Text
-            Width: =Parent.Width
+            Width: =1092
             X: =0
             Y: =5
             ZIndex: =2
@@ -472,7 +472,7 @@
             Height: =50
             Required: =false
             Update: =DataCardValue29.SelectedDate
-            Width: =Parent.Width
+            Width: =1092
             X: =0
             Y: =6
             ZIndex: =2
@@ -543,7 +543,7 @@
             Required: =false
             Update: =DataCardValue30.SelectedDate
             Visible: =false
-            Width: =Parent.Width
+            Width: =1092
             X: =0
             Y: =7
             ZIndex: =2
@@ -612,7 +612,7 @@
             Required: =false
             Update: =DataCardValue31.Text
             Visible: =false
-            Width: =1366
+            Width: =1092
             X: =0
             Y: =8
             ZIndex: =2
@@ -683,7 +683,7 @@
             Required: =false
             Update: =DataCardValue32.Text
             Visible: =Parent.Mode = FormMode.View
-            Width: =Parent.Width
+            Width: =1092
             X: =0
             Y: =9
             ZIndex: =2
@@ -754,7 +754,7 @@
             Required: =false
             Update: =Value(DataCardValue33.Text)
             Visible: =false
-            Width: =1366
+            Width: =1092
             X: =0
             Y: =10
             ZIndex: =2
@@ -823,7 +823,7 @@
             Height: =50
             Required: =false
             Update: =DataCardValue34.Attachments
-            Width: =Parent.Width
+            Width: =1092
             X: =0
             Y: =11
             ZIndex: =2

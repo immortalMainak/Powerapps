@@ -36176,6 +36176,36 @@
             {
               "logicalLocations": [
                 {
+                  "fullyQualifiedName": "'My App Requests Screen'.varDefaultApp"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'My App Requests Screen'.varDefaultApp",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "varDefaultApp",
+                "module": "My App Requests Screen",
+                "type": "'My App Requests Screen'"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 6
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
                   "fullyQualifiedName": "'Ownership Change Request Screen'.varIsDraft"
                 }
               ],
@@ -36413,7 +36443,7 @@
                 ],
                 "level": "Medium",
                 "primaryCategory": "performance",
-                "whyFix": "Each control consumes resources, and an app may become slow or unresponsive if a screen has too many controls. The estimated complexity of \"CoE Approval Screen\" is 433, which exceeds the maximum threshold recommended (300)."
+                "whyFix": "Each control consumes resources, and an app may become slow or unresponsive if a screen has too many controls. The estimated complexity of \"CoE Approval Screen\" is 434, which exceeds the maximum threshold recommended (300)."
               }
             },
             {

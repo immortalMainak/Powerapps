@@ -38,7 +38,7 @@
         RadiusTopLeft: =0
         RadiusTopRight: =0
         Width: =Parent.Width
-        Y: =HeaderComponent_CoE.Y + HeaderComponent_CoE.Height
+        Y: =2
         ZIndex: =3
 
         galActionItems_CoE As gallery.galleryVertical:
@@ -254,6 +254,24 @@
                 Width: =Parent.Width * 0.12
                 Wrap: =false
                 ZIndex: =4
+
+            lblHeadAppName_CoE_8 As label:
+                Align: =lblGalleryHead.Align
+                BorderColor: =lblGalleryHead.BorderColor
+                BorderStyle: =lblGalleryHead.BorderStyle
+                BorderThickness: =lblGalleryHead.BorderThickness
+                Color: =lblGalleryHead.Color
+                Fill: =lblGalleryHead.Fill
+                Font: =lblGalleryHead.Font
+                FontWeight: =lblGalleryHead.FontWeight
+                Height: =Parent.Height
+                Size: =lblGalleryHead.Size
+                Text: ="App Name"
+                Tooltip: =Self.Text
+                VerticalAlign: =lblGalleryHead.VerticalAlign
+                Width: =Parent.Width * 0.46
+                Wrap: =false
+                ZIndex: =5
 
         icnFilter_CoE As icon.FilterFlat:
             Height: =40
@@ -2583,7 +2601,7 @@
                 MaxLength: =DataSourceInfo([@'App Solution Consulting'], DataSourceInfo.MaxLength, "ProposeAppName")
                 Required: =false
                 Update: =DataCardValue109.Text
-                Width: =Parent.Width
+                Width: =662
                 X: =0
                 Y: =1
                 ZIndex: =5
@@ -2672,7 +2690,7 @@
                 MaxLength: =DataSourceInfo([@'App Solution Consulting'], DataSourceInfo.MaxLength, "ProblemsolvedbytheApp")
                 Required: =false
                 Update: =DataCardValue110.Text
-                Width: =Parent.Width
+                Width: =662
                 X: =0
                 Y: =2
                 ZIndex: =5
@@ -2760,7 +2778,7 @@
                 MaxLength: =DataSourceInfo([@'App Solution Consulting'], DataSourceInfo.MaxLength, "Benefittotheorganization")
                 Required: =false
                 Update: =DataCardValue111.Text
-                Width: =Parent.Width
+                Width: =662
                 X: =0
                 Y: =3
                 ZIndex: =5
@@ -2846,7 +2864,7 @@
                 Height: =50
                 Required: =true
                 Update: =DataCardValue112.SelectedItems
-                Width: =Parent.Width
+                Width: =662
                 X: =0
                 Y: =4
                 ZIndex: =5
@@ -2931,7 +2949,7 @@
                 Required: =false
                 Update: =DataCardValue113.Text
                 Visible: =false
-                Width: =Parent.Width
+                Width: =662
                 X: =0
                 Y: =5
                 ZIndex: =5
@@ -3705,7 +3723,7 @@
                 MaxLength: =DataSourceInfo([@'Assistance Required'], DataSourceInfo.MaxLength, "AppName")
                 Required: =false
                 Update: =DataCardValue120.Text
-                Width: =Parent.Width
+                Width: =662
                 X: =0
                 Y: =1
                 ZIndex: =5
@@ -3792,7 +3810,7 @@
                 MaxLength: =DataSourceInfo([@'Assistance Required'], DataSourceInfo.MaxLength, "Problem")
                 Required: =false
                 Update: =DataCardValue121.Text
-                Width: =Parent.Width
+                Width: =662
                 X: =0
                 Y: =2
                 ZIndex: =5
@@ -3880,7 +3898,7 @@
                 MaxLength: =DataSourceInfo([@'Assistance Required'], DataSourceInfo.MaxLength, "Query")
                 Required: =false
                 Update: =DataCardValue122.Text
-                Width: =Parent.Width
+                Width: =662
                 X: =0
                 Y: =3
                 ZIndex: =5
@@ -3966,7 +3984,7 @@
                 Height: =50
                 Required: =false
                 Update: =DataCardValue123.Value
-                Width: =Parent.Width
+                Width: =662
                 X: =0
                 Y: =4
                 ZIndex: =5
@@ -4385,7 +4403,7 @@
                 MaxLength: =DataSourceInfo([@'Create Business Unit in Production'], DataSourceInfo.MaxLength, "BusinessUnitName")
                 Required: =false
                 Update: =DataCardValue125.Text
-                Width: =Parent.Width
+                Width: =662
                 X: =0
                 Y: =0
                 ZIndex: =5
@@ -4471,7 +4489,7 @@
                 Height: =50
                 Required: =false
                 Update: =Value(DataCardValue126.Text)
-                Width: =Parent.Width
+                Width: =662
                 X: =0
                 Y: =1
                 ZIndex: =5
@@ -4557,7 +4575,7 @@
                 MaxLength: =DataSourceInfo([@'Create Business Unit in Production'], DataSourceInfo.MaxLength, "EnvironmentOwner")
                 Required: =false
                 Update: =DataCardValue127.Text
-                Width: =Parent.Width
+                Width: =662
                 X: =0
                 Y: =2
                 ZIndex: =5
@@ -4642,7 +4660,7 @@
                 Height: =50
                 Required: =false
                 Update: =Value(DataCardValue128.Text)
-                Width: =Parent.Width
+                Width: =662
                 X: =0
                 Y: =3
                 ZIndex: =5
@@ -4727,7 +4745,7 @@
                 Height: =Label136.Y + Label136.Height + Label136.BorderThickness*3
                 Required: =false
                 Update: =DataCardValue136.Attachments
-                Width: =Parent.Width
+                Width: =662
                 X: =0
                 Y: =4
                 ZIndex: =5
@@ -4987,6 +5005,7 @@
         ZIndex: =8
 
     SpinnerComponent_CoE As SpinnerComponent:
+        Height: =700
         Visible: =varLoadSpinner
         Width: =Parent.Width - Self.X
         ZIndex: =9
@@ -5001,6 +5020,6 @@
         Height: =Parent.Height - Self.Y
         Visible: =!LookUp(colNavItems, Screen = App.ActiveScreen).HasAccess
         Width: =Parent.Width
-        Y: =HeaderComponent_CoE.Y + HeaderComponent_CoE.Height
+        Y: =2
         ZIndex: =11
 
