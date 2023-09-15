@@ -398,6 +398,7 @@
             RadiusTopRight: =0
             Size: =lblGalleryHead.Size
             Text: ="Code Review"
+            Visible: =false
             X: =Parent.Width - Self.Width - 20
             Y: =txtSearch_AllApps.Y
             ZIndex: =7
