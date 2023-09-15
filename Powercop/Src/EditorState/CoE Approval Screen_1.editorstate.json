@@ -61,7 +61,7 @@
       },
       "MetaDataIDKey": "",
       "Name": "AccessDeniedComponent_CoE_1",
-      "ParentIndex": 6,
+      "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -3094,7 +3094,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ApprovalGalleryContainer_CoE_1",
-      "ParentIndex": 5,
+      "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {

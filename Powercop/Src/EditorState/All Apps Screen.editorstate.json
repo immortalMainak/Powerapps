@@ -2141,7 +2141,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "FilterContainer_AllApps",
-      "ParentIndex": 8,
+      "ParentIndex": 9,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2430,7 +2430,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Gallery_AllApps",
-      "ParentIndex": 10,
+      "ParentIndex": 8,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2716,7 +2716,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "HeadContainer_AllApps",
-      "ParentIndex": 9,
+      "ParentIndex": 10,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
