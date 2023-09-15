@@ -35639,6 +35639,66 @@
             {
               "logicalLocations": [
                 {
+                  "fullyQualifiedName": "'App Request Screen'.ButtonContainer_2.icnCreateNew_2.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'App Request Screen'.ButtonContainer_2.icnCreateNew_2.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "App Request Screen",
+                "type": "'App Request Screen'.ButtonContainer_2.icnCreateNew_2"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'App Request Screen'.ButtonContainer_2.icnCreateNew_2.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'App Request Screen'.ButtonContainer_2.icnCreateNew_2.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "App Request Screen",
+                "type": "'App Request Screen'.ButtonContainer_2.icnCreateNew_2"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 3
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
                   "fullyQualifiedName": "App.varNavigated"
                 }
               ],
