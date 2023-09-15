@@ -19,7 +19,7 @@
         TemplateSize: =50
         Width: =HeadContainer_AllApps.Width
         X: =HeadContainer_AllApps.X
-        Y: =125
+        Y: =HeadContainer_AllApps.Y + HeadContainer_AllApps.Height
         ZIndex: =1
 
         lblBodyAppName_AllApps As label:
