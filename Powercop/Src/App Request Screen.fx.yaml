@@ -1318,7 +1318,7 @@
                 Width: =(Parent.Width - 60) * 0.3
                 Wrap: =false
                 X: =30
-                Y: =10 + (DateValue4.Height / 2) + (Self.Height / 2)
+                Y: =10// + (DateValue4.Height / 2) + (Self.Height / 2)
                 ZIndex: =1
 
             DateValue4 As datepicker:
@@ -1350,6 +1350,7 @@
                 PaddingRight: =5
                 PaddingTop: =5
                 Tooltip: =Parent.DisplayName
+                Visible: =false
                 Width: =DateValue4.Width / 2 - 5
                 X: =DateValue4.X
                 Y: =DateValue4.Y + DateValue4.Height + 10
@@ -1365,6 +1366,7 @@
                 PaddingTop: =0
                 Text: |-
                     =":"
+                Visible: =false
                 Width: =10
                 Wrap: =false
                 X: =HourValue4.X + HourValue4.Width
@@ -1383,6 +1385,7 @@
                 PaddingRight: =5
                 PaddingTop: =5
                 Tooltip: =Parent.DisplayName
+                Visible: =false
                 Width: =HourValue4.Width
                 X: =HourValue4.X + HourValue4.Width + Separator4.Width
                 Y: =HourValue4.Y
@@ -1521,7 +1524,7 @@
                 Width: =(Parent.Width - 60) * 0.3
                 Wrap: =false
                 X: =30
-                Y: =10 + (DateValue3.Height / 2) + (Self.Height / 2)
+                Y: =10 //+ (DateValue3.Height / 2) + (Self.Height / 2)
                 ZIndex: =1
 
             DateValue3 As datepicker:
@@ -1551,6 +1554,7 @@
                 PaddingRight: =5
                 PaddingTop: =5
                 Tooltip: =Parent.DisplayName
+                Visible: =false
                 Width: =DateValue3.Width / 2 - 5
                 X: =DateValue3.X
                 Y: =DateValue3.Y + DateValue3.Height + 10
@@ -1566,6 +1570,7 @@
                 PaddingTop: =0
                 Text: |-
                     =":"
+                Visible: =false
                 Width: =10
                 Wrap: =false
                 X: =HourValue3.X + HourValue3.Width
@@ -1584,6 +1589,7 @@
                 PaddingRight: =5
                 PaddingTop: =5
                 Tooltip: =Parent.DisplayName
+                Visible: =false
                 Width: =HourValue3.Width
                 X: =HourValue3.X + HourValue3.Width + Separator3.Width
                 Y: =HourValue3.Y
