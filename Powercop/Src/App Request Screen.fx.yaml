@@ -675,7 +675,7 @@
             Height: =50
             Required: =Self.Visible
             Update: =DataCardValue152.Selected.Value
-            Visible: =varAppDetails && DisplayMode = DisplayMode.Edit
+            Visible: =varAppDetails && Parent.Mode <> FormMode.New
             Width: =Parent.Width * 0.5
             X: =
             Y: =6
@@ -686,7 +686,7 @@
                 FontWeight: =FontWeight.Semibold
                 Height: =34
                 Text: =Parent.DisplayName
-                Width: =(Parent.Width - 60) * 0.3
+                Width: =(Parent.Width - 60) * 0.4
                 Wrap: =false
                 X: =30
                 Y: =10 + (DataCardValue152.Height / 2) - (Self.Height / 2)
@@ -707,7 +707,7 @@
                 SearchItems: =[]
                 SelectMultiple: =false
                 Tooltip: =Parent.DisplayName
-                Width: =(Parent.Width - 60) * 0.7
+                Width: =(Parent.Width - 60) * 0.6
                 X: =DataCardKey156.X + DataCardKey156.Width
                 Y: =10
                 ZIndex: =2
@@ -904,7 +904,7 @@
                 RadiusBottomRight: =0
                 RadiusTopLeft: =0
                 RadiusTopRight: =0
-                Tooltip: =Parent.DisplayName
+                Tooltip: =Parent.Default
                 Visible: =!ComboBox147.Visible
                 Width: =(Parent.Width - 60) * 0.7
                 X: =DataCardKey149.X + DataCardKey149.Width
@@ -998,7 +998,7 @@
                 SearchFields: =["Value"]
                 SearchItems: =[]
                 SelectMultiple: =false
-                Tooltip: =Parent.DisplayName
+                Tooltip: =Parent.Default
                 Width: =(Parent.Width - 60) * 0.6
                 X: =DataCardKey3.X + DataCardKey3.Width
                 Y: =10
@@ -1263,7 +1263,7 @@
                 RadiusBottomRight: =0
                 RadiusTopLeft: =0
                 RadiusTopRight: =0
-                Tooltip: =Parent.DisplayName
+                Tooltip: =Parent.Default
                 Width: =(Parent.Width - 60) * 0.7
                 X: =DataCardKey154.X + DataCardKey154.Width
                 Y: =10
@@ -1315,7 +1315,7 @@
                 FontWeight: =FontWeight.Semibold
                 Height: =34
                 Text: =Parent.DisplayName
-                Width: =(Parent.Width - 60) * 0.3
+                Width: =(Parent.Width - 60) * 0.4
                 Wrap: =false
                 X: =30
                 Y: =10// + (DateValue4.Height / 2) + (Self.Height / 2)
@@ -1332,7 +1332,7 @@
                 PaddingLeft: =5
                 Size: =13
                 StartYear: =1899
-                Tooltip: =Parent.DisplayName
+                Tooltip: =Parent.Default
                 Width: =(Parent.Width - 60) * 0.7
                 X: =DataCardKey153.X + DataCardKey153.Width
                 Y: =10
@@ -1769,7 +1769,7 @@
                 RadiusBottomRight: =0
                 RadiusTopLeft: =0
                 RadiusTopRight: =0
-                Tooltip: =Parent.DisplayName
+                Tooltip: =Parent.Default
                 Width: =(Parent.Width - 60) * 0.6
                 X: =DataCardKey150.X + DataCardKey150.Width
                 Y: =10
@@ -1841,7 +1841,7 @@
                 RadiusBottomRight: =0
                 RadiusTopLeft: =0
                 RadiusTopRight: =0
-                Tooltip: =Parent.DisplayName
+                Tooltip: =Parent.Default
                 Width: =(Parent.Width - 60) * 0.6
                 X: =DataCardKey151.X + DataCardKey151.Width
                 Y: =10
