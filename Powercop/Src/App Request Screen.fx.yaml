@@ -1493,7 +1493,7 @@
                 ZIndex: =4
 
             Label146 As label:
-                Height: =If(IsBlank(Self.Text), 0, 100)
+                Height: =If(IsBlank(Self.Text), 0, 120)
                 Overflow: =Overflow.Scroll
                 Text: =Parent.Default
                 Width: =DataCardValue146.Width
@@ -1958,7 +1958,8 @@
         ZIndex: =2
 
     ButtonContainer_2 As groupContainer.manualLayoutContainer:
-        DropShadow: =DropShadow.None
+        BorderThickness: =1
+        DropShadow: =DropShadow.Bold
         Height: =btnTerminateRequest.Height + btnCancelReset_2.Y + btnTerminateRequest.Y
         RadiusBottomLeft: =0
         RadiusBottomRight: =0
