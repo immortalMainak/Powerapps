@@ -4,59 +4,31 @@ App As appinfo:
         =Concurrent(
             Set(varUserEmailLower, Lower(User().Email)), Set(varUserName, User().FullName),
             Set(varTypeOfRequest, Blank()),
-            Set(varItemId, If(IsBlank(Param("itemid")), 0, If(IsError(Value(Param("itemid"))), 0, Value(Param("itemid"))))),
+            Set(varItemId, Param("itemid")),
             Set(varNavigated, false),
             Set(varCodeReviewPercentThreshold, LookUp('Environment Variable Values', 'Environment Variable Definition'.'Display Name' = "MinAcceptablePercentageCodeReview").Value),
             Set(varCodeReviewAppUrl, LookUp('Environment Variable Values', 'Environment Variable Definition'.'Display Name' = "CodeReviewAppUrl").Value),
-            Set(varCodeReviewQueryString, LookUp('Environment Variable Values', 'Environment Variable Definition'.'Display Name' = "ReviewScreenQueryString").Value)
+            Set(varCodeReviewQueryString, LookUp('Environment Variable Values', 'Environment Variable Definition'.'Display Name' = "ReviewScreenQueryString").Value),
+            Set(varMainAppUrl, LookUp('Environment Variable Values', 'Environment Variable Definition'.'Display Name' = "MainAppUrl").Value)
         );
         Set(varIsCoE, !IsBlank(LookUp('COE Approvers', Email = varUserEmailLower)));
-        Concurrent(
         ClearCollect(colNavItems,
-            Table({Title: "Home", Icon: Icon.Home, Index: 1, Screen: 'Home Screen', HasAccess: true, 
-                    ShowInNavigation: true},
+            Table({Title: "Home", Icon: Icon.Home, Index: 1, Screen: Blank(), HasAccess: true, 
+                    ShowInNavigation: true, Url: varMainAppUrl},
                 {Title: "New App Request", Index: 2, Icon: Icon.Add, Screen: 'App Request Screen', HasAccess: true,
-                    ShowInNavigation: true},
-                {Title: "CoE Approval", Icon: Icon.DockCheckProperties, Index: 3, Screen: 'CoE Approval Screen',
-                    HasAccess: varIsCoE, ShowInNavigation: true},
+                    ShowInNavigation: true, Url: ""},
+                {Title: "CoE Approval", Icon: Icon.DockCheckProperties, Index: 3, Screen: Blank(),
+                    HasAccess: varIsCoE, ShowInNavigation: true, Url: varMainAppUrl & "&screen=coe"},
                 {Title: "My App Requests", Icon: Icon.DocumentWithContent, Index: 4, Screen: 'My App Requests Screen',
-                    HasAccess: true, ShowInNavigation: true},
-                {Title: "Code Review", Icon: Icon.Tools, Index: 5, Screen: 'Code Review Screen', HasAccess: true,
-                    ShowInNavigation: true},
+                    HasAccess: true, ShowInNavigation: true, Url: ""},
+                {Title: "Code Review", Icon: Icon.Tools, Index: 5, Screen: Blank(), HasAccess: true,
+                    ShowInNavigation: true, Url: varCodeReviewAppUrl},
                 {Title: "All Apps", Icon: Icon.Items, Index: 6, Screen: 'All Apps Screen', HasAccess: varIsCoE,
-                    ShowInNavigation: true},
-                {Title: "Power Platform User Support", Icon: Icon.Support, Index: 7, Screen: 'Request Dashboard Screen',
-                    HasAccess: true, ShowInNavigation: true},
-                {Title: "Deployment Request", Icon: Icon.Publish, Index: 7, Screen: 'Deployment Requests Screen', 
-                    HasAccess: true, ShowInNavigation: true},
-                {Title: "COE Report", Icon: Icon.ListScrollWatchlist, Index: 8, Screen: 'PowerCop BI', 
-                    HasAccess: varIsCoE, ShowInNavigation: true},
-                {Title: "Environment Request", Icon: Icon.Globe, Index: 9, Screen: 'Environment Requests Screen',
-                    HasAccess: true, ShowInNavigation: true},
-                {Title: "Create Business Unit in Production", Icon: Icon.AddDocument, Index: 10, 
-                    Screen: 'Create Business Unit in Production Screen', HasAccess: true, ShowInNavigation: true},
-                {Title:"Assistance Required", Icon: Icon.AddUser, Index: 11, Screen: 'Assistance Required Screen',
-                    HasAccess: true, ShowInNavigation: true},
-                {Title: "App Solution Consulting", Icon: Icon.People, Index: 12, 
-                    Screen: 'App Solution Consulting Screen', HasAccess: true, ShowInNavigation: true},
-                {Title: "License Request", Icon: Icon.People, Index: 13, Screen: 'License Request Screen', 
-                    HasAccess: true, ShowInNavigation: true},
-                {Title: "My Environment Requests", Icon: Icon.DocumentWithContent, Index: 14, 
-                    Screen: 'My Env Requests Screen', HasAccess: true, ShowInNavigation: true},
-                {Title: "My Support Requests", Icon: Icon.DocumentWithContent, Index: 15, 
-                    Screen: 'My Sup Requests Screen', HasAccess: true, ShowInNavigation: true},
-                {Title: "Raise Support Request", Icon: Icon.Support, Index: 16, Screen: 'Support Request Screen', 
-                    HasAccess: true, ShowInNavigation: true},
-                {Title: "Ownership Change Request", Icon: Icon.People, Index: 17, 
-                    Screen: 'Ownership Change Request Screen', HasAccess: true, ShowInNavigation: true}
-            )
-        ), ClearCollect(colRequestTypes, {Title: "App Request", Index: 1}, 
-            {Title: "App Solution Consulting Request", Index: 2}, {Title: "Assistance Required", Index: 3},
-            {Title: "Create Business Unit in Production", Index: 4}
+                    ShowInNavigation: true, Url: ""}
             )
         );
     SizeBreakpoints: =[600, 900, 1200, 1400, 1600, 1800]
-    StartScreen: =Switch(Lower(Param("screen")), "req", 'App Request Screen', "coe", 'CoE Approval Screen', "mreq", 'My App Requests Screen', "crev", 'Code Review Screen', "allapps", 'All Apps Screen', "dash", 'Request Dashboard Screen', 'Home Screen')
+    StartScreen: =Switch(Lower(Param("screen")), "req", 'App Request Screen', "mreq", 'My App Requests Screen', "allapps", 'All Apps Screen', 'My App Requests Screen')
     Theme: =PowerAppsTheme
 
     Host As hostControl.DefaultHostControlVariant:

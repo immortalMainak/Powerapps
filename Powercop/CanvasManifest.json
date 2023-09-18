@@ -95,7 +95,7 @@
     },
     "Author": "",
     "BindingErrorCount": 0,
-    "ContainsThirdPartyPcfControls": true,
+    "ContainsThirdPartyPcfControls": false,
     "DefaultConnectedDataSourceMaxGetRowsCount": 2000,
     "DocumentAppType": "DesktopOrTablet",
     "DocumentLayoutHeight": 700,
@@ -110,13 +110,13 @@
     "Id": "cd62ae56-0e57-45f6-ac5e-d3809422d908",
     "InstrumentationKey": "",
     "ManualOfflineProfileId": "",
-    "Name": "PowerCop V2",
+    "Name": "App Request",
     "OriginatingVersion": "1.334",
     "ParserErrorCount": 0,
     "ShowStatusBar": false
   },
   "PublishInfo": {
-    "AppName": "PowerCop V2",
+    "AppName": "App Request",
     "BackgroundColor": "RGBA(0,176,240,1)",
     "IconColor": "RGBA(255,255,255,1)",
     "IconName": "DeveloperTools",
@@ -127,30 +127,9 @@
     "UserLocale": "en-US"
   },
   "ScreenOrder": [
-    "Home Screen",
     "App Request Screen",
-    "App Request Screen_1",
-    "CoE Approval Screen",
-    "CoE Approval Screen_1",
     "My App Requests Screen",
-    "My App Requests Screen_1",
-    "My Env Requests Screen",
-    "My Sup Requests Screen",
-    "Code Review Screen",
-    "Request Dashboard Screen",
     "All Apps Screen",
-    "Template Screen",
-    "Deployment Requests Screen",
-    "Environment Requests Screen",
-    "Create Business Unit in Production Screen",
-    "Assistance Required Screen",
-    "App Solution Consulting Screen",
-    "License Request Screen",
-    "Support Request Screen",
-    "Ownership Change Request Screen",
-    "PowerCop BI",
-    "Screen1",
-    "Screen2",
-    "Screen3_221"
+    "Template Screen"
   ]
 }
