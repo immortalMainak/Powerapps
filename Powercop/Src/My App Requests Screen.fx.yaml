@@ -1617,7 +1617,7 @@
             ZIndex: =1
 
         cmbAppAttach As combobox:
-            DefaultSelectedItems: =If(First(cmbAppType.SelectedItems).Value = 'App Type (AppRequests)'.Canvas, LookUp(ShowColumns(AddColumns(PowerAppsforMakers.GetApps({}).value, "AppUrl", properties.appUris.documentUri.value, "NameNew", properties.displayName), "AppUrl", "NameNew"), AppUrl = varAppAttach.'App Url'), Blank())
+            DefaultSelectedItems: =If(First(cmbAppType.SelectedItems).Value = 'App Type (AppRequests)'.Canvas, LookUp(ShowColumns(AddColumns(PowerAppsforMakers.GetApps({}).value, "AppUrl", properties.appUris.documentUri.value, "NameNew", properties.displayName), "AppUrl", "NameNew", "name"), AppUrl = varAppAttach.'App Url' || name = varAppAttach.AppId), Blank())
             DisplayFields: =["NameNew"]
             InputTextPlaceholder: ="Select App"
             Items: =Filter(ShowColumns(AddColumns(PowerAppsforMakers.GetApps({}).value, "AppUrl", properties.appUris.documentUri.value, "NameNew", properties.displayName), "AppUrl", "name", "NameNew"), !IsBlank(AppUrl))

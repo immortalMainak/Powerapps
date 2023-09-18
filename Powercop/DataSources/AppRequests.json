@@ -11,6 +11,7 @@
     "NativeCDSDataSourceInfoNameMapping": {
       "_ownerid_value": "Owner",
       "cr0e5_appdescription": "App Description",
+      "cr0e5_appid": "AppId",
       "cr0e5_apprelatedqueries": "App Related Queries",
       "cr0e5_apprequest_AsyncOperations": "System Jobs",
       "cr0e5_apprequest_BulkDeleteFailures": "Bulk Delete Failures",
