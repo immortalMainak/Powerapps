@@ -228,7 +228,7 @@
         Height: =Parent.Height - Self.Y
         Visible: =!LookUp(colNavItems, Screen = App.ActiveScreen).HasAccess
         Width: =Parent.Width
-        Y: =HeaderComponent_AllApps.Y + HeaderComponent_CReview.Height
+        Y: =HeaderComponent_AllApps.Y + HeaderComponent_AllApps.Height
         ZIndex: =11
 
     FilterContainerGrp_AppApps As group:
@@ -381,25 +381,4 @@
                 X: =cmbFilterRequestor_AllApps.X
                 Y: =cmbFilterRequestor_AllApps.Y + cmbFilterRequestor_AllApps.Height + 20
                 ZIndex: =7
-
-        btnCodeReview_AllApps As button:
-            BorderColor: =lblGalleryHead.BorderColor
-            BorderStyle: =lblGalleryHead.BorderStyle
-            BorderThickness: =lblGalleryHead.BorderThickness
-            Color: =lblGalleryHead.Color
-            Fill: =lblGalleryHead.Fill
-            Font: =lblGalleryHead.Font
-            FontWeight: =lblGalleryHead.FontWeight
-            Height: =txtSearch_AllApps.Height
-            OnSelect: =Navigate('Code Review Screen', ScreenTransition.Cover);
-            RadiusBottomLeft: =0
-            RadiusBottomRight: =0
-            RadiusTopLeft: =0
-            RadiusTopRight: =0
-            Size: =lblGalleryHead.Size
-            Text: ="Code Review"
-            Visible: =false
-            X: =Parent.Width - Self.Width - 20
-            Y: =txtSearch_AllApps.Y
-            ZIndex: =7
 

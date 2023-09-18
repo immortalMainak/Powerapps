@@ -42,7 +42,6 @@
         Size: =13
         Text: ="Draft"
         Width: =If(Self.Visible, 120, 0)
-        X: =btnSubmit_1.X - Self.Width - 20
         Y: =10
         ZIndex: =4
 
