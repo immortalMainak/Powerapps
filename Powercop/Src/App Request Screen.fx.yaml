@@ -675,7 +675,7 @@
             Height: =50
             Required: =Self.Visible
             Update: =DataCardValue152.Selected.Value
-            Visible: =varAppDetails
+            Visible: =varAppDetails && DisplayMode = DisplayMode.Edit
             Width: =Parent.Width * 0.5
             X: =
             Y: =6
