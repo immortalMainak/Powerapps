@@ -1,14 +1,4 @@
 {
-  "components": [
-    {
-      "Capabilities": {
-        "PCFExternalServiceUsageAllowed": false
-      },
-      "ComponentName": "CustomControl",
-      "Identifier": "nd_NghiemDoan.responsiveIframePCFControl",
-      "IdentifierType": 0
-    }
-  ],
   "DatasetName": "default.cds",
   "EntityName": "Environment Variable Definitions",
   "InstanceUrl": "https://org6fa17a7e.crm.dynamics.com/",

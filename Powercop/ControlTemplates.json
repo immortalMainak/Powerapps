@@ -55,34 +55,6 @@
     "OverridableProperties": {},
     "Version": "2.4.0"
   },
-  "dataTable": {
-    "CustomGroupControlTemplateName": "",
-    "FirstParty": true,
-    "Id": "http://microsoft.com/appmagic/dataTable",
-    "IsComponentTemplate": false,
-    "IsCustomGroupControlTemplate": false,
-    "IsPcfControl": false,
-    "IsPremiumPcfControl": false,
-    "IsWidgetTemplate": false,
-    "LastModifiedTimestamp": "0",
-    "Name": "dataTable",
-    "OverridableProperties": {},
-    "Version": "1.0.2"
-  },
-  "dataTableColumn": {
-    "CustomGroupControlTemplateName": "",
-    "FirstParty": true,
-    "Id": "http://microsoft.com/appmagic/dataTableColumn",
-    "IsComponentTemplate": false,
-    "IsCustomGroupControlTemplate": false,
-    "IsPcfControl": false,
-    "IsPremiumPcfControl": false,
-    "IsWidgetTemplate": false,
-    "LastModifiedTimestamp": "0",
-    "Name": "dataTableColumn",
-    "OverridableProperties": {},
-    "Version": "1.0.1"
-  },
   "datepicker": {
     "CustomGroupControlTemplateName": "",
     "FirstParty": true,
@@ -238,20 +210,6 @@
     "OverridableProperties": {},
     "Version": "2.5.1"
   },
-  "powerbi": {
-    "CustomGroupControlTemplateName": "",
-    "FirstParty": true,
-    "Id": "http://microsoft.com/appmagic/powerBI",
-    "IsComponentTemplate": false,
-    "IsCustomGroupControlTemplate": false,
-    "IsPcfControl": false,
-    "IsPremiumPcfControl": false,
-    "IsWidgetTemplate": true,
-    "LastModifiedTimestamp": "0",
-    "Name": "powerbi",
-    "OverridableProperties": {},
-    "Version": "2.4.0"
-  },
   "rectangle": {
     "CustomGroupControlTemplateName": "",
     "FirstParty": true,
@@ -265,21 +223,6 @@
     "Name": "rectangle",
     "OverridableProperties": {},
     "Version": "2.3.0"
-  },
-  "responsiveIframePCFControl": {
-    "CustomGroupControlTemplateName": "",
-    "FirstParty": false,
-    "Id": "http://microsoft.com/appmagic/powercontrol/nd_NghiemDoan.responsiveIframePCFControl",
-    "IsComponentTemplate": false,
-    "IsCustomGroupControlTemplate": false,
-    "IsPcfControl": true,
-    "IsPremiumPcfControl": false,
-    "IsWidgetTemplate": false,
-    "LastModifiedTimestamp": "0",
-    "Name": "nd_NghiemDoan.responsiveIframePCFControl",
-    "OverridableProperties": {},
-    "TemplateDisplayName": "responsiveIframePCFControl",
-    "Version": "0.0.1"
   },
   "screen": {
     "CustomGroupControlTemplateName": "",
@@ -320,20 +263,6 @@
     "IsWidgetTemplate": true,
     "LastModifiedTimestamp": "0",
     "Name": "timer",
-    "OverridableProperties": {},
-    "Version": "2.1.0"
-  },
-  "toggleSwitch": {
-    "CustomGroupControlTemplateName": "",
-    "FirstParty": true,
-    "Id": "http://microsoft.com/appmagic/toggleSwitch",
-    "IsComponentTemplate": false,
-    "IsCustomGroupControlTemplate": false,
-    "IsPcfControl": false,
-    "IsPremiumPcfControl": false,
-    "IsWidgetTemplate": true,
-    "LastModifiedTimestamp": "0",
-    "Name": "toggleSwitch",
     "OverridableProperties": {},
     "Version": "2.1.0"
   },

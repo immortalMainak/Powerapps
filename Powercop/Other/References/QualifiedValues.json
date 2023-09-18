@@ -16,6 +16,28 @@
       }
     },
     {
+      "Kind": "default.cds_environmentvariabledefinition_forms",
+      "Namespace": "Environment Variable Definitions (Forms)",
+      "Values": {
+        "Information": "3853733b-a351-455d-b686-d2d05027ba4d"
+      }
+    },
+    {
+      "Kind": "default.cds_environmentvariablevalue_forms",
+      "Namespace": "Environment Variable Values (Forms)",
+      "Values": {
+        "Information": "f574a3ab-1060-43ee-a95f-9aa922b497db"
+      }
+    },
+    {
+      "Kind": "default.cds_cat_review_forms",
+      "Namespace": "Reviews (Forms)",
+      "Values": {
+        " main form": "faa2862e-3c43-eb11-a813-000d3a8cc191",
+        "Information": "9e264b3b-a123-4b5f-9557-912e5c3732ab"
+      }
+    },
+    {
       "Kind": "default.cds_cat_rev_solutionreview_forms",
       "Namespace": "Rev_SolutionReview (Forms)",
       "Values": {
@@ -31,28 +53,6 @@
         "User": "c2cd9e55-d4b4-4b55-9951-16ead79643e5",
         "User form – Business": "c2413504-7eb2-4c59-a087-95d819866114",
         "User Hierarchy Tile Form": "c68d6c09-d7a7-4959-8d0f-44b8cff9b452"
-      }
-    },
-    {
-      "Kind": "default.cds_cat_review_forms",
-      "Namespace": "Reviews (Forms)",
-      "Values": {
-        " main form": "faa2862e-3c43-eb11-a813-000d3a8cc191",
-        "Information": "9e264b3b-a123-4b5f-9557-912e5c3732ab"
-      }
-    },
-    {
-      "Kind": "default.cds_environmentvariablevalue_forms",
-      "Namespace": "Environment Variable Values (Forms)",
-      "Values": {
-        "Information": "f574a3ab-1060-43ee-a95f-9aa922b497db"
-      }
-    },
-    {
-      "Kind": "default.cds_environmentvariabledefinition_forms",
-      "Namespace": "Environment Variable Definitions (Forms)",
-      "Values": {
-        "Information": "3853733b-a351-455d-b686-d2d05027ba4d"
       }
     }
   ]

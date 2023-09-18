@@ -131,6 +131,68 @@
     "Type": "OptionSetInfo"
   },
   {
+    "DisplayName": "Chc_StatusImport",
+    "Name": "cat_chc_statusimport",
+    "OptionSetInfoNameMapping": {
+      "341200000": "Error",
+      "695100000": "Not Started",
+      "695100001": "In Progress",
+      "695100002": "Done"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cat_chc_statusimport",
+        "OptionSetReferenceEntityName": "Reviews"
+      },
+      "OptionSetReferenceItem1": {
+        "OptionSetReferenceColumnName": "cat_chc_statusimportappcheckerresults",
+        "OptionSetReferenceEntityName": "Reviews"
+      },
+      "OptionSetReferenceItem10": {
+        "OptionSetReferenceColumnName": "cat_chc_solutionreview_status",
+        "OptionSetReferenceEntityName": "Rev_SolutionReview"
+      },
+      "OptionSetReferenceItem2": {
+        "OptionSetReferenceColumnName": "cat_chc_statusimportappsettingsflags",
+        "OptionSetReferenceEntityName": "Reviews"
+      },
+      "OptionSetReferenceItem3": {
+        "OptionSetReferenceColumnName": "cat_chc_statusimportdatasources",
+        "OptionSetReferenceEntityName": "Reviews"
+      },
+      "OptionSetReferenceItem4": {
+        "OptionSetReferenceColumnName": "cat_chc_statusimportfiles",
+        "OptionSetReferenceEntityName": "Reviews"
+      },
+      "OptionSetReferenceItem5": {
+        "OptionSetReferenceColumnName": "cat_chc_statusimportreviewitems",
+        "OptionSetReferenceEntityName": "Reviews"
+      },
+      "OptionSetReferenceItem6": {
+        "OptionSetReferenceColumnName": "cat_chc_statusimportreviewitemsglobal",
+        "OptionSetReferenceEntityName": "Reviews"
+      },
+      "OptionSetReferenceItem7": {
+        "OptionSetReferenceColumnName": "cat_chc_statusimportslowqueries",
+        "OptionSetReferenceEntityName": "Reviews"
+      },
+      "OptionSetReferenceItem8": {
+        "OptionSetReferenceColumnName": "cat_chc_statusprocessautofailcode",
+        "OptionSetReferenceEntityName": "Reviews"
+      },
+      "OptionSetReferenceItem9": {
+        "OptionSetReferenceColumnName": "cat_chc_statutimportglobal",
+        "OptionSetReferenceEntityName": "Reviews"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cat_chc_statusimport",
+    "RelatedEntityName": "Reviews",
+    "Type": "OptionSetInfo"
+  },
+  {
     "DisplayName": "Status (Reviews)",
     "Name": "cat_review_statecode",
     "OptionSetInfoNameMapping": {
