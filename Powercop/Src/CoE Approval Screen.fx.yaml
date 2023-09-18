@@ -153,7 +153,8 @@
                     UpdateContext({varLoadSpinner: true});
                     Concurrent(Select(Parent), Set(varItemId, Value(ThisItem.Id)), Set(varNavigated, true));
                     UpdateContext({varLoadSpinner: false});
-                    Navigate('App Request Screen', ScreenTransition.None);
+                    //Navigate('App Request Screen', ScreenTransition.None);
+                    Launch(varAppReqUrl, {itemid: varItemId, screen: "req"}, LaunchTarget.New);
                 PaddingBottom: =Self.PaddingTop
                 PaddingLeft: =Self.PaddingTop
                 PaddingRight: =Self.PaddingLeft

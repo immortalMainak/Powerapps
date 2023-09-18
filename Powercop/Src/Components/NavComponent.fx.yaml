@@ -51,7 +51,7 @@ NavComponent As CanvasComponent:
             HoverBorderColor: =ColorFade(Self.Fill, 20%)
             HoverColor: =ColorFade(Self.Color, -20%)
             HoverFill: =ColorFade(Self.Fill, -20%)
-            OnSelect: =If(!IsBlank(ThisItem.Screen), Navigate(ThisItem.Screen, ScreenTransition.UnCoverRight))
+            OnSelect: =If(!IsBlank(ThisItem.Screen), Navigate(ThisItem.Screen, ScreenTransition.UnCoverRight), Launch(ThisItem.Url, {}, LaunchTarget.New))
             PaddingBottom: =Self.PaddingTop
             PaddingLeft: =icnNavItem.Width
             PaddingRight: =Self.PaddingTop

@@ -1295,7 +1295,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btnCodeReivew_MReq",
-      "ParentIndex": 10,
+      "ParentIndex": 12,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2872,7 +2872,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btnPublish_MReq",
-      "ParentIndex": 12,
+      "ParentIndex": 10,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -9063,7 +9063,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "icnBodyCodeReview_MReq",
-      "ParentIndex": 9,
+      "ParentIndex": 11,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -9376,7 +9376,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "icnBodyPublish_MReq",
-      "ParentIndex": 11,
+      "ParentIndex": 9,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
