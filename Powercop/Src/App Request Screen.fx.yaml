@@ -2565,7 +2565,7 @@
                 =Switch(varItem.'App Request Status', 'App Request Status (AppRequests)'.'Build Approval Requested', "Send Build Request To Initiator", 'App Request Status (AppRequests)'.'UAT Deployment Requested', "Send UAT Request To Initiatorl", 
                 'App Request Status (AppRequests)'.'Prod Deployment Requested', "Send PROD Request To Initiator", Blank())
             Visible: =btnApprove.Visible
-            Width: =If(Self.Visible, 250, 0)
+            Width: =If(Self.Visible, 260, 0)
             X: |-
                 =//TextInput2.X + TextInput2.Width + TextInput2.Y
                 btnTerminateRequest.X - Self.Width - If(btnTerminateRequest.Visible, 20, 0)
