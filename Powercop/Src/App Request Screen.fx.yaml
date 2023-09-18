@@ -1223,91 +1223,6 @@
                 Y: =DataCardKey145.Y
                 ZIndex: =4
 
-        "'COE Comments_DataCard3' As typedDataCard.textualMultiLineEditCard":
-            BorderStyle: =BorderStyle.Solid
-            DataField: ="cr0e5_comments"
-            Default: =ThisItem.'COE Comments'
-            DisplayMode: =Parent.DisplayMode
-            DisplayName: =DataSourceInfo([@AppRequests],DataSourceInfo.DisplayName,"cr0e5_comments")
-            Fill: =RGBA(0, 0, 0, 0)
-            Height: =50
-            Required: =false
-            Update: |-
-                =If(!IsBlank(DataCardValue146.Text), $"{varUserName} ({varUserEmailLower}) [{Today()}]: {Char(10)}{varStatus}{Char(10)}{DataCardValue146.Text} {If(!IsBlank(Self.Default), $"{Char(10)}{Char(10)}{Self.Default}", "")}")
-            Visible: =varShowWf
-            Width: =Parent.Width
-            X: =0
-            Y: =13
-            ZIndex: =1
-
-            DataCardKey148 As label:
-                AutoHeight: =true
-                FontWeight: =FontWeight.Semibold
-                Height: =34
-                Text: ="Comments"
-                Width: =(Parent.Width - 60) * 0.2
-                Wrap: =false
-                X: =30
-                Y: =10 + (DataCardValue146.Height / 2) - (Self.Height / 2)
-                ZIndex: =1
-
-            DataCardValue146 As text:
-                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
-                BorderThickness: =1
-                Default: =""
-                DelayOutput: =true
-                DisplayMode: =Parent.DisplayMode
-                FocusedBorderThickness: =1
-                Height: =If(Self.Visible, 80, 0)
-                HintText: =If(Self.DisplayMode = DisplayMode.Edit, "Enter Comments", "")
-                HoverFill: =RGBA(186, 202, 226, 0)
-                Mode: =TextMode.MultiLine
-                PaddingLeft: =5
-                RadiusBottomLeft: =0
-                RadiusBottomRight: =0
-                RadiusTopLeft: =0
-                RadiusTopRight: =0
-                Tooltip: =Parent.DisplayName
-                Visible: =Self.DisplayMode = DisplayMode.Edit
-                Width: =(Parent.Width - 60) * 0.8
-                X: =DataCardKey148.X + DataCardKey148.Width
-                Y: =10
-                ZIndex: =2
-
-            ErrorMessage147 As label:
-                AutoHeight: =true
-                Height: =10
-                Live: =Live.Assertive
-                PaddingBottom: =0
-                PaddingLeft: =0
-                PaddingRight: =0
-                PaddingTop: =0
-                Text: =Parent.Error
-                Visible: =Parent.DisplayMode=DisplayMode.Edit
-                Width: =Parent.Width - 60
-                X: =30
-                Y: =DataCardValue146.Y + DataCardValue146.Height
-                ZIndex: =3
-
-            StarVisible147 As label:
-                Align: =Align.Center
-                Height: =DataCardKey148.Height
-                Text: ="*"
-                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
-                Width: =30
-                Wrap: =false
-                Y: =DataCardKey148.Y
-                ZIndex: =4
-
-            Label146 As label:
-                Height: =If(IsBlank(Self.Text), 0, 100)
-                Overflow: =Overflow.Scroll
-                Text: =Parent.Default
-                Width: =DataCardValue146.Width
-                X: =DataCardValue146.X
-                Y: =DataCardValue146.Y + DataCardValue146.Height + If(DataCardValue146.Visible, 5, 0)
-                ZIndex: =5
-
         "'UAT Approved By_DataCard1' As typedDataCard.textualEditCard":
             BorderStyle: =BorderStyle.Solid
             DataField: ="cr0e5_uatapprovedby"
@@ -1497,6 +1412,91 @@
                 Wrap: =false
                 Y: =DataCardKey153.Y
                 ZIndex: =7
+
+        "'COE Comments_DataCard3' As typedDataCard.textualMultiLineEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr0e5_comments"
+            Default: =ThisItem.'COE Comments'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@AppRequests],DataSourceInfo.DisplayName,"cr0e5_comments")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: |-
+                =If(!IsBlank(DataCardValue146.Text), $"{varUserName} ({varUserEmailLower}) [{Today()}]: {Char(10)}{varStatus}{Char(10)}{DataCardValue146.Text} {If(!IsBlank(Self.Default), $"{Char(10)}{Char(10)}{Self.Default}", "")}")
+            Visible: =varShowWf
+            Width: =Parent.Width
+            X: =0
+            Y: =13
+            ZIndex: =1
+
+            DataCardKey148 As label:
+                AutoHeight: =true
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                Text: ="Comments"
+                Width: =(Parent.Width - 60) * 0.2
+                Wrap: =false
+                X: =30
+                Y: =10 + (DataCardValue146.Height / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            DataCardValue146 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =1
+                Default: =""
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =1
+                Height: =If(Self.Visible, 80, 0)
+                HintText: =If(Self.DisplayMode = DisplayMode.Edit, "Enter Comments", "")
+                HoverFill: =RGBA(186, 202, 226, 0)
+                Mode: =TextMode.MultiLine
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Visible: =Self.DisplayMode = DisplayMode.Edit
+                Width: =(Parent.Width - 60) * 0.8
+                X: =DataCardKey148.X + DataCardKey148.Width
+                Y: =10
+                ZIndex: =2
+
+            ErrorMessage147 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue146.Y + DataCardValue146.Height
+                ZIndex: =3
+
+            StarVisible147 As label:
+                Align: =Align.Center
+                Height: =DataCardKey148.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey148.Y
+                ZIndex: =4
+
+            Label146 As label:
+                Height: =If(IsBlank(Self.Text), 0, 100)
+                Overflow: =Overflow.Scroll
+                Text: =Parent.Default
+                Width: =DataCardValue146.Width
+                X: =DataCardValue146.X
+                Y: =DataCardValue146.Y + DataCardValue146.Height + If(DataCardValue146.Visible, 5, 0)
+                ZIndex: =5
 
         "'PROD Deployment Date_DataCard1' As typedDataCard.dateTimeEditCard":
             BorderStyle: =BorderStyle.Solid
@@ -1953,7 +1953,7 @@
 
     ButtonContainer_2 As groupContainer.manualLayoutContainer:
         DropShadow: =DropShadow.None
-        Height: =btnTerminateRequest.Height + btnCancelReset_2.Y + btnCancelReset_2.Height + btnTerminateRequest.Y
+        Height: =btnTerminateRequest.Height + btnCancelReset_2.Y + btnTerminateRequest.Y
         RadiusBottomLeft: =0
         RadiusBottomRight: =0
         RadiusTopLeft: =0

@@ -2676,7 +2676,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btnApprove",
-      "ParentIndex": 4,
+      "ParentIndex": 9,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -3464,7 +3464,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btnCancelReset_2",
-      "ParentIndex": 10,
+      "ParentIndex": 8,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -4245,7 +4245,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btnDraft_2",
-      "ParentIndex": 9,
+      "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -4705,7 +4705,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btnSendToInitiator",
-      "ParentIndex": 5,
+      "ParentIndex": 10,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -5158,7 +5158,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btnSubmit_2",
-      "ParentIndex": 11,
+      "ParentIndex": 7,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -5618,7 +5618,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btnTerminateRequest",
-      "ParentIndex": 6,
+      "ParentIndex": 11,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -7653,7 +7653,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "COE Comments_DataCard3",
-      "ParentIndex": 15,
+      "ParentIndex": 17,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -31897,7 +31897,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "icnCreateNew_2",
-      "ParentIndex": 7,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -32182,7 +32182,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "icnDelete_2",
-      "ParentIndex": 8,
+      "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -46858,7 +46858,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "UAT Approval Date_DataCard1",
-      "ParentIndex": 17,
+      "ParentIndex": 16,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -47040,7 +47040,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "UAT Approved By_DataCard1",
-      "ParentIndex": 16,
+      "ParentIndex": 15,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
